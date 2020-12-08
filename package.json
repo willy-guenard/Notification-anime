@@ -1,0 +1,16 @@
+{
+  "name": "superb-board-revise-7n0ox",
+  "productName": "superb-board-revise-7n0ox",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "willy",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "11.0.4"
+  }
+}
