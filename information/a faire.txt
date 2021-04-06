@@ -1,0 +1,23 @@
+objectif:
+  -faire afficher tout les anime que je regarde ( format agenda ?)
+  - faire une selection de plusieur site que je choisi exemple ( wakanim, mavanime) prioriser les site ou jai un compte acheter ( peut etre aussi regarder pour site ou tu doit le dl)
+  - montrais si les episodes son sortie ou pas
+  - si il son sortie le montrer
+  - faire que sa redirige sur le site que pour regarder
+  - faire un truc pour dire que jai regarder l'episode
+  ~ faire un truc qui coche direct dans myanimelist que jai regarder l'episode
+  - faire un stock des anime deja sortie mais que jai pas encore regarder
+
+
+besoin:
+  - regarder commen je recupaire le nom des anime que je regarde + une images asocier pour l'aficcher
+  - stocker les anime nom anime que je regarde + des nom bis pour certain site
+  - faire le check avec le site pour voir si il  est sortie
+
+
+  etape 0: choisir sur quelle site on veut etre rediriger quand l'anime et sortie
+  etape 1: recuperais les noms des anime que je regarde + images + autre name ( peut etre recuperais avec myanimelist)
+  etape 2: faire afficher sur l'applie les anime que je veut regarder (en mode agenda pour savoir quelle jour il sorte) [faire afficher l'heure de la sortie de l'episode]
+  etape 3: faire des verification sur les site pour voir si l'episode et sortie ( faire attentions a ne pas faire des requete trops souvant) ( attentions a ne pas avoir de doublon si l'anime sore sur plusieur site)
+  etape 4: montrer que l'anime est sortie + faire que quand on click dessu sa nous renvois sur le site poure regarder
+  etape 5: apres avoir regarder l'episode ( faire un truc pour dire que lon a regarder) dans myanimelist marque quon a regarder l'episodes

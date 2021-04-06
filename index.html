@@ -2,19 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>j'ai manger un sandwitch</title>
-    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="style.css">
+    <title>Anime</title>
   </head>
   <body>
-    <h1>test</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
 
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
+    <script src="./renderer.js"></script>
   </body>
 </html>
