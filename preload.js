@@ -1,12 +1,36 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', () => {
-  const replaceText = (selector, text) => {
-    const element = document.getElementById(selector)
-    if (element) element.innerText = text
+
+  const bouton_test = document.querySelector("#bouton_test");
+  const animeplace = document.querySelector('#animela');
+
+  bouton_test.addEventListener('click', function(){animeRegarder()});
+
+  function animeRegarder()
+  {
+    let url = "https://api.jikan.moe/v3/user/cheark/animelist/watching/";
+    let request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.responseType = 'json';
+    request.send();
+
+    request.onload = function()
+    {
+      let anime = request.response;
+      showAnime(anime);
+    }
   }
 
-  for (const type of ['chrome', 'node', 'electron']) {
-    replaceText(`${type}-version`, process.versions[type])
+  function showAnime(anime)
+  {
+    let animelist = anime['anime'];
+    let list_anime_watching = "\n";
+    for (let i = 0; i < animelist.length; i++) {
+
+      list_anime_watching = list_anime_watching + "\n" + animelist[i].title;
+    }
+
+    animeplace.textContent = list_anime_watching;
   }
 })
