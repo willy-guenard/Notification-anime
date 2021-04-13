@@ -25,12 +25,21 @@ window.addEventListener('DOMContentLoaded', () => {
   function showAnime(anime)
   {
     let animelist = anime['anime'];
-    let list_anime_watching = "\n";
-    for (let i = 0; i < animelist.length; i++) {
+    let list_name_anime = "";
+    for (let i = 0; i < animelist.length; i++)
+    {
 
-      list_anime_watching = list_anime_watching + "\n" + animelist[i].title;
+      list_name_anime = list_name_anime + animelist[i].title + "_";
+      list_name_anime = list_name_anime + animelist[i].watched_episodes + "/";
+      list_name_anime = list_name_anime + animelist[i].total_episodes + "---------------------------------------------------------";
+      console.log(animelist[i].title);
+      console.log(animelist[i].watched_episodes);
+      console.log(animelist[i].total_episodes);
+      console.log(animelist[i].image_url);
+
     }
 
-    animeplace.textContent = list_anime_watching;
+    animeplace.textContent = list_name_anime;
   }
+
 })
