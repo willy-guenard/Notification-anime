@@ -1,0 +1,33 @@
+- faire marcher l api myanimelist
+- commencer a voir avec l'autre API
+  - faire que les infos que je recupaire ce mette dans un json
+  - faire un json
+- regarder ou je recuperais l'images des anime que je recupaire
+- regarder api wakanim + crunchyroll + mavanime + voi autre
+faire un truc qui verifi si on c'est sur quelle site ;\anime sort ou pas si on a deja identifier skip cetet etape
+
+format du json
+[anime]
+      ->[titre]
+      ->[nom alternatif 1]
+      ->[nom alternatif 2]
+      ->[nom alternatif 3]
+      ->[les images]
+      ->[quelle site ce trouve cette anime]
+      ->[episode ou je me trouve]
+      ->[episode deja sortie]
+      ->[nombre d'episode en tout]
+      ->[le jour ou l'episode sort]
+      ->[]
+
+
+quand je lanche l'application (sois le fait tout seul/ sois avoir un bouton refresh pour que sa renvois une requete pour regarder si ya des noouveau anime qui son sortie)
+
+recueprais dans un json
+les infos que je recuepaire par le scan
+
+
+
+probleme sur mon json
+    - pas de "" sur anime
+    - pas de "" sur tout les id et les values

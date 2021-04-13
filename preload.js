@@ -2,44 +2,74 @@
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', () => {
 
-  const bouton_test = document.querySelector("#bouton_test");
-  const animeplace = document.querySelector('#animela');
+  const test_button = document.querySelector("#test_button");
+  const animela = document.querySelector('#animela');
 
-  bouton_test.addEventListener('click', function(){animeRegarder()});
+  test_button.addEventListener('click', function(){getAnimeCurrentlyWatching()});
 
-  function animeRegarder()
+  function getAnimeCurrentlyWatching()
   {
-    let url = "https://api.jikan.moe/v3/user/cheark/animelist/watching/";
+    let url = "https://api.jikan.moe/v3";
     let request = new XMLHttpRequest();
-    request.open('GET', url);
+    let request_user_wathing_list = "/user/cheark/animelist/watching/";
+
+    request.open('GET', url + request_user_wathing_list);
     request.responseType = 'json';
     request.send();
 
     request.onload = function()
     {
-      let anime = request.response;
-      showAnime(anime);
+      let reply_watching_list = request.response;
+      refreshAnime(reply_watching_list);
+      // showAnime(reply_watching_list);
     }
   }
 
-  function showAnime(anime)
+  function showAnime(reply_watching_list)
   {
-    let animelist = anime['anime'];
-    let list_name_anime = "";
+    let animelist = reply_watching_list['anime'];
+    // let list_name_anime = "";
     for (let i = 0; i < animelist.length; i++)
     {
-
-      list_name_anime = list_name_anime + animelist[i].title + "_";
-      list_name_anime = list_name_anime + animelist[i].watched_episodes + "/";
-      list_name_anime = list_name_anime + animelist[i].total_episodes + "---------------------------------------------------------";
+      // list_name_anime = list_name_anime + animelist[i].title + "_";
+      // list_name_anime = list_name_anime + animelist[i].watched_episodes + "/";
+      // list_name_anime = list_name_anime + animelist[i].total_episodes + "---------------------------------------------------------";
       console.log(animelist[i].title);
       console.log(animelist[i].watched_episodes);
       console.log(animelist[i].total_episodes);
       console.log(animelist[i].image_url);
-
+      console.log(animelist[i].tags);
     }
+    // animela.textContent = list_name_anime;
+  }
 
-    animeplace.textContent = list_name_anime;
+  function refreshAnime(reply_watching_list)
+  {
+    let animelist = reply_watching_list['anime'];
+    let json_watching_anime = "{anime:[";
+    for (let i = 0; i < animelist.length; i++)
+    {
+      json_watching_anime += "{";
+      json_watching_anime += "mal_id:" + animelist[i].mal_id;
+      json_watching_anime += ", title:" + animelist[i].title;
+      json_watching_anime += ", image_url:" + animelist[i].image_url;
+      json_watching_anime += ", watched_episodes:" + animelist[i].watched_episodes;
+      json_watching_anime += ", total_episodes:" + animelist[i].total_episodes;
+      json_watching_anime += ", tags:" + animelist[i].tags;
+      json_watching_anime += ", last_episodes_release:" + 0;
+      json_watching_anime += ", day_episodes_release:"  + "saturday";
+      json_watching_anime += "},";
+    }
+    json_watching_anime = json_watching_anime.slice(0, -1);
+    json_watching_anime += "]}"
+    let objet_json = JSON.stringify(json_watching_anime)
+    console.log(objet_json);
+
+    let fs = require('fs');
+    fs.writeFile("test.json", json_watching_anime, function(err, result)
+      {
+        if(err) console.log('error', err);
+      });
   }
 
 })
