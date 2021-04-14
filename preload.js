@@ -31,9 +31,6 @@ window.addEventListener('DOMContentLoaded', () => {
     // let list_name_anime = "";
     for (let i = 0; i < animelist.length; i++)
     {
-      // list_name_anime = list_name_anime + animelist[i].title + "_";
-      // list_name_anime = list_name_anime + animelist[i].watched_episodes + "/";
-      // list_name_anime = list_name_anime + animelist[i].total_episodes + "---------------------------------------------------------";
       console.log(animelist[i].title);
       console.log(animelist[i].watched_episodes);
       console.log(animelist[i].total_episodes);
@@ -46,22 +43,22 @@ window.addEventListener('DOMContentLoaded', () => {
   function refreshAnime(reply_watching_list)
   {
     let animelist = reply_watching_list['anime'];
-    let json_watching_anime = "{anime:[";
+    let json_watching_anime = '{\n\t\t"anime":[';
     for (let i = 0; i < animelist.length; i++)
     {
-      json_watching_anime += "{";
-      json_watching_anime += "mal_id:" + animelist[i].mal_id;
-      json_watching_anime += ", title:" + animelist[i].title;
-      json_watching_anime += ", image_url:" + animelist[i].image_url;
-      json_watching_anime += ", watched_episodes:" + animelist[i].watched_episodes;
-      json_watching_anime += ", total_episodes:" + animelist[i].total_episodes;
-      json_watching_anime += ", tags:" + animelist[i].tags;
-      json_watching_anime += ", last_episodes_release:" + 0;
-      json_watching_anime += ", day_episodes_release:"  + "saturday";
-      json_watching_anime += "},";
+      json_watching_anime += '\n\t\t{';
+      json_watching_anime += '\n\t\t\t"mal_id":' + animelist[i].mal_id;
+      json_watching_anime += ',\n\t\t\t"title":"' + animelist[i].title;
+      json_watching_anime += '",\n\t\t\t"image_url":"' + animelist[i].image_url;
+      json_watching_anime += '",\n\t\t\t"watched_episodes":' + animelist[i].watched_episodes;
+      json_watching_anime += ',\n\t\t\t"total_episodes":' + animelist[i].total_episodes;
+      json_watching_anime += ',\n\t\t\t"tags":"' + animelist[i].tags;
+      json_watching_anime += '",\n\t\t\t"last_episodes_release":' + 0;
+      json_watching_anime += ',\n\t\t\t"day_episodes_release":"'  + 'saturday';
+      json_watching_anime += '"\n\t\t},';
     }
     json_watching_anime = json_watching_anime.slice(0, -1);
-    json_watching_anime += "]}"
+    json_watching_anime += '\n\t]\n}'
     let objet_json = JSON.stringify(json_watching_anime)
     console.log(objet_json);
 

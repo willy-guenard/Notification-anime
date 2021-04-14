@@ -27,7 +27,8 @@ recueprais dans un json
 les infos que je recuepaire par le scan
 
 
+faire que sa resemble a quelle que chose mon preload js
 
-probleme sur mon json
-    - pas de "" sur anime
-    - pas de "" sur tout les id et les values
+api a regerder/ comprendre
+
+  - 
