@@ -18,15 +18,15 @@ app.whenReady().then(() => {
     }
   })
 
-  // charger l'index de la page
+  // charger l'index de la page et enlever le Menu
   mainWindow.removeMenu();
   mainWindow.loadFile('index.html');
 
   // ouvrir les outils developeur
   mainWindow.webContents.openDevTools();
 
-  //icone barre tache a continuer
-  let tray = new Tray(path.join(__dirname, 'Picture/pipou.png'))
+  //icone barre tache '''''''''''''''''''''''''a continuer
+  let tray = new Tray(path.join(__dirname, 'Picture/sardoche_army.jpg'))
   const contextMenu = Menu.buildFromTemplate([{ label: 'salut', type: 'radio' }])
   tray.setToolTip('anime')
   tray.setContextMenu(contextMenu)

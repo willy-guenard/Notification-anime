@@ -2,29 +2,33 @@
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', () => {
 
+  const fs = require('fs');
   const test_button = document.querySelector("#test_button");
   const animela = document.querySelector('#animela');
 
-  test_button.addEventListener('click', function(){getAnimeCurrentlyWatching()});
 
-  function getAnimeCurrentlyWatching()
+  test_button.addEventListener('click', function(){getAnimeCurrentlyWatching("cheark")});
+
+  //function qui interagie avec l'api de myanimelist pour recuperais les anime dans la list watching d'un user
+  function getAnimeCurrentlyWatching(user)
   {
     let url = "https://api.jikan.moe/v3";
     let request = new XMLHttpRequest();
-    let request_user_wathing_list = "/user/cheark/animelist/watching/";
+    let request_get_wathing_list = "/user/"+ user + "/animelist/watching/";
 
-    request.open('GET', url + request_user_wathing_list);
+    request.open('GET', url + request_get_wathing_list);
     request.responseType = 'json';
     request.send();
 
     request.onload = function()
     {
       let reply_watching_list = request.response;
-      refreshAnime(reply_watching_list);
+      refreshJsonAnime(reply_watching_list);
       // showAnime(reply_watching_list);
     }
   }
 
+  // actuelliste affichage html
   function showAnime(reply_watching_list)
   {
     let animelist = reply_watching_list['anime'];
@@ -40,7 +44,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // animela.textContent = list_name_anime;
   }
 
-  function refreshAnime(reply_watching_list)
+  // refresh le json
+  function refreshJsonAnime(reply_watching_list)
   {
     let animelist = reply_watching_list['anime'];
     let json_watching_anime = '{\n\t\t"anime":[';
@@ -57,12 +62,13 @@ window.addEventListener('DOMContentLoaded', () => {
       json_watching_anime += ',\n\t\t\t"day_episodes_release":"'  + 'saturday';
       json_watching_anime += '"\n\t\t},';
     }
+    
     json_watching_anime = json_watching_anime.slice(0, -1);
     json_watching_anime += '\n\t]\n}'
-    let objet_json = JSON.stringify(json_watching_anime)
-    console.log(objet_json);
 
-    let fs = require('fs');
+    let objet_json = JSON.stringify(json_watching_anime)
+
+
     fs.writeFile("test.json", json_watching_anime, function(err, result)
       {
         if(err) console.log('error', err);

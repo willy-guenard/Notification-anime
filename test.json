@@ -106,7 +106,7 @@
 			"image_url":"https://cdn.myanimelist.net/images/anime/1357/113277.jpg?s=deebb29f6392798ff7679ec810c5df72",
 			"watched_episodes":1,
 			"total_episodes":12,
-			"tags":"mehdi episode 1",
+			"tags":"null",
 			"last_episodes_release":0,
 			"day_episodes_release":"saturday"
 		},
@@ -137,6 +137,16 @@
 			"watched_episodes":2,
 			"total_episodes":13,
 			"tags":"max",
+			"last_episodes_release":0,
+			"day_episodes_release":"saturday"
+		},
+		{
+			"mal_id":43007,
+			"title":"Osananajimi ga Zettai ni Makenai Love Comedy",
+			"image_url":"https://cdn.myanimelist.net/images/anime/1111/113327.jpg?s=f7737f7b383a9bb5d0ee5d42ae25b86f",
+			"watched_episodes":0,
+			"total_episodes":12,
+			"tags":"epsiode 1",
 			"last_episodes_release":0,
 			"day_episodes_release":"saturday"
 		},
