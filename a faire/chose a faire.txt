@@ -51,11 +51,11 @@ chose a faire:
 
 
 json:
- mal_id ( utile?)
- title: good
- image_url: non
- watched_episodes: oui
- total_episodes: oui
- tags: oui
- last_episodes_release: non
- day_episodes_release: non
+     mal_id ( utile?)
+     title: good
+     image_url: non
+     watched_episodes: oui
+     total_episodes: oui
+     tags: oui
+     last_episodes_release: non
+     day_episodes_release: non
