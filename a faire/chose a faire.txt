@@ -43,10 +43,12 @@ chose a faire:
   [] remplire toute les infos de mon json
   [] API myanimelist/ API wakanim / api adkami / api mavanime
   [] trouver ou je recupaire images anime pour bannier anime
-  [] faut que je regarde comme je fait entrer tout le monde ( faire html/css)
+  [] faut que je regarde comme je fait entrer tout le monde (faire html/css)
   [] regarde comment je c'est quelle jour l'anime sort ( adkami? / agenda wakanim/ agenda crunchyroll)
   [] regarde comment je detecte si il et sur quelle site il sorte ( et faire choisire) { jaure un petit logo et je coche celui que je vuet}
   [] faire que l'aplication a une icone ne bas a droite
+  [] regler le probleme de content security
+
 
 json:
  mal_id ( utile?)
