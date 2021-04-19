@@ -7,25 +7,22 @@ boite = Array.prototype.slice.call(boite, 0);
 // recupe name des episode
 boite.map(function (elem) { return elem.textContent; });
 
-//lien image a cette id
-innerHTML
-
 //separer 1 anime
 let boite2 = boite[1];
 
-boite2.map(function (elem) { return elem.textContent; });
-
-let boite3 = boite2.firstElementChild;
+let boite3 = boite2.firstElementChild.currentSrc;
 
 
+let elem = 15;
+boite.map(function (elem)
+    {
+      let boite1 = elem.textContent;
+      let boite2 = boite1[elem];
+      boite2.firstElementChild.currentSrc;
+    });
 
 
-
-
-
-
-
-
+chercher a recuperais l'img par rapport au name
 
 
 

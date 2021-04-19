@@ -4,10 +4,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const fs = require('fs');
   const test_button = document.querySelector("#test_button");
+  const test_picture = document.querySelector("#test_picture");
   const animela = document.querySelector('#animela');
 
 
   test_button.addEventListener('click', function(){getAnimeCurrentlyWatching("cheark")});
+  test_picture.addEventListener('click', function(){getAnimePicture(2)});
 
   //function qui interagie avec l'api de myanimelist pour recuperais les anime dans la list watching d'un user
   function getAnimeCurrentlyWatching(user)
@@ -62,17 +64,51 @@ window.addEventListener('DOMContentLoaded', () => {
       json_watching_anime += ',\n\t\t\t"day_episodes_release":"'  + 'saturday';
       json_watching_anime += '"\n\t\t},';
     }
-    
+
     json_watching_anime = json_watching_anime.slice(0, -1);
     json_watching_anime += '\n\t]\n}'
 
     let objet_json = JSON.stringify(json_watching_anime)
 
 
-    fs.writeFile("test.json", json_watching_anime, function(err, result)
+    fs.writeFile("./Json/test.json", json_watching_anime, function(err, result)
       {
         if(err) console.log('error', err);
       });
+  }
+
+  function getAnimePicture(nb)
+  {
+    let url = "https://www.adkami.com/agenda";
+    let request = new XMLHttpRequest();
+    request.open('GET', url );
+
+    request.responseType = 'text';
+    request.send();
+    request.onload = function()
+    {
+      let pictureAnime = request.response;
+
+      // console.log(picture_anime);
+      let splitPictureAnime = pictureAnime.split('<div class="agenda-list">');
+      let agendaList = splitPictureAnime[1].split('<div class="col-12">');
+      let agendaListSplitDay = agendaList[0].split('<h3>');
+      let test = agendaListSplitDay[1].split('<div class="col-12 episode ">');
+      let tableu_1 = "";
+
+
+      for (let i = 1; i < agendaListSplitDay.length; i++)
+      {
+         tableu_1 += agendaListSplitDay[i];
+         tableu_1 += '\n\n';
+      }
+
+      console.log(test);
+      fs.writeFile("./Json/testpicture.txt", tableu_1, function(err, result)
+        {
+          if(err) console.log('error', err);
+        });
+    }
   }
 
 })
