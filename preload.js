@@ -88,26 +88,35 @@ window.addEventListener('DOMContentLoaded', () => {
     request.onload = function()
     {
       let pictureAnime = request.response;
-
-      // console.log(picture_anime);
       let splitPictureAnime = pictureAnime.split('<div class="agenda-list">');
       let agendaList = splitPictureAnime[1].split('<div class="col-12">');
       let agendaListSplitDay = agendaList[0].split('<h3>');
-      let test = agendaListSplitDay[1].split('<div class="col-12 episode ">');
-      let tableu_1 = "";
+      let test = agendaListSplitDay[1].split('<a href="');;
+      let tableau_1 = "";
+      let tableau_2 = "";
+      let dayStockage = "";
+      var daysList = ["null", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+      let testL2;
+      let testL3;
+      let testL5;
+      let testL6;
+      var preTestL6;
 
-
-      for (let i = 1; i < agendaListSplitDay.length; i++)
+      for (let y = 1; y < agendaListSplitDay.length; y++)
       {
-         tableu_1 += agendaListSplitDay[i];
-         tableu_1 += '\n\n';
+        test = agendaListSplitDay[y].split('<a href="');
+        dayStockage = daysList[y];
+
+        for (var i = 1; i < test.length; i++)
+        {
+          tableau_1 += test[i] + "\n\n";
+        }
       }
 
-      console.log(test);
-      fs.writeFile("./Json/testpicture.txt", tableu_1, function(err, result)
-        {
-          if(err) console.log('error', err);
-        });
+      fs.writeFile("./Json/testpicture.txt", tableau_1, function(err, result)
+      {
+        if(err) console.log('error', err);
+      })
     }
   }
 

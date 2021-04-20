@@ -1,5 +1,4 @@
-Lundi</h3>
-<a href="https://www.adkami.com/anime/7/1002/1/2/1/">
+https://www.adkami.com/anime/7/1002/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/7.jpg">
 <span class="date_hour" data-time="1618828200">12:30</span>
@@ -9,7 +8,9 @@ Lundi</h3>
 </div>
 </div>
 </a>
-<a href="https://www.adkami.com/anime/4119/4/1/2/1/">
+
+
+https://www.adkami.com/anime/4119/4/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4119.jpg?1617045817">
 <span class="date_hour" data-time="1618836300">14:45</span>
@@ -19,7 +20,9 @@ Lundi</h3>
 </div>
 </div>
 </a>
-<a href="https://www.adkami.com/anime/4127/3/1/2/1/">
+
+
+https://www.adkami.com/anime/4127/3/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4127.jpg?1617356031">
 <span class="date_hour" data-time="1618842600">16:30</span>
@@ -29,7 +32,9 @@ Lundi</h3>
 </div>
 </div>
 </a>
-<a href="https://www.adkami.com/anime/4139/3/1/2/1/">
+
+
+https://www.adkami.com/anime/4139/3/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4139.jpg?1617609146">
 <span class="date_hour" data-time="1618844400">17:00</span>
@@ -39,7 +44,9 @@ Lundi</h3>
 </div>
 </div>
 </a>
-<a href="https://www.adkami.com/anime/4163/2/1/2/1/">
+
+
+https://www.adkami.com/anime/4163/2/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4163.jpg?1618246048">
 <span class="date_hour" data-time="1618846200">17:30</span>
@@ -49,92 +56,97 @@ Lundi</h3>
 </div>
 </div>
 </a>
+
+
+https://www.adkami.com/anime/4162/2/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4162.jpg?1618224842">
 <span class="date_hour" data-time="1618849800">18:30</span>
 <div class="info">
 <p class="epis">Episode 2</p>
-<a href="https://www.adkami.com/anime/4162">
 <p class="title" title="Fumetsu no Anata e">Fumetsu no Anata e</p>
+</div>
+</div>
 </a>
-</div>
-</div>
+
+
+https://www.adkami.com/anime/3339/3/1/2/3/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/3339.jpg?1554485002">
 <span class="date_hour" data-time="1618853700">19:35</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/3339">
 <p class="title" title="Fruits Basket (2019) S3">Fruits Basket (2019) S3</p>
+</div>
+</div>
 </a>
-</div>
-</div>
+
+
+https://www.adkami.com/anime/4118/3/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4118.jpg?1617005561">
 <span class="date_hour" data-time="1618855200">20:00</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4118">
 <p class="title" title="MARS RED">MARS RED</p>
+</div>
+</div>
 </a>
-</div>
-</div>
+
+
+https://www.adkami.com/anime/4140/3/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4140.jpg?1617714043">
 <span class="date_hour" data-time="1618857000">20:30</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4140">
 <p class="title" title="Odd Taxi">Odd Taxi</p>
+</div>
+</div>
 </a>
-</div>
-</div>
 </div>
 <div class="colone">
 
 
-Mardi</h3>
+https://www.adkami.com/anime/4142/3/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4142.jpg?1617715197">
 <span class="date_hour" data-time="1618930800">17:00</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4142">
 <p class="title" title="Tensura Nikki Tensei Shitara Slime Datta Ken">Tensura Nikki Tensei Shitara Slime Datta Ken</p>
+</div>
+</div>
 </a>
-</div>
-</div>
+
+
+https://www.adkami.com/anime/4141/3/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4141.jpg?1617714705">
 <span class="date_hour" data-time="1618932600">17:30</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4141">
 <p class="title" title="Seijo no Maryoku wa Bannou desu">Seijo no Maryoku wa Bannou desu</p>
+</div>
+</div>
 </a>
-</div>
-</div>
+
+
+https://www.adkami.com/anime/4121/4/1/2/1/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4121.jpg?1617097355">
 <span class="date_hour" data-time="1618934400">18:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4121">
 <p class="title" title="Jouran : The Princess of Snow and Blood">Jouran : The Princess of Snow and Blood</p>
+</div>
+</div>
 </a>
 </div>
-</div>
-</div>
-<div class="colone">
+<div class="colone" style="background-color: rgba(255, 255, 255, 0.3);">
 
 
-Mercredi</h3>
-<div class="col-12 episode ">
-<img src="https://image.adkami.com/mini/2009.jpg?=1484121509">
-<span class="date_hour" data-time="1618999200">12:00</span>
-<div class="info">
-<p class="epis">Spécial 3</p>
-<a href="https://www.adkami.com/anime/2009">
+https://www.adkami.com/anime/2009">
 <p class="title" title="Kobayashi-san Chi no Maid Dragon S2">Kobayashi-san Chi no Maid Dragon S2</p>
 </a>
 </div>
@@ -144,7 +156,9 @@ Mercredi</h3>
 <span class="date_hour" data-time="1619010000">15:00</span>
 <div class="info">
 <p class="epis">Episode 2</p>
-<a href="https://www.adkami.com/anime/4164">
+
+
+https://www.adkami.com/anime/4164">
 <p class="title" title="Osananajimi ga Zettai ni Makenai Love Comedy">Osananajimi ga Zettai ni Makenai Love Comedy</p>
 </a>
 </div>
@@ -154,7 +168,9 @@ Mercredi</h3>
 <span class="date_hour" data-time="1619015400">16:30</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4143">
+
+
+https://www.adkami.com/anime/4143">
 <p class="title" title="Kyuukyoku Shinka shita Full Dive RPG ga Genjitsu yori mo Kusoge Dattara">Kyuukyoku Shinka shita Full Dive RPG ga Genjitsu yori mo Kusoge Dattara</p>
 </a>
 </div>
@@ -164,7 +180,9 @@ Mercredi</h3>
 <span class="date_hour" data-time="1619017200">17:00</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4144">
+
+
+https://www.adkami.com/anime/4144">
 <p class="title" title="Super Cub">Super Cub</p>
 </a>
 </div>
@@ -174,7 +192,9 @@ Mercredi</h3>
 <span class="date_hour" data-time="1619020800">18:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/814">
+
+
+https://www.adkami.com/anime/814">
 <p class="title" title="Hetalia : Axis Powers S5">Hetalia : Axis Powers S5</p>
 </a>
 </div>
@@ -184,7 +204,9 @@ Mercredi</h3>
 <span class="date_hour" data-time="1619029800">20:30</span>
 <div class="info">
 <p class="epis">Episode 2</p>
-<a href="https://www.adkami.com/anime/4165">
+
+
+https://www.adkami.com/anime/4165">
 <p class="title" title="Cestvs : The Roman Fighter">Cestvs : The Roman Fighter</p>
 </a>
 </div>
@@ -193,13 +215,7 @@ Mercredi</h3>
 <div class="colone">
 
 
-Jeudi</h3>
-<div class="col-12 episode ">
-<img src="https://image.adkami.com/mini/4145.jpg?1617888247">
-<span class="date_hour" data-time="1619085600">12:00</span>
-<div class="info">
-<p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4145">
+https://www.adkami.com/anime/4145">
 <p class="title" title="SD Gundam World Heroes">SD Gundam World Heroes</p>
 </a>
 </div>
@@ -209,7 +225,9 @@ Jeudi</h3>
 <span class="date_hour" data-time="1619094600">14:30</span>
 <div class="info">
 <p class="epis">Episode 15</p>
-<a href="https://www.adkami.com/anime/1267">
+
+
+https://www.adkami.com/anime/1267">
 <p class="title" title="Nanatsu no Taizai S4">Nanatsu no Taizai S4</p>
 </a>
 </div>
@@ -219,7 +237,9 @@ Jeudi</h3>
 <span class="date_hour" data-time="1619103600">17:00</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4146">
+
+
+https://www.adkami.com/anime/4146">
 <p class="title" title="Fairy Ranmaru : Anata no Kokoro Otasuke Shimasu">Fairy Ranmaru : Anata no Kokoro Otasuke Shimasu</p>
 </a>
 </div>
@@ -229,7 +249,9 @@ Jeudi</h3>
 <span class="date_hour" data-time="1619105400">17:30</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/3080">
+
+
+https://www.adkami.com/anime/3080">
 <p class="title" title="Zombieland Saga S2">Zombieland Saga S2</p>
 </a>
 </div>
@@ -239,7 +261,9 @@ Jeudi</h3>
 <span class="date_hour" data-time="1619115300">20:15</span>
 <div class="info">
 <p class="epis">Episode 3</p>
- <a href="https://www.adkami.com/anime/4147">
+
+
+https://www.adkami.com/anime/4147">
 <p class="title" title="Bakuten!!">Bakuten!!</p>
 </a>
 </div>
@@ -249,7 +273,9 @@ Jeudi</h3>
 <span class="date_hour" data-time="1619117100">20:45</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/2954">
+
+
+https://www.adkami.com/anime/2954">
 <p class="title" title="Isekai Maou to Shoukan Shoujo no Dorei Majutsu S2">Isekai Maou to Shoukan Shoujo no Dorei Majutsu S2</p>
 </a>
 </div>
@@ -259,7 +285,9 @@ Jeudi</h3>
 <span class="date_hour" data-time="1619118000">21:00</span>
 <div class="info">
 <p class="epis">Episode 9 vf</p>
-<a href="https://www.adkami.com/anime/3488">
+
+
+https://www.adkami.com/anime/3488">
 <p class="title" title="Dr. Stone S2">Dr. Stone S2</p>
 </a>
 </div>
@@ -269,7 +297,9 @@ Jeudi</h3>
 <span class="date_hour" data-time="1619125200">23:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4123">
+
+
+https://www.adkami.com/anime/4123">
 <p class="title" title="Shaman King (2021)">Shaman King (2021)</p>
 </a>
 </div>
@@ -278,13 +308,7 @@ Jeudi</h3>
 <div class="colone">
 
 
-Vendredi</h3>
-<div class="col-12 episode ">
-<img src="https://image.adkami.com/mini/4035.jpg?1610098943">
-<span class="date_hour" data-time="1619175600">13:00</span>
-<div class="info">
-<p class="epis">Episode 9 vf</p>
-<a href="https://www.adkami.com/anime/4035">
+https://www.adkami.com/anime/4035">
 <p class="title" title="Ore dake Haireru Kakushi Dungeon">Ore dake Haireru Kakushi Dungeon</p>
 </a>
 </div>
@@ -294,7 +318,9 @@ Vendredi</h3>
 <span class="date_hour" data-time="1619184600">15:30</span>
 <div class="info">
 <p class="epis">Episode 15</p>
-<a href="https://www.adkami.com/anime/4036">
+
+
+https://www.adkami.com/anime/4036">
 <p class="title" title="Kumo Desu ga, Nani ka?">Kumo Desu ga, Nani ka?</p>
 </a>
 </div>
@@ -304,7 +330,9 @@ Vendredi</h3>
 <span class="date_hour" data-time="1619186400">16:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4124">
+
+
+https://www.adkami.com/anime/4124">
 <p class="title" title="SSSS.Dynazenon">SSSS.Dynazenon</p>
 </a>
 </div>
@@ -314,7 +342,9 @@ Vendredi</h3>
 <span class="date_hour" data-time="1619195400">18:30</span>
 <div class="info">
 <p class="epis">Episode 16</p>
-<a href="https://www.adkami.com/anime/4033">
+
+
+https://www.adkami.com/anime/4033">
 <p class="title" title="Back Arrow">Back Arrow</p>
 </a>
 </div>
@@ -324,7 +354,9 @@ Vendredi</h3>
 <span class="date_hour" data-time="1619198580">19:23</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4125">
+
+
+https://www.adkami.com/anime/4125">
 <p class="title" title="Shakunetsu Kabaddi">Shakunetsu Kabaddi</p>
 </a>
 </div>
@@ -334,17 +366,21 @@ Vendredi</h3>
 <span class="date_hour" data-time="1619198700">19:25</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4151">
+
+
+https://www.adkami.com/anime/4151">
 <p class="title" title="Subarashiki Kono Sekai the Animation">Subarashiki Kono Sekai the Animation</p>
 </a>
 </div>
 </div>
- <div class="col-12 episode ">
+<div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/4152.jpg?1617974153">
 <span class="date_hour" data-time="1619200500">19:55</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4152">
+
+
+https://www.adkami.com/anime/4152">
 <p class="title" title="Blue Reflection Ray">Blue Reflection Ray</p>
 </a>
 </div>
@@ -354,7 +390,9 @@ Vendredi</h3>
 <span class="date_hour" data-time="1619203500">20:45</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4126">
+
+
+https://www.adkami.com/anime/4126">
 <p class="title" title="Mashiro no Oto">Mashiro no Oto</p>
 </a>
 </div>
@@ -364,7 +402,9 @@ Vendredi</h3>
 <span class="date_hour" data-time="1619208000">22:00</span>
 <div class="info">
 <p class="epis">Episode 10 vf</p>
-<a href="https://www.adkami.com/anime/4036">
+
+
+https://www.adkami.com/anime/4036">
 <p class="title" title="Kumo Desu ga, Nani ka?">Kumo Desu ga, Nani ka?</p>
 </a>
 </div>
@@ -374,7 +414,9 @@ Vendredi</h3>
 <span class="date_hour" data-time="1619211600">23:00</span>
 <div class="info">
 <p class="epis">Episode 21 vf</p>
-<a href="https://www.adkami.com/anime/3922">
+
+
+https://www.adkami.com/anime/3922">
 <p class="title" title="Jujutsu Kaisen">Jujutsu Kaisen</p>
 </a>
 </div>
@@ -383,13 +425,7 @@ Vendredi</h3>
 <div class="colone">
 
 
-Samedi</h3>
-<div class="col-12 episode ">
-<img src="https://image.adkami.com/mini/4133.jpg?1617442383">
-<span class="date_hour" data-time="1619221200">01:40</span>
-<div class="info">
-<p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4133">
+https://www.adkami.com/anime/4133">
 <p class="title" title="Cardfight!! Vanguard: overDress">Cardfight!! Vanguard: overDress</p>
 </a>
 </div>
@@ -397,9 +433,11 @@ Samedi</h3>
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/3923.jpg?1601705331">
 <span class="date_hour" data-time="1619229600">04:00</span>
-<div class="info">
+ <div class="info">
 <p class="epis">Episode 29</p>
-<a href="https://www.adkami.com/anime/3923">
+
+
+https://www.adkami.com/anime/3923">
 <p class="title" title="Dragon Quest : Dai no Daibouken (2020)">Dragon Quest : Dai no Daibouken (2020)</p>
 </a>
 </div>
@@ -409,7 +447,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619256600">11:30</span>
 <div class="info">
 <p class="epis">Episode 5</p>
-<a href="https://www.adkami.com/anime/1732">
+
+
+https://www.adkami.com/anime/1732">
 <p class="title" title="Boku no Hero Academia S5">Boku no Hero Academia S5</p>
 </a>
 </div>
@@ -419,7 +459,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619262900">13:15</span>
 <div class="info">
 <p class="epis">Episode 2</p>
-<a href="https://www.adkami.com/anime/3595">
+
+
+https://www.adkami.com/anime/3595">
 <p class="title" title="Mairimashita! Iruma-kun S2">Mairimashita! Iruma-kun S2</p>
 </a>
 </div>
@@ -429,7 +471,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619271000">15:30</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4159">
+
+
+https://www.adkami.com/anime/4159">
 <p class="title" title="Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita">Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita</p>
 </a>
 </div>
@@ -439,7 +483,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619272800">16:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/1861">
+
+
+https://www.adkami.com/anime/1861">
 <p class="title" title="Thunderbolt Fantasy S3">Thunderbolt Fantasy S3</p>
 </a>
 </div>
@@ -449,7 +495,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619280000">18:00</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4158">
+
+
+https://www.adkami.com/anime/4158">
 <p class="title" title="Ijiranaide, Nagatoro-san">Ijiranaide, Nagatoro-san</p>
 </a>
 </div>
@@ -459,7 +507,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619280000">18:00</span>
 <div class="info">
 <p class="epis">Episode 5</p>
-<a href="https://www.adkami.com/anime/4131">
+
+
+https://www.adkami.com/anime/4131">
 <p class="title" title="Vivy : Fluorite Eye's Song">Vivy : Fluorite Eye's Song</p>
 </a>
 </div>
@@ -469,7 +519,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619281800">18:30</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4161">
+
+
+https://www.adkami.com/anime/4161">
 <p class="title" title="86">86</p>
 </a>
 </div>
@@ -479,7 +531,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619281800">18:30</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4157">
+
+
+https://www.adkami.com/anime/4157">
 <p class="title" title="Battle Athletess Daiundoukai ReSTART!">Battle Athletess Daiundoukai ReSTART!</p>
 </a>
 </div>
@@ -489,7 +543,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619283600">19:00</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4155">
+
+
+https://www.adkami.com/anime/4155">
 <p class="title" title="Shadows House">Shadows House</p>
 </a>
 </div>
@@ -499,7 +555,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619289000">20:30</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4156">
+
+
+https://www.adkami.com/anime/4156">
 <p class="title" title="Bishounen Tanteidan">Bishounen Tanteidan</p>
 </a>
 </div>
@@ -509,7 +567,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619290800">21:00</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4160">
+
+
+https://www.adkami.com/anime/4160">
 <p class="title" title="Tokyo Revengers">Tokyo Revengers</p>
 </a>
 </div>
@@ -519,7 +579,9 @@ Samedi</h3>
 <span class="date_hour" data-time="1619294400">22:00</span>
 <div class="info">
 <p class="epis">Episode 3</p>
-<a href="https://www.adkami.com/anime/4120">
+
+
+https://www.adkami.com/anime/4120">
 <p class="title" title="Edens Zero">Edens Zero</p>
 </a>
 </div>
@@ -528,13 +590,7 @@ Samedi</h3>
 <div class="colone">
 
 
-Dimanche</h3>
-<div class="col-12 episode ">
-<img src="https://image.adkami.com/mini/3772.jpg?1586084986">
-<span class="date_hour" data-time="1619317800">04:30</span>
-<div class="info">
-<p class="epis">Episode 45</p>
-<a href="https://www.adkami.com/anime/3772">
+https://www.adkami.com/anime/3772">
 <p class="title" title="Digimon Adventure (2020)">Digimon Adventure (2020)</p>
 </a>
 </div>
@@ -544,7 +600,9 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619334000">09:00</span>
 <div class="info">
 <p class="epis">Episode 971</p>
-<a href="https://www.adkami.com/anime/3">
+
+
+https://www.adkami.com/anime/3">
 <p class="title" title="One Piece">One Piece</p>
 </a>
 </div>
@@ -554,7 +612,9 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619339400">10:30</span>
 <div class="info">
 <p class="epis">Episode 3 vf</p>
-<a href="https://www.adkami.com/anime/2271">
+
+
+https://www.adkami.com/anime/2271">
 <p class="title" title="Ladybug S4">Ladybug S4</p>
 </a>
 </div>
@@ -564,7 +624,9 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619343000">11:30</span>
 <div class="info">
 <p class="epis">Episode 196</p>
-<a href="https://www.adkami.com/anime/1973">
+
+
+https://www.adkami.com/anime/1973">
 <p class="title" title="Boruto: Naruto Next Generations">Boruto: Naruto Next Generations</p>
 </a>
 </div>
@@ -574,7 +636,9 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619352000">14:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4135">
+
+
+https://www.adkami.com/anime/4135">
 <p class="title" title="Sentouin, Hakenshimasu!">Sentouin, Hakenshimasu!</p>
 </a>
 </div>
@@ -584,7 +648,9 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619359200">16:00</span>
 <div class="info">
 <p class="epis">Episode 15</p>
-<a href="https://www.adkami.com/anime/3951">
+
+
+https://www.adkami.com/anime/3951">
 <p class="title" title="Yuukoku no Moriarty S2">Yuukoku no Moriarty S2</p>
 </a>
 </div>
@@ -594,7 +660,9 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619359200">16:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4136">
+
+
+https://www.adkami.com/anime/4136">
 <p class="title" title="Dragon, Ie wo Kau.">Dragon, Ie wo Kau.</p>
 </a>
 </div>
@@ -604,7 +672,9 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619362800">17:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/2836">
+
+
+https://www.adkami.com/anime/2836">
 <p class="title" title="Megalo Box S2">Megalo Box S2</p>
 </a>
 </div>
@@ -614,7 +684,9 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619366400">18:00</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4137">
+
+
+https://www.adkami.com/anime/4137">
 <p class="title" title="Sayonara Watashi no Cramer">Sayonara Watashi no Cramer</p>
 </a>
 </div>
@@ -624,21 +696,25 @@ Dimanche</h3>
 <span class="date_hour" data-time="1619368200">18:30</span>
 <div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/4138">
+
+
+https://www.adkami.com/anime/4138">
 <p class="title" title="Seven Knights Revolution: Eiyuu no Keishousha">Seven Knights Revolution: Eiyuu no Keishousha</p>
 </a>
 </div>
 </div>
+
+
+https://www.adkami.com/anime/100/4/1/2/3/">
 <div class="col-12 episode ">
 <img src="https://image.adkami.com/mini/100.jpg?1607939020">
 <span class="date_hour" data-time="1619374500">20:15</span>
- <div class="info">
+<div class="info">
 <p class="epis">Episode 4</p>
-<a href="https://www.adkami.com/anime/100">
 <p class="title" title="Kingdom S3">Kingdom S3</p>
+</div>
+</div>
 </a>
-</div>
-</div>
 </div>
 </div>
 </div>
