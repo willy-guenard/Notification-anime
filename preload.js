@@ -71,7 +71,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let objet_json = JSON.stringify(json_watching_anime)
 
 
-    fs.writeFile("./Json/test.json", json_watching_anime, function(err, result)
+    fs.writeFile("./Json/myanimelistAnime.json", json_watching_anime, function(err, result)
       {
         if(err) console.log('error', err);
       });
@@ -98,12 +98,12 @@ window.addEventListener('DOMContentLoaded', () => {
       let animeInfosSplit, animePicture, animeHours, animeEpisodeStock, animeEpisode, animeTypeEpisode, animeVoice;
       let animeTitle, testAnimeTitle1, testAnimeTitle2, clearAnimeTitle;
 
+      animeInfoList = '{\n\t\t"animeAdkami":[';
       //boucle des anime separer par les jour
       for (let y = 1; y < agendaListSplitDay.length; y++)
       {
         animesOfTheDay = agendaListSplitDay[y].split('<div class="col-12 episode');
         dayStockage = daysList[y];
-        animeInfoList += "\n" + dayStockage + "\n\n";
 
         // boucle pour recuperais le contenu de chaque anime d'une journer
         for (var i = 1; i < animesOfTheDay.length; i++)
@@ -114,8 +114,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
           animeEpisodeStock = animeInfosSplit[4].slice(16, -4);
           animeEpisodeStock = animeEpisodeStock.split(" ");
-          animeEpisode = animeEpisodeStock[0];
-          animeTypeEpisode = animeEpisodeStock[1];
+          animeTypeEpisode = animeEpisodeStock[0];
+          animeEpisode = animeEpisodeStock[1];
 
           if (animeEpisodeStock[2] != null)
           {
@@ -141,11 +141,22 @@ window.addEventListener('DOMContentLoaded', () => {
             clearAnimeTitle += 2;
             animeTitle = animeInfosSplit[6].slice(clearAnimeTitle, -4);
           }
-          animeInfoList += "Title: " + animeTitle + "\n" + "Episode: " + animeEpisode + "\n" + "Type d'episode: " + animeTypeEpisode + "\n" + "Voix: " + animeVoice + "\n" + "Images: " + animePicture + "\n" + "Heures de sortie: " + animeHours + "\n" +  "Release day: " + dayStockage + "\n\n";
+
+          animeInfoList += '\n\t\t{';
+          animeInfoList += '\n\t\t\t"Title":"' + animeTitle;
+          animeInfoList += '",\n\t\t\t"Episode":' + animeEpisode;
+          animeInfoList += ',\n\t\t\t"Type episode":"' + animeTypeEpisode;
+          animeInfoList += '",\n\t\t\t"Voice":"' + animeVoice;
+          animeInfoList += '",\n\t\t\t"Picture":"' + animePicture;
+          animeInfoList += '",\n\t\t\t"Hours":"' + animeHours;
+          animeInfoList += '",\n\t\t\t"Day":"' + dayStockage;
+          animeInfoList += '"\n\t\t},';
         }
       }
 
-      fs.writeFile("./Json/test.txt", animeInfoList, function(err, result)
+      animeInfoList = animeInfoList.slice(0, -1);
+      animeInfoList += '\n\t]\n}'
+      fs.writeFile("./Json/adkamiAnime.json", animeInfoList, function(err, result)
       {
         if(err) console.log('error', err);
       })
