@@ -87,33 +87,65 @@ window.addEventListener('DOMContentLoaded', () => {
     request.send();
     request.onload = function()
     {
-      let pictureAnime = request.response;
-      let splitPictureAnime = pictureAnime.split('<div class="agenda-list">');
+      const daysList = ["null", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+      let infosAnimeAdkami = request.response;
+      let splitPictureAnime = infosAnimeAdkami.split('<div class="agenda-list">');
       let agendaList = splitPictureAnime[1].split('<div class="col-12">');
       let agendaListSplitDay = agendaList[0].split('<h3>');
-      let test = agendaListSplitDay[1].split('<a href="');;
-      let tableau_1 = "";
-      let tableau_2 = "";
+      let animesOfTheDay;
+      let animeInfoList = "";
       let dayStockage = "";
-      var daysList = ["null", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-      let testL2;
-      let testL3;
-      let testL5;
-      let testL6;
-      var preTestL6;
+      let animeInfosSplit, animePicture, animeHours, animeEpisodeStock, animeEpisode, animeTypeEpisode, animeVoice;
+      let animeTitle, testAnimeTitle1, testAnimeTitle2, clearAnimeTitle;
 
+      //boucle des anime separer par les jour
       for (let y = 1; y < agendaListSplitDay.length; y++)
       {
-        test = agendaListSplitDay[y].split('<a href="');
+        animesOfTheDay = agendaListSplitDay[y].split('<div class="col-12 episode');
         dayStockage = daysList[y];
+        animeInfoList += "\n" + dayStockage + "\n\n";
 
-        for (var i = 1; i < test.length; i++)
+        // boucle pour recuperais le contenu de chaque anime d'une journer
+        for (var i = 1; i < animesOfTheDay.length; i++)
         {
-          tableau_1 += test[i] + "\n\n";
+          animeInfosSplit = animesOfTheDay[i].split('\n');
+          animePicture  =  animeInfosSplit[1].slice(10, -2);
+          animeHours = animeInfosSplit[2].slice(47, -7);
+
+          animeEpisodeStock = animeInfosSplit[4].slice(16, -4);
+          animeEpisodeStock = animeEpisodeStock.split(" ");
+          animeEpisode = animeEpisodeStock[0];
+          animeTypeEpisode = animeEpisodeStock[1];
+
+          if (animeEpisodeStock[2] != null)
+          {
+            animeVoice = animeEpisodeStock[2];
+          }
+          else
+          {
+            animeVoice = "vostfr";
+          }
+
+          testAnimeTitle1 = animeInfosSplit[5].slice(0 , 2);
+          testAnimeTitle2 = animeInfosSplit[6].slice(0 , 2);
+
+          if (testAnimeTitle1 == "<p")
+          {
+            clearAnimeTitle = animeInfosSplit[5].indexOf('">');
+            clearAnimeTitle += 2;
+            animeTitle = animeInfosSplit[5].slice(clearAnimeTitle, -4);
+          }
+          else if (testAnimeTitle2 == "<p")
+          {
+            clearAnimeTitle = animeInfosSplit[6].indexOf('">');
+            clearAnimeTitle += 2;
+            animeTitle = animeInfosSplit[6].slice(clearAnimeTitle, -4);
+          }
+          animeInfoList += "Title: " + animeTitle + "\n" + "Episode: " + animeEpisode + "\n" + "Type d'episode: " + animeTypeEpisode + "\n" + "Voix: " + animeVoice + "\n" + "Images: " + animePicture + "\n" + "Heures de sortie: " + animeHours + "\n" +  "Release day: " + dayStockage + "\n\n";
         }
       }
 
-      fs.writeFile("./Json/testpicture.txt", tableau_1, function(err, result)
+      fs.writeFile("./Json/test.txt", animeInfoList, function(err, result)
       {
         if(err) console.log('error', err);
       })
