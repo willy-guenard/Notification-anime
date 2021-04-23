@@ -4,8 +4,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const fs = require('fs');
   const butonRefresh = document.querySelector("#butonRefresh");
+  const butonTestTitle = document.querySelector("#butonTestTitle");
 
   butonRefresh.addEventListener('click', function(){refreshAnime()});
+  butonTestTitle.addEventListener('click', function(){anotherTitle()});
 
   function refreshAnime()
   {
@@ -167,7 +169,30 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function anotherTitle()
   {
-    console.log("pas encore fait");
+    let myanimelistJsonFile = fs.readFileSync('./Json/myanimelistAnime.json');
+    let objetMyanimelistJson = JSON.parse(myanimelistJsonFile);
+    let myAnimeListJson = objetMyanimelistJson['animeMyanimelist'];
+    let titleMyanimelist, test1, test2, save1;
+
+    for (let i = 0; i < myAnimeListJson.length; i++)
+    {
+      titleMyanimelist = myAnimeListJson[i].Title;
+
+      //title des ou => o
+      test1 = titleMyanimelist.indexOf('ou');
+      if (test1 != -1)
+      {
+        save1 = titleMyanimelist.replace('ou', 'o');
+        test2 = save1.indexOf('ou');
+        if (test2 != -1)
+        {
+          console.log(save1);
+        }
+        console.log(titleMyanimelist);
+      }
+    }
+
+    console.log("en cour");
   }
 
 })
