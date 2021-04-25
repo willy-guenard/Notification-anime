@@ -343,15 +343,6 @@
 			"Day":"Vendredi"
 		},
 		{
-			"Title":"Cardfight!! Vanguard: overDress",
-			"Episode":4,
-			"Type episode":"Episode",
-			"Voice":"vostfr",
-			"Picture":"https://image.adkami.com/mini/4133.jpg?1617442383",
-			"Hours":"01:40",
-			"Day":"Samedi"
-		},
-		{
 			"Title":"Dragon Quest : Dai no Daibouken (2020)",
 			"Episode":29,
 			"Type episode":"Episode",
@@ -397,20 +388,20 @@
 			"Day":"Samedi"
 		},
 		{
-			"Title":"Vivy : Fluorite Eye's Song",
-			"Episode":5,
-			"Type episode":"Episode",
-			"Voice":"vostfr",
-			"Picture":"https://image.adkami.com/mini/4131.jpg?1617440282",
-			"Hours":"18:00",
-			"Day":"Samedi"
-		},
-		{
 			"Title":"Ijiranaide, Nagatoro-san",
 			"Episode":3,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4158.jpg?1618045672",
+			"Hours":"18:00",
+			"Day":"Samedi"
+		},
+		{
+			"Title":"Vivy : Fluorite Eye's Song",
+			"Episode":5,
+			"Type episode":"Episode",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/4131.jpg?1617440282",
 			"Hours":"18:00",
 			"Day":"Samedi"
 		},
@@ -506,6 +497,15 @@
 		},
 		{
 			"Title":"Sentouin, Hakenshimasu!",
+			"Episode":1,
+			"Type episode":"Episode",
+			"Voice":"vf",
+			"Picture":"https://image.adkami.com/mini/4135.jpg?1617519829",
+			"Hours":"14:00",
+			"Day":"Dimanche"
+		},
+		{
+			"Title":"Sentouin, Hakenshimasu!",
 			"Episode":4,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
@@ -514,12 +514,12 @@
 			"Day":"Dimanche"
 		},
 		{
-			"Title":"Yuukoku no Moriarty S2",
-			"Episode":15,
+			"Title":"Sentouin, Hakenshimasu!",
+			"Episode":2,
 			"Type episode":"Episode",
-			"Voice":"vostfr",
-			"Picture":"https://image.adkami.com/mini/3951.jpg?1602432349",
-			"Hours":"16:00",
+			"Voice":"vf",
+			"Picture":"https://image.adkami.com/mini/4135.jpg?1617519829",
+			"Hours":"14:00",
 			"Day":"Dimanche"
 		},
 		{
@@ -528,6 +528,15 @@
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4136.jpg?1617520366",
+			"Hours":"16:00",
+			"Day":"Dimanche"
+		},
+		{
+			"Title":"Yuukoku no Moriarty S2",
+			"Episode":15,
+			"Type episode":"Episode",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/3951.jpg?1602432349",
 			"Hours":"16:00",
 			"Day":"Dimanche"
 		},

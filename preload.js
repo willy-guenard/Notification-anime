@@ -172,27 +172,83 @@ window.addEventListener('DOMContentLoaded', () => {
     let myanimelistJsonFile = fs.readFileSync('./Json/myanimelistAnime.json');
     let objetMyanimelistJson = JSON.parse(myanimelistJsonFile);
     let myAnimeListJson = objetMyanimelistJson['animeMyanimelist'];
-    let titleMyanimelist, test1, test2, save1;
+    let titleMyanimelist;
+    let anotherTitleList = "";
+    let titleListSplitAnime = "";
+    let titleListSplitTitle = "";
+    let titleListAnother = "";
+    let test = "";
 
     for (let i = 0; i < myAnimeListJson.length; i++)
     {
       titleMyanimelist = myAnimeListJson[i].Title;
+      // anotherTitleList += titleTryOu(titleMyanimelist);
+      anotherTitleList += "boite " + i;
+      anotherTitleList += "[]";
+      anotherTitleList += "boite pas pareille " + i;
+      anotherTitleList += "//";
+    }
 
-      //title des ou => o
-      test1 = titleMyanimelist.indexOf('ou');
-      if (test1 != -1)
+    titleListSplitAnime = anotherTitleList.split("//");
+
+    for (let y = 0; y < titleListSplitAnime.length; y++)
+    {
+      titleListAnother = titleListSplitAnime[y].split("[]");
+
+      test += '{\n\t\t"anotherTitle":[';
+      test += '\n\t\t{';
+      for (let x = 0; x < titleListAnother.length; x++)
       {
-        save1 = titleMyanimelist.replace('ou', 'o');
-        test2 = save1.indexOf('ou');
-        if (test2 != -1)
-        {
-          console.log(save1);
-        }
-        console.log(titleMyanimelist);
+
+        test += titleListAnother[x];
+        test += "\n";
       }
     }
 
-    console.log("en cour");
+    fs.writeFile("./Json/anotherTitle.json", test, function(err, result)
+    {
+      if(err) console.log('error', err);
+    })
+  }
+
+  function titleTryOu(titleMyanimelist)
+  {
+    let nb = 0;
+    nb = numberOfRepetitions("Isekai Maou to Shoukan Shoujo no Dorei Majutsu", "ou");
+
+    //title des ou => o
+    test1 = titleMyanimelist.indexOf('ou');
+    if (test1 != -1)
+    {
+      save1 = titleMyanimelist.replace('ou', 'o');
+      test2 = save1.indexOf('ou');
+      if (test2 != -1)
+      {
+        console.log(save1);
+      }
+
+      console.log(titleMyanimelist);
+    }
+
+    return nb;
+  }
+
+  function numberOfRepetitions(maChaine, recherche)
+  {
+   let nb = 0;
+   let melange;
+
+   for (let i = 0; i < maChaine.length; i++)
+   {
+     melange = maChaine[i] + maChaine[i + 1]
+
+     if (melange == recherche)
+     {
+       nb++;
+     }
+
+    }
+   return nb;
   }
 
 })
