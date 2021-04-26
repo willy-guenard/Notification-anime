@@ -182,28 +182,31 @@ window.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < myAnimeListJson.length; i++)
     {
       titleMyanimelist = myAnimeListJson[i].Title;
-      // anotherTitleList += titleTryOu(titleMyanimelist);
-      anotherTitleList += "boite " + i;
-      anotherTitleList += "[]";
-      anotherTitleList += "boite pas pareille " + i;
+      anotherTitleList += titleMyanimelist;
+      anotherTitleList += titleTryOu(titleMyanimelist);
+      anotherTitleList += titleJustS(titleMyanimelist);
+      anotherTitleList += titleNoDoblePoint(titleMyanimelist);
       anotherTitleList += "//";
     }
 
     titleListSplitAnime = anotherTitleList.split("//");
+    test += '{\n\t\t"anotherTitle":[';
 
     for (let y = 0; y < titleListSplitAnime.length; y++)
     {
       titleListAnother = titleListSplitAnime[y].split("[]");
-
-      test += '{\n\t\t"anotherTitle":[';
       test += '\n\t\t{';
+
       for (let x = 0; x < titleListAnother.length; x++)
       {
-
-        test += titleListAnother[x];
-        test += "\n";
+        test += '\n\t\t\t"Title_' + x + '":"' + titleListAnother[x] + '",';
       }
+      test = test.slice(0, -1);
+      test += '\n\t\t},';
     }
+
+    test = test.slice(0, -1);
+    test += '\n\t]\n}';
 
     fs.writeFile("./Json/anotherTitle.json", test, function(err, result)
     {
@@ -211,26 +214,171 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  function titleTryOu(titleMyanimelist)
+  function titleNoDoblePoint(titleMyanimelist)
   {
-    let nb = 0;
-    nb = numberOfRepetitions("Isekai Maou to Shoukan Shoujo no Dorei Majutsu", "ou");
+    let titleNoDoblePointlist = '';
+    let firstSplit
 
-    //title des ou => o
-    test1 = titleMyanimelist.indexOf('ou');
-    if (test1 != -1)
+    if (titleMyanimelist.indexOf(":") != -1)
     {
-      save1 = titleMyanimelist.replace('ou', 'o');
-      test2 = save1.indexOf('ou');
-      if (test2 != -1)
-      {
-        console.log(save1);
-      }
-
-      console.log(titleMyanimelist);
+      titleNoDoblePointlist = '[]' + titleMyanimelist.replace(":", "");
+      firstSplit = titleMyanimelist.split(":");
+      titleNoDoblePointlist += '[]' + firstSplit[0];
     }
 
-    return nb;
+    return titleNoDoblePointlist;
+  }
+
+  function titleJustS(titleMyanimelist)
+  {
+    let titleJustSList = '';
+    let splitSeason ='';
+    let testSeason = '';
+
+    // 2nd seconde Season
+    testSeason = titleMyanimelist.indexOf('2nd');
+    if (testSeason != -1)
+    {
+      splitSeason = titleMyanimelist.split('2nd');
+      titleJustSList = '[]' + splitSeason[0] + "S2";
+    }
+
+    // 3rd third Season
+    testSeason = titleMyanimelist.indexOf('3rd');
+    if (testSeason != -1)
+    {
+      splitSeason = titleMyanimelist.split('3rd');
+      titleJustSList = '[]' + splitSeason[0] + "S3";
+    }
+
+    // 4rd fourth Season
+    testSeason = titleMyanimelist.indexOf('4th');
+    if (testSeason != -1)
+    {
+      splitSeason = titleMyanimelist.split('4th');
+      titleJustSList = '[]' + splitSeason[0] + "S4";
+    }
+
+    // 5rd fifth Season
+    testSeason = titleMyanimelist.indexOf('5th');
+    if (testSeason != -1)
+    {
+      splitSeason = titleMyanimelist.split('5th');
+      titleJustSList = '[]' + splitSeason[0] + "S5";
+    }
+
+    return titleJustSList
+  }
+
+  function titleTryOu(titleMyanimelist)
+  {
+    let nb = numberOfRepetitions(titleMyanimelist, "ou");
+    let titleFromOuToO ='';
+    let stockTitle1, stockTitle2, stockTitle3, stockTitle4, stockTitle5, stockTitle6, stockTitle7;
+    let stockFirstOu, stockSecondeOu;
+
+    switch (nb)
+    {
+      case 0:
+        // c'est non
+      break;
+
+      case 1:
+        titleFromOuToO = "[]" + titleMyanimelist.replace('ou', 'o');
+
+      break;
+
+      case 2:
+        stockFirstOu = titleMyanimelist.indexOf('ou');
+
+        // o|ou
+        stockTitle1 = titleMyanimelist.replace('ou', 'o');
+        titleFromOuToO += "[]" + stockTitle1 + "[]";
+
+        // o|o
+        stockTitle2 = stockTitle1.replace('ou', 'o');
+        titleFromOuToO += stockTitle2 + "[]";
+
+        // ou|o
+        stockTitle2 = stockTitle2.split('');
+        stockTitle2.splice(stockFirstOu + 1, 0, 'u');
+
+        for (let i = 0; i < stockTitle2.length; i++)
+        {
+          titleFromOuToO += stockTitle2[i];
+        }
+
+      break;
+
+      case 3:
+        // o ou ou
+        stockTitle1 = titleMyanimelist.replace('ou', 'o');
+        titleFromOuToO += "[]" + stockTitle1 + '[]';
+
+        // o o ou
+        stockTitle2 = stockTitle1.replace('ou', 'o');
+        titleFromOuToO += stockTitle2 + '[]';
+
+        // ou o ou
+        stockFirstOu = titleMyanimelist.indexOf('ou');
+        stockTitle3 = stockTitle2.split('');
+        stockTitle3.splice(stockFirstOu + 1, 0, 'u');
+
+        for (let i = 0; i < stockTitle3.length; i++)
+        {
+          titleFromOuToO += stockTitle3[i];
+        }
+        titleFromOuToO += '[]';
+
+        // o o o
+        stockTitle4 = stockTitle2.replace('ou', 'o');
+        titleFromOuToO += stockTitle4 + '[]';
+
+        // ou o o
+        stockFirstOu = titleMyanimelist.indexOf('ou');
+
+        stockTitle5 = stockTitle4.split('');
+        stockTitle5.splice(stockFirstOu + 1, 0, 'u');
+
+        for (let i = 0; i < stockTitle5.length; i++)
+        {
+          titleFromOuToO += stockTitle5[i];
+        }
+        titleFromOuToO += '[]';
+
+        // o ou o
+        stockFirstOu = titleMyanimelist.indexOf('ou');
+        stockSecondeOu = titleMyanimelist.indexOf('ou', stockFirstOu + 1);
+
+        stockTitle6 = stockTitle4.split('');
+        stockTitle6.splice(stockSecondeOu, 0, 'u');
+
+        for (let i = 0; i < stockTitle6.length; i++)
+        {
+          titleFromOuToO += stockTitle6[i];
+        }
+        titleFromOuToO += '[]';
+
+        // ou ou o
+        stockFirstOu = titleMyanimelist.indexOf('ou');
+        stockSecondeOu = titleMyanimelist.indexOf('ou', stockFirstOu + 1);
+
+        stockTitle7 = stockTitle4.split('');
+        stockTitle7.splice(stockFirstOu + 1, 0, 'u');
+        stockTitle7.splice(stockSecondeOu + 1 , 0, 'u');
+
+        for (let i = 0; i < stockTitle7.length; i++)
+        {
+          titleFromOuToO += stockTitle7[i];
+        }
+      break;
+
+      default:
+      console.log("pas pris en compte");
+
+    }
+
+    return titleFromOuToO;
   }
 
   function numberOfRepetitions(maChaine, recherche)
