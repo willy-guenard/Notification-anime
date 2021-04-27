@@ -1,6 +1,15 @@
 {
 		"animeMyanimelist":[
 		{
+			"Mal_id":25013,
+			"Title":"Akatsuki no Yona",
+			"Watched_episodes":1,
+			"Total_episodes":24,
+			"status":"Release",
+			"Type":"TV",
+			"Tags":"ratraper epsidode 1, regarder avec flo"
+		},
+		{
 			"Mal_id":41587,
 			"Title":"Boku no Hero Academia 5th Season",
 			"Watched_episodes":5,
@@ -12,7 +21,7 @@
 		{
 			"Mal_id":42938,
 			"Title":"Fruits Basket: The Final",
-			"Watched_episodes":3,
+			"Watched_episodes":4,
 			"Total_episodes":0,
 			"status":"Airing",
 			"Type":"TV",
@@ -26,15 +35,6 @@
 			"status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
-		},
-		{
-			"Mal_id":40421,
-			"Title":"Given Movie",
-			"Watched_episodes":0,
-			"Total_episodes":1,
-			"status":"Release",
-			"Type":"Movie",
-			"Tags":"null"
 		},
 		{
 			"Mal_id":40938,
@@ -125,15 +125,6 @@
 			"status":"Airing",
 			"Type":"TV",
 			"Tags":"max"
-		},
-		{
-			"Mal_id":42826,
-			"Title":"Seijo no Maryoku wa Bannou Desu",
-			"Watched_episodes":1,
-			"Total_episodes":12,
-			"status":"Airing",
-			"Type":"TV",
-			"Tags":"null"
 		},
 		{
 			"Mal_id":40586,

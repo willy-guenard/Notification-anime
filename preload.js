@@ -212,6 +212,7 @@ window.addEventListener('DOMContentLoaded', () => {
     {
       if(err) console.log('error', err);
     })
+    console.log("fichier anothername Json:  A Jour");
   }
 
   function titleNoDoblePoint(titleMyanimelist)

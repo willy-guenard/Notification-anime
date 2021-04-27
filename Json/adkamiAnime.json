@@ -154,6 +154,15 @@
 			"Day":"Mercredi"
 		},
 		{
+			"Title":"Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka S3",
+			"Episode":1,
+			"Type episode":"OAV",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/1405.jpg?=1447232781",
+			"Hours":"19:00",
+			"Day":"Mercredi"
+		},
+		{
 			"Title":"Cestvs : The Roman Fighter",
 			"Episode":3,
 			"Type episode":"Episode",
@@ -246,7 +255,7 @@
 		{
 			"Title":"Kumo Desu ga, Nani ka?",
 			"Episode":16,
-			"Type episode":">Episode",
+			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4036.jpg?1610099412",
 			"Hours":"15:30",
@@ -389,7 +398,16 @@
 		},
 		{
 			"Title":"Kimetsu no Yaiba",
-			"Episode":25,
+			"Episode":22,
+			"Type episode":"Episode",
+			"Voice":"vf",
+			"Picture":"https://image.adkami.com/mini/3347.jpg?1554566467",
+			"Hours":"18:00",
+			"Day":"Samedi"
+		},
+		{
+			"Title":"Kimetsu no Yaiba",
+			"Episode":24,
 			"Type episode":"Episode",
 			"Voice":"vf",
 			"Picture":"https://image.adkami.com/mini/3347.jpg?1554566467",
@@ -407,7 +425,7 @@
 		},
 		{
 			"Title":"Kimetsu no Yaiba",
-			"Episode":24,
+			"Episode":25,
 			"Type episode":"Episode",
 			"Voice":"vf",
 			"Picture":"https://image.adkami.com/mini/3347.jpg?1554566467",
@@ -424,15 +442,6 @@
 			"Day":"Samedi"
 		},
 		{
-			"Title":"Kimetsu no Yaiba",
-			"Episode":22,
-			"Type episode":"Episode",
-			"Voice":"vf",
-			"Picture":"https://image.adkami.com/mini/3347.jpg?1554566467",
-			"Hours":"18:00",
-			"Day":"Samedi"
-		},
-		{
 			"Title":"Ijiranaide, Nagatoro-san",
 			"Episode":4,
 			"Type episode":"Episode",
@@ -442,7 +451,7 @@
 			"Day":"Samedi"
 		},
 		{
-			"Title":"86",
+			"Title":"Ijiranaide, Nagatoro-san",
 			"Episode":4,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
@@ -524,6 +533,15 @@
 		},
 		{
 			"Title":"Sentouin, Hakenshimasu!",
+			"Episode":5,
+			"Type episode":"Episode",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/4135.jpg?1617519829",
+			"Hours":"14:00",
+			"Day":"Dimanche"
+		},
+		{
+			"Title":"Sentouin, Hakenshimasu!",
 			"Episode":3,
 			"Type episode":"Episode",
 			"Voice":"vf",
@@ -532,12 +550,12 @@
 			"Day":"Dimanche"
 		},
 		{
-			"Title":"Sentouin, Hakenshimasu!",
-			"Episode":5,
+			"Title":"Yuukoku no Moriarty S2",
+			"Episode":16,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
-			"Picture":"https://image.adkami.com/mini/4135.jpg?1617519829",
-			"Hours":"14:00",
+			"Picture":"https://image.adkami.com/mini/3951.jpg?1602432349",
+			"Hours":"16:00",
 			"Day":"Dimanche"
 		},
 		{
@@ -546,15 +564,6 @@
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4136.jpg?1617520366",
-			"Hours":"16:00",
-			"Day":"Dimanche"
-		},
-		{
-			"Title":"Yuukoku no Moriarty S2",
-			"Episode":16,
-			"Type episode":"Episode",
-			"Voice":"vostfr",
-			"Picture":"https://image.adkami.com/mini/3951.jpg?1602432349",
 			"Hours":"16:00",
 			"Day":"Dimanche"
 		},
