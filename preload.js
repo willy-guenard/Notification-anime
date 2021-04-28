@@ -2,12 +2,14 @@
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', () => {
 
+  const {ipcRenderer} = require("electron");
   const fs = require('fs');
   const butonRefresh = document.querySelector("#butonRefresh");
-  const butonTestTitle = document.querySelector("#butonTestTitle");
+  const tokenMal = document.querySelector("#tokenMal");
 
   butonRefresh.addEventListener('click', function(){refreshAnime()});
-  butonTestTitle.addEventListener('click', function(){anotherTitle()});
+  tokenMal.addEventListener('click', function(){token_recuperation()});
+
 
   function refreshAnime()
   {
@@ -85,7 +87,7 @@ window.addEventListener('DOMContentLoaded', () => {
     request.send();
     request.onload = function()
     {
-      var infosAnimeAdkami = request.response;
+      let infosAnimeAdkami = request.response;
       refreshAgendaAdkamiJson(infosAnimeAdkami);
     }
     console.log("fichier adkami Json:  A Jour");
@@ -111,7 +113,7 @@ window.addEventListener('DOMContentLoaded', () => {
       dayStockage = daysList[y];
 
       // boucle pour recuperais le contenu de chaque anime d'une journer
-      for (var i = 1; i < animesOfTheDay.length; i++)
+      for (let i = 1; i < animesOfTheDay.length; i++)
       {
         animeInfosSplit = animesOfTheDay[i].split('\n');
         animePicture  =  animeInfosSplit[1].slice(10, -2);
@@ -400,4 +402,32 @@ window.addEventListener('DOMContentLoaded', () => {
    return nb;
   }
 
+  function token_recuperation()
+  {
+    let url = "https://myanimelist.net/v1/oauth2/authorize?";
+    let response_type = "code"
+    let client_id ="29fc8b678220461db9399d28c82624e1"
+    let code_challenge = "NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAar4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7sEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g";
+    let state = "firstTest";
+    let redirect_uri = "https://myanimelist.net/animelist/Cheark";
+    let code_challenge_method = "plain";
+    let urlRequest = url + "response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge + "&state=" + state + "&code_challenge_method=" + code_challenge_method;
+
+    let request = new XMLHttpRequest();
+    request.open('GET', urlRequest);
+
+    request.responseType = 'text';
+    request.send();
+    request.onload = function()
+    {
+      let reponseMyanimelist = request.response;
+      // console.log(infosAnimeAdkami);
+      fs.writeFile("./secondeWindow/secondeWindow.html", reponseMyanimelist, function(err, result)
+      {
+        if(err) console.log('error', err);
+      })
+
+      ipcRenderer.send('asynchronous-message', 'myanimelistValidation');
+    }
+  }
 })
