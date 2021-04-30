@@ -1,13 +1,13 @@
 // package
-const {app, BrowserWindow, Menu, Tray, ipcMain } = require('electron')
+const {app, BrowserWindow, Menu, Tray, ipcMain, session  } = require('electron')
 const path = require('path')
 
 // quand l'application a fini de pre charger
 app.whenReady().then(() => {
 
   const mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 800,
+    width: 300,
+    height: 200,
     // maxWidth: 800,
     // minWidth: 800,
     // maxHeight: 600,
@@ -18,17 +18,23 @@ app.whenReady().then(() => {
     }
   })
 
+    // charger l'index de la page et enlever le Menu
+    mainWindow.removeMenu();
+    mainWindow.loadFile('index.html');
+
+    // ouvrir les outils developeur
+    mainWindow.webContents.openDevTools();
+
   ipcMain.on('asynchronous-message', (event, arg) => {
     if (arg == 'myanimelistValidation') {
 
       var secondeWindow = new BrowserWindow({
-        width: 1000,
-        height: 800,
+        width: 300,
+        height: 200,
         // maxWidth: 800,
         // minWidth: 800,
         // maxHeight: 600,
         // minHeight: 600,
-        modal: true,
         webPreferences: {
           preload: path.join(__dirname, './secondeWindow/seconpreload.js'),
           contextIsolation: true
@@ -38,22 +44,9 @@ app.whenReady().then(() => {
       secondeWindow.removeMenu();
       secondeWindow.webContents.openDevTools();
       secondeWindow.loadFile('./secondeWindow/secondeWindow.html')
-
-    // set to null
-    secondeWindow.on('close', () => {
-      secondeWindow = null;
-    });
-  }
+      }
 
   })
-
-  // charger l'index de la page et enlever le Menu
-  mainWindow.removeMenu();
-  mainWindow.loadFile('index.html');
-
-  // ouvrir les outils developeur
-  mainWindow.webContents.openDevTools();
-
 
   //icone barre tache '''''''''''''''''''''''''a continuer
   let tray = new Tray(path.join(__dirname, './Picture/sardoche_army.jpg'))

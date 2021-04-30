@@ -6,25 +6,31 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://api.jikan.moe/v3; script-src 'self' 'unsafe-inline'; img-src 'self' https://api.jikan.moe/v3; style-src 'self' 'unsafe-inline' https://api.jikan.moe/v3; font-src 'self' https://api.jikan.moe/v3; frame-src 'self'; object-src 'none'; connect-src https://api.jikan.moe/v3;"> -->
     <link rel="stylesheet" href="style.css">
     <title>Anime</title>
-  </head>
-  <body>
-    <input type="button" value="Refresh" id="butonRefresh">
-    <input type="button" value="tokenMal" id="tokenMal">
+    <body>
+      <input type="button" value="Refresh" id="butonRefresh">
+      <input type="button" value="tokenMal" id="tokenMal">
 
-    <img src="">
-    <div id="agenda">
-      <div id="legende">
+
+      <form name="myform" onsubmit="return false">
+        enter cookie infos : <input type="text" name="name" />
+        <input type="submit" value="submit" id="cookieSubmit"/>
+      </form>
+
+
+      <img src="">
+      <div id="agenda">
+        <div id="legende">
+        </div>
+
+        <div id="colone_lundi">
+          <h3 id="tittle_lundi"></h3>
+          <a id="">
+            <div id="">
+
+            </div>
+          </a>
+        </div>
       </div>
-
-      <div id="colone_lundi">
-        <h3 id="tittle_lundi"></h3>
-        <a id="">
-          <div id="">
-
-          </div>
-        </a>
-      </div>
-    </div>
-    <script src="./renderer.js"></script>
-  </body>
+      <script src="./renderer.js"></script>
+    </body>
 </html>
