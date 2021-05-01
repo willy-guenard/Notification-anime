@@ -403,31 +403,32 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function token_recuperation()
   {
-    // let url = "https://myanimelist.net/v1/oauth2/authorize?";
-    // let response_type = "code"
-    // let client_id ="29fc8b678220461db9399d28c82624e1"
-    // let code_challenge = "NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAar4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7sEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g";
-    // let state = "firstTest";
-    // let redirect_uri = "https://myanimelist.net/animelist/Cheark";
-    // let code_challenge_method = "plain";
-    // let urlRequest = url + "response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge + "&state=" + state + "&code_challenge_method=" + code_challenge_method;
-    //
-    // let request = new XMLHttpRequest();
-    // request.open('GET', urlRequest);
-    //
-    // request.responseType = 'text';
-    // request.send();
-    // request.onload = function()
-    // {
-    //   let reponseMyanimelist = request.response;
-    //   // console.log(infosAnimeAdkami);
-    //   fs.writeFile("./secondeWindow/secondeWindow.html", reponseMyanimelist, function(err, result)
-    //   {
-    //     if(err) console.log('error', err);
-    //   })
-    //
-    //
-    // }
-    ipcRenderer.send('asynchronous-message', 'myanimelistValidation');
+    let url = "https://myanimelist.net/v1/oauth2/authorize?";
+    let response_type = "code"
+    let client_id ="29fc8b678220461db9399d28c82624e1"
+    let code_challenge = "NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAEr4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7PEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g";
+    let state = "testMavApi";
+    let redirect_uri = "https://myanimelist.net/animelist/Cheark";
+    let code_challenge_method = "plain";
+
+    let urlRequest = url + "response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge;
+
+    let request = new XMLHttpRequest();
+    request.open('GET', urlRequest);
+
+    request.responseType = 'text';
+    request.send();
+    request.onload = function()
+    {
+      let reponseMyanimelist = request.response;
+
+      // fs.writeFile("./secondeWindow/secondeWindow.html", reponseMyanimelist, function(err, result)
+      // {
+      //   if(err) console.log('error', err);
+      // })
+
+      // ipcRenderer.send('asynchronous-message', 'myanimelistValidation');
+    }
   }
+
 })

@@ -4,21 +4,24 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
-const cookie = document.querySelector("#cookieSubmit");
 
-cookie.addEventListener('click', function(){clicked()});
 
-function clicked()
-{
-  console.log("function clicked");
-  /*
-  Expires
-  Domain
-  Path
-  Secure
-  Name - value
-  */
-  let cookieValue = document.myform.name.value + ";";
-  console.log(cookieValue);
-  document.cookie = "name = "+ cookieValue;
-}
+
+// const cookie = document.querySelector("#cookieSubmit");
+//
+// cookie.addEventListener('click', function(){clicked()});
+//
+// function clicked()
+// {
+//   console.log("function clicked");
+//   /*
+//   Expires
+//   Domain
+//   Path
+//   Secure
+//   Name - value
+//   */
+//   let cookieValue = document.myform.name.value + ";";
+//   console.log(cookieValue);
+//   document.cookie = "name = "+ cookieValue;
+// }

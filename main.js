@@ -1,6 +1,7 @@
 // package
-const {app, BrowserWindow, Menu, Tray, ipcMain, session  } = require('electron')
+const {app, BrowserWindow, Menu, Tray, ipcMain, session } = require('electron')
 const path = require('path')
+
 
 // quand l'application a fini de pre charger
 app.whenReady().then(() => {
@@ -25,12 +26,16 @@ app.whenReady().then(() => {
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
 
+    let mainSession = mainWindow.webContents.session;
+
+    mainSession.cookies.get({}).then((cookie) => { console.log(cookie) }).catch((error) => { console.log(error) });
+
   ipcMain.on('asynchronous-message', (event, arg) => {
     if (arg == 'myanimelistValidation') {
 
       var secondeWindow = new BrowserWindow({
-        width: 300,
-        height: 200,
+        width: 800,
+        height: 600,
         // maxWidth: 800,
         // minWidth: 800,
         // maxHeight: 600,
@@ -44,6 +49,11 @@ app.whenReady().then(() => {
       secondeWindow.removeMenu();
       secondeWindow.webContents.openDevTools();
       secondeWindow.loadFile('./secondeWindow/secondeWindow.html')
+
+      let secondeSession = secondeWindow.webContents.session;
+
+      secondeSession.cookies.get({}).then((cookie) => { console.log(cookie) }).catch((error) => { console.log(error) });
+
       }
 
   })
