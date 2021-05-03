@@ -18,45 +18,13 @@ app.whenReady().then(() => {
       contextIsolation: true
     }
   })
-
+  
     // charger l'index de la page et enlever le Menu
     mainWindow.removeMenu();
     mainWindow.loadFile('index.html');
 
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
-
-    let mainSession = mainWindow.webContents.session;
-
-    mainSession.cookies.get({}).then((cookie) => { console.log(cookie) }).catch((error) => { console.log(error) });
-
-  ipcMain.on('asynchronous-message', (event, arg) => {
-    if (arg == 'myanimelistValidation') {
-
-      var secondeWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        // maxWidth: 800,
-        // minWidth: 800,
-        // maxHeight: 600,
-        // minHeight: 600,
-        webPreferences: {
-          preload: path.join(__dirname, './secondeWindow/seconpreload.js'),
-          contextIsolation: true
-        }
-      })
-
-      secondeWindow.removeMenu();
-      secondeWindow.webContents.openDevTools();
-      secondeWindow.loadFile('./secondeWindow/secondeWindow.html')
-
-      let secondeSession = secondeWindow.webContents.session;
-
-      secondeSession.cookies.get({}).then((cookie) => { console.log(cookie) }).catch((error) => { console.log(error) });
-
-      }
-
-  })
 
   //icone barre tache '''''''''''''''''''''''''a continuer
   let tray = new Tray(path.join(__dirname, './Picture/sardoche_army.jpg'))

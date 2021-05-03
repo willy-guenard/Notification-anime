@@ -6,9 +6,11 @@ window.addEventListener('DOMContentLoaded', () => {
   const fs = require('fs');
   const butonRefresh = document.querySelector("#butonRefresh");
   const tokenMal = document.querySelector("#tokenMal");
+  const testMal = document.querySelector("#testMal");
 
   butonRefresh.addEventListener('click', function(){refreshAnime()});
   tokenMal.addEventListener('click', function(){token_recuperation()});
+  testMal.addEventListener('click', function(){testMalw("cheark")});
 
   function refreshAnime()
   {
@@ -403,31 +405,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function token_recuperation()
   {
-    let url = "https://myanimelist.net/v1/oauth2/authorize?";
-    let response_type = "code"
-    let client_id ="29fc8b678220461db9399d28c82624e1"
-    let code_challenge = "NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAEr4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7PEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g";
-    let state = "testMavApi";
-    let redirect_uri = "https://myanimelist.net/animelist/Cheark";
-    let code_challenge_method = "plain";
+    window.open("https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=29fc8b678220461db9399d28c82624e1&code_challenge=NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAEr4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7PEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g&state=testApi1");
+  }
 
-    let urlRequest = url + "response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge;
-
+  function testMalw(user)
+  {
+    let url = "https://api.myanimelist.net/v2";
     let request = new XMLHttpRequest();
-    request.open('GET', urlRequest);
+    let requestGetWathingList = "/users/"+ user + "/animelist?status=watching";
 
-    request.responseType = 'text';
+    request.open('GET', url + requestGetWathingList);
+    request.responseType = 'json';
     request.send();
+
     request.onload = function()
     {
-      let reponseMyanimelist = request.response;
-
-      // fs.writeFile("./secondeWindow/secondeWindow.html", reponseMyanimelist, function(err, result)
-      // {
-      //   if(err) console.log('error', err);
-      // })
-
-      // ipcRenderer.send('asynchronous-message', 'myanimelistValidation');
+      let reply_watching_list = request.response;
+      console.log(reply_watching_list);
     }
   }
 
