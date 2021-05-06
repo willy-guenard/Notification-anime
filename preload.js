@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   butonRefresh.addEventListener('click', function(){refreshAnime()});
   tokenMal.addEventListener('click', function(){token_recuperation()});
-  patchMal.addEventListener('click', function(){patchMyanimelist("cheark")});
+  patchMal.addEventListener('click', function(){patchMyanimelist(21, 107, 1000 , 8)});
 
   function refreshAnime()
   {
@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', () => {
           }
           else
           {
-            console.log("File MyAnimeList Json: A jour");
+            console.log("File MyAnimeList Json: update");
           }
       });
   }
@@ -184,7 +184,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         else
         {
-          console.log("File adkami Json: A Jour");
+          console.log("File adkami Json: update");
         }
     })
   }
@@ -239,7 +239,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         else
         {
-          console.log("File anotherTitle Json: A Jour");
+          console.log("File anotherTitle Json: update");
         }
     })
 
@@ -405,7 +405,7 @@ window.addEventListener('DOMContentLoaded', () => {
       break;
 
       default:
-      console.log("pas pris en compte");
+      console.log("O(u)verflow");
     }
     return titleFromOuToO;
   }
@@ -433,24 +433,32 @@ window.addEventListener('DOMContentLoaded', () => {
     window.open("https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=29fc8b678220461db9399d28c82624e1&code_challenge=NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAEr4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7PEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g&state=testApi1");
   }
 
-  function patchMyanimelist(user)
+  function patchMyanimelist(id_anime, nb_episode, total_episodes, score)
   {
-    let url = "https://api.myanimelist.net/v2";
+    let tokenJsonFile = fs.readFileSync('./Json/token.json');
+    let tokenJson = JSON.parse(tokenJsonFile);
+    let token = tokenJson.access_token;
+
     let request = new XMLHttpRequest();
-    let requestGetWathingList = "/anime/"+ "21" + "/my_list_status";
-    let requestBody = "num_watched_episodes=96&tags=testmaistkt"
+    let url = "https://api.myanimelist.net/v2";
+    let requestGetWathingList = "/anime/"+ id_anime + "/my_list_status";
+    let requestBody;
+
+    if (nb_episode  >= total_episodes)
+      {
+        requestBody = "num_watched_episodes="+ nb_episode + "&status=completed&tags=&score=" + score;
+      }
+    else
+      {
+        requestBody = "num_watched_episodes="+ nb_episode;
+      }
 
     request.open('PATCH', url + requestGetWathingList);
-    request.setRequestHeader("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhhZDJlNGE0ODZhMzNmOWM0ODFjZDQzNTE0YjU2Mjc3YjE4YjBmNzcxMTRhNGJiZWRlZjE0ZWViOGM4MzAwZDg0ODhiNTJiNWRkMTdhYTIxIn0.eyJhdWQiOiIyOWZjOGI2NzgyMjA0NjFkYjkzOTlkMjhjODI2MjRlMSIsImp0aSI6IjhhZDJlNGE0ODZhMzNmOWM0ODFjZDQzNTE0YjU2Mjc3YjE4YjBmNzcxMTRhNGJiZWRlZjE0ZWViOGM4MzAwZDg0ODhiNTJiNWRkMTdhYTIxIiwiaWF0IjoxNjIwMDQ4NzIzLCJuYmYiOjE2MjAwNDg3MjMsImV4cCI6MTYyMjcyNzEyMywic3ViIjoiNjg3MDIwNSIsInNjb3BlcyI6W119.afv8icMGWu_bEFikJGIdvlxWa6Kq1GRa8mJA-_VZPvyC-r8imGGvRS3fU7wdtfg6mA0nhMNVmU49KPvgbvz1YkoAiQdpzUXs2AE6_DXAYV0dKZ8QiJW_V_GATZNmna8ZVNy5VlhfqeDgzfC0AGkpNnrm3auWUAmeRW-DJ-Jh47Mwyz02lKdnRvNHhHOrj53CryI-DEr27w4Av3epCz2HkP2VYGsdYsiGXFB-wD0yh7tYsMzKlQqVy3g1tfHiiCugxNLRb7Kk_pHnA8EbY136K0t_56fvw_zH8TrdkgaacLWsX8Swi-oy89jjKTgsPWdey6dlwj7JszFe4kXt1ph3GA")
-    // request.responseType = 'json';
+    request.setRequestHeader("Authorization", "Bearer " + token)
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(requestBody);
 
-    request.onload = function()
-    {
-      let reply_watching_list = request.response;
-      console.log(reply_watching_list);
-    }
+     console.log("anime update");
   }
 
 })
