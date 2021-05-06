@@ -48,6 +48,9 @@
 			"Title_0":"Mashiro no Oto"
 		},
 		{
+			"Title_0":"Mobile Suit Gundam SEED Destiny"
+		},
+		{
 			"Title_0":"Nanatsu no Taizai: Fundo no Shinpan",
 			"Title_1":"Nanatsu no Taizai Fundo no Shinpan",
 			"Title_2":"Nanatsu no Taizai"
@@ -58,15 +61,15 @@
 			"Title_2":"Nomad"
 		},
 		{
+			"Title_0":"One Piece"
+		},
+		{
 			"Title_0":"Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita"
 		},
 		{
 			"Title_0":"Tensura Nikki: Tensei shitara Slime Datta Ken",
 			"Title_1":"Tensura Nikki Tensei shitara Slime Datta Ken",
 			"Title_2":"Tensura Nikki"
-		},
-		{
-			"Title_0":"Urasekai Picnic"
 		},
 		{
 			"Title_0":"Wonder Egg Priority"
@@ -104,9 +107,6 @@
 		{
 			"Title_0":"Zankyou no Terror",
 			"Title_1":"Zankyo no Terror"
-		},
-		{
-			"Title_0":""
 		}
 	]
 }

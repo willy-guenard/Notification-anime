@@ -6,21 +6,22 @@ window.addEventListener('DOMContentLoaded', () => {
   const fs = require('fs');
   const butonRefresh = document.querySelector("#butonRefresh");
   const tokenMal = document.querySelector("#tokenMal");
-  const testMal = document.querySelector("#testMal");
+  const patchMal = document.querySelector("#patchMal");
 
   butonRefresh.addEventListener('click', function(){refreshAnime()});
   tokenMal.addEventListener('click', function(){token_recuperation()});
-  testMal.addEventListener('click', function(){testMalw("cheark")});
+  patchMal.addEventListener('click', function(){patchMyanimelist("cheark")});
 
   function refreshAnime()
   {
     getAnimeCurrentlyWatching("cheark");
     getAnimeAgendaAdkami();
-    anotherTitle();
+    creatAnotherTitle();
   }
 
   function getAnimeCurrentlyWatching(user)
   {
+    // api jikan request to get anime in the watching list of a user
     let url = "https://api.jikan.moe/v3";
     let request = new XMLHttpRequest();
     let requestGetWathingList = "/user/"+ user + "/animelist/watching/";
@@ -34,23 +35,23 @@ window.addEventListener('DOMContentLoaded', () => {
       let reply_watching_list = request.response;
       refreshMyAnimeListJson(reply_watching_list);
     }
-    console.log("fichier MyAnimeList Json:  A Jour");
   }
 
   function refreshMyAnimeListJson(reply_watching_list)
   {
+    // creat a json myanimelist to api jikan request
     let animelist = reply_watching_list['anime'];
     let json_watching_anime = '{\n\t\t"animeMyanimelist":[';
     let statusAnime;
 
     for (let i = 0; i < animelist.length; i++)
     {
-      statusAnime = animelist[i].end_date;
       json_watching_anime += '\n\t\t{';
       json_watching_anime += '\n\t\t\t"Mal_id":' + animelist[i].mal_id;
       json_watching_anime += ',\n\t\t\t"Title":"' + animelist[i].title;
       json_watching_anime += '",\n\t\t\t"Watched_episodes":' + animelist[i].watched_episodes;
       json_watching_anime += ',\n\t\t\t"Total_episodes":' + animelist[i].total_episodes;
+      statusAnime = animelist[i].end_date;
 
       if (statusAnime == null)
       {
@@ -74,12 +75,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
     fs.writeFile("./Json/myanimelistAnime.json", json_watching_anime, function(err, result)
       {
-        if(err) console.log('error', err);
+        if(err)
+          {
+            console.log('error', err);
+          }
+          else
+          {
+            console.log("File MyAnimeList Json: A jour");
+          }
       });
   }
 
   function getAnimeAgendaAdkami()
   {
+    // get agenda anime from adkami
     let url = "https://www.adkami.com/agenda";
     let request = new XMLHttpRequest();
     request.open('GET', url );
@@ -91,7 +100,6 @@ window.addEventListener('DOMContentLoaded', () => {
       let infosAnimeAdkami = request.response;
       refreshAgendaAdkamiJson(infosAnimeAdkami);
     }
-    console.log("fichier adkami Json:  A Jour");
   }
 
   function refreshAgendaAdkamiJson(infosAnimeAdkami)
@@ -104,7 +112,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let animeInfoList = "";
     let dayStockage = "";
     let animeInfosSplit, animePicture, animeHours, animeEpisodeStock, animeEpisode, animeTypeEpisode, animeVoice;
-    let animeTitle, testAnimeTitle1, testAnimeTitle2, clearAnimeTitle;
+    let animeTitle, firstPlaceTitle, secondPlaceTitle, clearAnimeTitle;
 
     animeInfoList = '{\n\t\t"animeAdkami":[';
     //boucle des anime separer par les jour
@@ -134,20 +142,24 @@ window.addEventListener('DOMContentLoaded', () => {
           animeVoice = "vostfr";
         }
 
-        testAnimeTitle1 = animeInfosSplit[5].slice(0 , 2);
-        testAnimeTitle2 = animeInfosSplit[6].slice(0 , 2);
+        firstPlaceTitle = animeInfosSplit[5].slice(0 , 2);
+        secondPlaceTitle = animeInfosSplit[6].slice(0 , 2);
 
-        if (testAnimeTitle1 == "<p")
+        if (firstPlaceTitle == "<p")
         {
           clearAnimeTitle = animeInfosSplit[5].indexOf('">');
           clearAnimeTitle += 2;
           animeTitle = animeInfosSplit[5].slice(clearAnimeTitle, -4);
         }
-        else if (testAnimeTitle2 == "<p")
+        else if (secondPlaceTitle == "<p")
         {
           clearAnimeTitle = animeInfosSplit[6].indexOf('">');
           clearAnimeTitle += 2;
           animeTitle = animeInfosSplit[6].slice(clearAnimeTitle, -4);
+        }
+        else
+        {
+          console.log("Warning: don't find a title ");
         }
 
         animeInfoList += '\n\t\t{';
@@ -166,25 +178,32 @@ window.addEventListener('DOMContentLoaded', () => {
     animeInfoList += '\n\t]\n}'
     fs.writeFile("./Json/adkamiAnime.json", animeInfoList, function(err, result)
     {
-      if(err) console.log('error', err);
+      if(err)
+        {
+          console.log('error', err);
+        }
+        else
+        {
+          console.log("File adkami Json: A Jour");
+        }
     })
   }
 
-  function anotherTitle()
+  function creatAnotherTitle()
   {
     let myanimelistJsonFile = fs.readFileSync('./Json/myanimelistAnime.json');
-    let objetMyanimelistJson = JSON.parse(myanimelistJsonFile);
-    let myAnimeListJson = objetMyanimelistJson['animeMyanimelist'];
+    let myAnimeListJson = JSON.parse(myanimelistJsonFile);
+    let objetMyanimelistJson = myAnimeListJson['animeMyanimelist'];
     let titleMyanimelist;
     let anotherTitleList = "";
     let titleListSplitAnime = "";
     let titleListSplitTitle = "";
     let titleListAnother = "";
-    let test = "";
+    let anotherTitleJson = "";
 
-    for (let i = 0; i < myAnimeListJson.length; i++)
+    for (let i = 0; i < objetMyanimelistJson.length; i++)
     {
-      titleMyanimelist = myAnimeListJson[i].Title;
+      titleMyanimelist = objetMyanimelistJson[i].Title;
       anotherTitleList += titleMyanimelist;
       anotherTitleList += titleTryOu(titleMyanimelist);
       anotherTitleList += titleJustS(titleMyanimelist);
@@ -193,35 +212,43 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     titleListSplitAnime = anotherTitleList.split("//");
-    test += '{\n\t\t"anotherTitle":[';
+    titleListSplitAnime.pop();
+    anotherTitleJson += '{\n\t\t"anotherTitle":[';
 
     for (let y = 0; y < titleListSplitAnime.length; y++)
     {
       titleListAnother = titleListSplitAnime[y].split("[]");
-      test += '\n\t\t{';
+      anotherTitleJson += '\n\t\t{';
 
       for (let x = 0; x < titleListAnother.length; x++)
       {
-        test += '\n\t\t\t"Title_' + x + '":"' + titleListAnother[x] + '",';
+        anotherTitleJson += '\n\t\t\t"Title_' + x + '":"' + titleListAnother[x] + '",';
       }
-      test = test.slice(0, -1);
-      test += '\n\t\t},';
+      anotherTitleJson = anotherTitleJson.slice(0, -1);
+      anotherTitleJson += '\n\t\t},';
     }
 
-    test = test.slice(0, -1);
-    test += '\n\t]\n}';
+    anotherTitleJson = anotherTitleJson.slice(0, -1);
+    anotherTitleJson += '\n\t]\n}';
 
-    fs.writeFile("./Json/anotherTitle.json", test, function(err, result)
+    fs.writeFile("./Json/anotherTitle.json", anotherTitleJson, function(err, result)
     {
-      if(err) console.log('error', err);
+      if(err)
+        {
+          console.log('error', err);
+        }
+        else
+        {
+          console.log("File anotherTitle Json: A Jour");
+        }
     })
-    console.log("fichier anothername Json:  A Jour");
+
   }
 
   function titleNoDoblePoint(titleMyanimelist)
   {
-    let titleNoDoblePointlist = '';
-    let firstSplit
+    let titleNoDoblePointlist;
+    let firstSplit;
 
     if (titleMyanimelist.indexOf(":") != -1)
     {
@@ -276,12 +303,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function titleTryOu(titleMyanimelist)
   {
-    let nb = numberOfRepetitions(titleMyanimelist, "ou");
+    let nbOFOu = numberOfRepetitions(titleMyanimelist, "ou");
     let titleFromOuToO ='';
     let stockTitle1, stockTitle2, stockTitle3, stockTitle4, stockTitle5, stockTitle6, stockTitle7;
     let stockFirstOu, stockSecondeOu;
 
-    switch (nb)
+    switch (nbOFOu)
     {
       case 0:
         // c'est non
@@ -308,9 +335,9 @@ window.addEventListener('DOMContentLoaded', () => {
         stockTitle2.splice(stockFirstOu + 1, 0, 'u');
 
         for (let i = 0; i < stockTitle2.length; i++)
-        {
-          titleFromOuToO += stockTitle2[i];
-        }
+          {
+            titleFromOuToO += stockTitle2[i];
+          }
 
       break;
 
@@ -329,9 +356,9 @@ window.addEventListener('DOMContentLoaded', () => {
         stockTitle3.splice(stockFirstOu + 1, 0, 'u');
 
         for (let i = 0; i < stockTitle3.length; i++)
-        {
-          titleFromOuToO += stockTitle3[i];
-        }
+          {
+            titleFromOuToO += stockTitle3[i];
+          }
         titleFromOuToO += '[]';
 
         // o o o
@@ -345,9 +372,9 @@ window.addEventListener('DOMContentLoaded', () => {
         stockTitle5.splice(stockFirstOu + 1, 0, 'u');
 
         for (let i = 0; i < stockTitle5.length; i++)
-        {
-          titleFromOuToO += stockTitle5[i];
-        }
+          {
+            titleFromOuToO += stockTitle5[i];
+          }
         titleFromOuToO += '[]';
 
         // o ou o
@@ -358,9 +385,9 @@ window.addEventListener('DOMContentLoaded', () => {
         stockTitle6.splice(stockSecondeOu, 0, 'u');
 
         for (let i = 0; i < stockTitle6.length; i++)
-        {
-          titleFromOuToO += stockTitle6[i];
-        }
+          {
+            titleFromOuToO += stockTitle6[i];
+          }
         titleFromOuToO += '[]';
 
         // ou ou o
@@ -372,22 +399,20 @@ window.addEventListener('DOMContentLoaded', () => {
         stockTitle7.splice(stockSecondeOu + 1 , 0, 'u');
 
         for (let i = 0; i < stockTitle7.length; i++)
-        {
-          titleFromOuToO += stockTitle7[i];
-        }
+          {
+            titleFromOuToO += stockTitle7[i];
+          }
       break;
 
       default:
       console.log("pas pris en compte");
-
     }
-
     return titleFromOuToO;
   }
 
   function numberOfRepetitions(maChaine, recherche)
   {
-   let nb = 0;
+   let nbOFOu = 0;
    let melange;
 
    for (let i = 0; i < maChaine.length; i++)
@@ -396,11 +421,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
      if (melange == recherche)
      {
-       nb++;
+       nbOFOu++;
      }
 
     }
-   return nb;
+   return nbOFOu;
   }
 
   function token_recuperation()
@@ -408,15 +433,18 @@ window.addEventListener('DOMContentLoaded', () => {
     window.open("https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=29fc8b678220461db9399d28c82624e1&code_challenge=NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAEr4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7PEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g&state=testApi1");
   }
 
-  function testMalw(user)
+  function patchMyanimelist(user)
   {
     let url = "https://api.myanimelist.net/v2";
     let request = new XMLHttpRequest();
-    let requestGetWathingList = "/users/"+ user + "/animelist?status=watching";
+    let requestGetWathingList = "/anime/"+ "21" + "/my_list_status";
+    let requestBody = "num_watched_episodes=96&tags=testmaistkt"
 
-    request.open('GET', url + requestGetWathingList);
-    request.responseType = 'json';
-    request.send();
+    request.open('PATCH', url + requestGetWathingList);
+    request.setRequestHeader("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhhZDJlNGE0ODZhMzNmOWM0ODFjZDQzNTE0YjU2Mjc3YjE4YjBmNzcxMTRhNGJiZWRlZjE0ZWViOGM4MzAwZDg0ODhiNTJiNWRkMTdhYTIxIn0.eyJhdWQiOiIyOWZjOGI2NzgyMjA0NjFkYjkzOTlkMjhjODI2MjRlMSIsImp0aSI6IjhhZDJlNGE0ODZhMzNmOWM0ODFjZDQzNTE0YjU2Mjc3YjE4YjBmNzcxMTRhNGJiZWRlZjE0ZWViOGM4MzAwZDg0ODhiNTJiNWRkMTdhYTIxIiwiaWF0IjoxNjIwMDQ4NzIzLCJuYmYiOjE2MjAwNDg3MjMsImV4cCI6MTYyMjcyNzEyMywic3ViIjoiNjg3MDIwNSIsInNjb3BlcyI6W119.afv8icMGWu_bEFikJGIdvlxWa6Kq1GRa8mJA-_VZPvyC-r8imGGvRS3fU7wdtfg6mA0nhMNVmU49KPvgbvz1YkoAiQdpzUXs2AE6_DXAYV0dKZ8QiJW_V_GATZNmna8ZVNy5VlhfqeDgzfC0AGkpNnrm3auWUAmeRW-DJ-Jh47Mwyz02lKdnRvNHhHOrj53CryI-DEr27w4Av3epCz2HkP2VYGsdYsiGXFB-wD0yh7tYsMzKlQqVy3g1tfHiiCugxNLRb7Kk_pHnA8EbY136K0t_56fvw_zH8TrdkgaacLWsX8Swi-oy89jjKTgsPWdey6dlwj7JszFe4kXt1ph3GA")
+    // request.responseType = 'json';
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(requestBody);
 
     request.onload = function()
     {

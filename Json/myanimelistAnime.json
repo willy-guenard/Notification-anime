@@ -7,12 +7,12 @@
 			"Total_episodes":24,
 			"status":"Release",
 			"Type":"TV",
-			"Tags":"ratraper epsidode 1, regarder avec flo"
+			"Tags":"null"
 		},
 		{
 			"Mal_id":41587,
 			"Title":"Boku no Hero Academia 5th Season",
-			"Watched_episodes":5,
+			"Watched_episodes":6,
 			"Total_episodes":25,
 			"status":"Airing",
 			"Type":"TV",
@@ -21,7 +21,7 @@
 		{
 			"Mal_id":42938,
 			"Title":"Fruits Basket: The Final",
-			"Watched_episodes":4,
+			"Watched_episodes":5,
 			"Total_episodes":0,
 			"status":"Airing",
 			"Type":"TV",
@@ -30,7 +30,7 @@
 		{
 			"Mal_id":41025,
 			"Title":"Fumetsu no Anata e",
-			"Watched_episodes":3,
+			"Watched_episodes":4,
 			"Total_episodes":20,
 			"status":"Airing",
 			"Type":"TV",
@@ -39,7 +39,7 @@
 		{
 			"Mal_id":40938,
 			"Title":"Hige wo Soru. Soshite Joshikousei wo Hirou.",
-			"Watched_episodes":0,
+			"Watched_episodes":2,
 			"Total_episodes":13,
 			"status":"Airing",
 			"Type":"TV",
@@ -48,7 +48,7 @@
 		{
 			"Mal_id":42361,
 			"Title":"Ijiranaide, Nagatoro-san",
-			"Watched_episodes":1,
+			"Watched_episodes":3,
 			"Total_episodes":12,
 			"status":"Airing",
 			"Type":"TV",
@@ -57,7 +57,7 @@
 		{
 			"Mal_id":41623,
 			"Title":"Isekai Maou to Shoukan Shoujo no Dorei Majutsu Ω",
-			"Watched_episodes":3,
+			"Watched_episodes":4,
 			"Total_episodes":10,
 			"status":"Airing",
 			"Type":"TV",
@@ -93,7 +93,7 @@
 		{
 			"Mal_id":42590,
 			"Title":"Mashiro no Oto",
-			"Watched_episodes":4,
+			"Watched_episodes":5,
 			"Total_episodes":12,
 			"status":"Airing",
 			"Type":"TV",
@@ -111,11 +111,20 @@
 		{
 			"Mal_id":40729,
 			"Title":"Nomad: Megalo Box 2",
-			"Watched_episodes":4,
+			"Watched_episodes":5,
 			"Total_episodes":13,
 			"status":"Airing",
 			"Type":"TV",
 			"Tags":"max"
+		},
+		{
+			"Mal_id":21,
+			"Title":"One Piece",
+			"Watched_episodes":94,
+			"Total_episodes":0,
+			"status":"Airing",
+			"Type":"TV",
+			"Tags":"null"
 		},
 		{
 			"Mal_id":40586,
@@ -134,15 +143,6 @@
 			"status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
-		},
-		{
-			"Mal_id":41392,
-			"Title":"Urasekai Picnic",
-			"Watched_episodes":9,
-			"Total_episodes":12,
-			"status":"Release",
-			"Type":"TV",
-			"Tags":"mehdi"
 		},
 		{
 			"Mal_id":43299,
@@ -165,7 +165,7 @@
 		{
 			"Mal_id":43325,
 			"Title":"Yuukoku no Moriarty 2nd Season",
-			"Watched_episodes":4,
+			"Watched_episodes":5,
 			"Total_episodes":13,
 			"status":"Airing",
 			"Type":"TV",
