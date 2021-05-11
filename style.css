@@ -1,11 +1,11 @@
 body
 {
-  background-color:#282C34;
+  background-color:gray;/*#282C34*/
   -moz-user-select: none; /* Firefox */
   -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
   -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
   user-select: none; /* Propriété standard */
-  color: white;
+  color: black;
 }
 
 a
@@ -15,7 +15,70 @@ a
   cursor: pointer;
 }
 
+h3
+{
+  position: relative;
+  top: -8px;
+  left: 60px;
+  /* border: 2px solid yellow; */
+}
+
+img
+{
+  max-width:100%;
+  max-height:200px;
+  border-radius:4px;
+}
+
+#agenda
+{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 1200px;
+  height: 500px;
+  border: 2px dashed white;
+}
+
+#legende
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 1200px;
+  height: 75px;
+  border: 2px dashed red;
+}
+
+.colone
+{
+  border: 2px dashed blue;
+}
+
+#lundi
+{
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  width: 175px;
+  height: 200px;
+
+}
+
+.anime1
+{
+  height: 58px;
+  border: 2px dashed white;
+}
+
+/* .infosanime1
+{
+  position: absolute;
+  border-radius:4px;
+  border: 2px dashed orange;
+}
+
 .episode
 {
   font-size: .9m;
-}
+} */
