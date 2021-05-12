@@ -1,6 +1,6 @@
 body
 {
-  background-color:gray;/*#282C34*/
+  background-color: gray ;/*#282C34 gray*/
   -moz-user-select: none; /* Firefox */
   -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
   -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
@@ -17,10 +17,13 @@ a
 
 h3
 {
-  position: relative;
-  top: -8px;
-  left: 60px;
-  /* border: 2px solid yellow; */
+  color: white;
+  font-size: 1.3em;
+  background-color: #202020;
+  text-align: center;
+  border-radius: 3px;
+  margin: 5px 5px 11px;
+  padding: 8px;
 }
 
 img
@@ -35,7 +38,7 @@ img
   position: absolute;
   top: 10px;
   left: 10px;
-  width: 1200px;
+  width: 1228px;
   height: 500px;
   border: 2px dashed white;
 }
@@ -45,40 +48,99 @@ img
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 1200px;
+  width: 1225px;
   height: 75px;
   border: 2px dashed red;
 }
 
 .colone
 {
+  position: absolute;
+  top: 80px;
+  width: 175px;
   border: 2px dashed blue;
+}
+
+.backgroundTitle
+{
+  position: relative;
+  top: 0px;
+  width: 100px;
+  border: 2px dashed orange;
 }
 
 #lundi
 {
-  position: absolute;
-  top: 80px;
   left: 0px;
-  width: 175px;
   height: 200px;
+}
 
+#mardi
+{
+  left: 175px;
+  height: 200px;
+}
+
+#mercredi
+{
+  left: 350px;
+  height: 200px;
+}
+
+#jeudi
+{
+  left: 525px;
+  height: 200px;
+}
+
+#vendredi
+{
+  left: 700px;
+  height: 200px;
+}
+
+#samedi
+{
+  left: 875px;
+  height: 200px;
+}
+
+#dimanche
+{
+  left: 1050px;
+  height: 200px;
 }
 
 .anime1
 {
+  position: absolute;
   height: 58px;
   border: 2px dashed white;
 }
 
-/* .infosanime1
+.infosanime1
 {
   position: absolute;
-  border-radius:4px;
+  bottom: 0px;
+  height: 25px;
+  background: linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.52) 27%,rgba(0,0,0,.8));
+  text-align: center;
+  padding: 10px 3px 6px;
   border: 2px dashed orange;
+}
+
+.time
+{
+  font-weight: bolder;
 }
 
 .episode
 {
-  font-size: .9m;
-} */
+  font-size: .9em;
+  font-weight: bolder;
+}
+
+.title
+{
+    font-size: .9em;
+}
