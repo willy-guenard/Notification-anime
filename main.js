@@ -7,8 +7,8 @@ const path = require('path')
 app.whenReady().then(() => {
 
   const mainWindow = new BrowserWindow({
-    width: 300,
-    height: 200,
+    width: 1530,
+    height: 650,
     // maxWidth: 800,
     // minWidth: 800,
     // maxHeight: 600,
@@ -18,7 +18,7 @@ app.whenReady().then(() => {
       contextIsolation: true
     }
   })
-  
+
     // charger l'index de la page et enlever le Menu
     mainWindow.removeMenu();
     mainWindow.loadFile('index.html');
