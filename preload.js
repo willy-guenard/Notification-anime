@@ -7,10 +7,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const butonRefresh = document.querySelector("#butonRefresh");
   const tokenMal = document.querySelector("#tokenMal");
   const patchMal = document.querySelector("#patchMal");
+  const butShowAnimeAgenda = document.querySelector("#showAgenda")
 
-  butonRefresh.addEventListener('click', function(){refreshAnime()});
-  tokenMal.addEventListener('click', function(){token_recuperation()});
-  patchMal.addEventListener('click', function(){patchMyanimelist(21, 107, 1000 , 8)});
+  // butonRefresh.addEventListener('click', function(){refreshAnime()});
+  // tokenMal.addEventListener('click', function(){token_recuperation()});
+  // patchMal.addEventListener('click', function(){patchMyanimelist(21, 107, 1000 , 8)});
+  butShowAnimeAgenda.addEventListener('click', function(){showAnimeAgenda()})
 
   function refreshAnime()
   {
@@ -459,6 +461,52 @@ window.addEventListener('DOMContentLoaded', () => {
     request.send(requestBody);
 
      console.log("anime update");
+  }
+
+  function showAnimeAgenda()
+  {
+    let dimanche = document.querySelector("#dimanche");
+    let sortie = document.querySelector("#sortie");
+
+    let aHref = "http://www.mavanimes.co/mairimashita-iruma-kun-saison-2-01-vostfr/";
+    let imgSrc = "https://image.adkami.com/mini/3595.jpg?1570277882";
+    let horraire = "ʕ•ᴥ•ʔ";
+    let pEpisode = "Episode 1";
+    let pTitle = "Mairimashita! Iruma-kun S2";
+
+    newAnime(sortie, aHref, imgSrc, horraire, pEpisode, pTitle);
+    newAnime(sortie, aHref, imgSrc, horraire, pEpisode+1, pTitle);
+  }
+
+  function newAnime(sortie, aHref, imgSrc, horraire, pEpisode, pTitle)
+  {
+    let lien = document.createElement('a');
+    let divAnime = document.createElement('div');
+    let image = document.createElement('img');
+    let heure = document.createElement('span');
+    let divInfosclass = document.createElement('div');
+    let episode = document.createElement('p');
+    let title = document.createElement('p');
+
+    lien.href = aHref;
+    divAnime.className = "anime";
+    image.src = imgSrc;
+    heure.className = "time";
+    heure.textContent = horraire;
+    divInfosclass.className = "infosanime";
+    episode.className = "episode";
+    episode.textContent = pEpisode;
+    title.className = "title";
+    title.textContent = pTitle;
+
+    sortie.appendChild(lien);
+    lien.appendChild(divAnime);
+    divAnime.appendChild(image);
+    divAnime.appendChild(heure);
+    divAnime.appendChild(divInfosclass);
+    divInfosclass.appendChild(episode);
+    divInfosclass.appendChild(title);
+
   }
 
 })
