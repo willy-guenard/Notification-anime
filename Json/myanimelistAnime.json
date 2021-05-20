@@ -5,16 +5,16 @@
 			"Title":"Akatsuki no Yona",
 			"Watched_episodes":1,
 			"Total_episodes":24,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"null"
 		},
 		{
 			"Mal_id":41587,
 			"Title":"Boku no Hero Academia 5th Season",
-			"Watched_episodes":6,
+			"Watched_episodes":7,
 			"Total_episodes":25,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
 		},
@@ -22,8 +22,8 @@
 			"Mal_id":42938,
 			"Title":"Fruits Basket: The Final",
 			"Watched_episodes":5,
-			"Total_episodes":0,
-			"status":"Airing",
+			"Total_episodes":13,
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
 		},
@@ -32,7 +32,7 @@
 			"Title":"Fumetsu no Anata e",
 			"Watched_episodes":5,
 			"Total_episodes":20,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
@@ -41,34 +41,34 @@
 			"Title":"Hige wo Soru. Soshite Joshikousei wo Hirou.",
 			"Watched_episodes":6,
 			"Total_episodes":13,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
 		{
 			"Mal_id":42361,
 			"Title":"Ijiranaide, Nagatoro-san",
-			"Watched_episodes":4,
+			"Watched_episodes":5,
 			"Total_episodes":12,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
 		{
 			"Mal_id":41623,
 			"Title":"Isekai Maou to Shoukan Shoujo no Dorei Majutsu Ω",
-			"Watched_episodes":5,
+			"Watched_episodes":6,
 			"Total_episodes":10,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
 		{
 			"Mal_id":37984,
 			"Title":"Kumo Desu ga, Nani ka?",
-			"Watched_episodes":17,
+			"Watched_episodes":18,
 			"Total_episodes":24,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
@@ -77,7 +77,7 @@
 			"Title":"Kuro Gal ni Natta kara Shinyuu to shitemita.",
 			"Watched_episodes":3,
 			"Total_episodes":8,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
 		},
@@ -86,25 +86,25 @@
 			"Title":"Mairimashita! Iruma-kun 2nd Season",
 			"Watched_episodes":0,
 			"Total_episodes":21,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
 		{
 			"Mal_id":42590,
 			"Title":"Mashiro no Oto",
-			"Watched_episodes":6,
+			"Watched_episodes":7,
 			"Total_episodes":12,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
 		},
 		{
 			"Mal_id":48590,
 			"Title":"Mini Dragon",
-			"Watched_episodes":5,
+			"Watched_episodes":6,
 			"Total_episodes":0,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"ONA",
 			"Tags":"null"
 		},
@@ -113,43 +113,43 @@
 			"Title":"Nanatsu no Taizai: Fundo no Shinpan",
 			"Watched_episodes":14,
 			"Total_episodes":24,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
 		},
 		{
 			"Mal_id":40729,
 			"Title":"Nomad: Megalo Box 2",
-			"Watched_episodes":5,
+			"Watched_episodes":7,
 			"Total_episodes":13,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"max"
 		},
 		{
 			"Mal_id":21,
 			"Title":"One Piece",
-			"Watched_episodes":222,
+			"Watched_episodes":521,
 			"Total_episodes":0,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
 		},
 		{
 			"Mal_id":40586,
 			"Title":"Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita",
-			"Watched_episodes":4,
+			"Watched_episodes":6,
 			"Total_episodes":12,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
 		{
 			"Mal_id":41488,
 			"Title":"Tensura Nikki: Tensei shitara Slime Datta Ken",
-			"Watched_episodes":3,
+			"Watched_episodes":7,
 			"Total_episodes":12,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
 		},
@@ -158,7 +158,7 @@
 			"Title":"Wonder Egg Priority",
 			"Watched_episodes":0,
 			"Total_episodes":12,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"null"
 		},
@@ -167,25 +167,25 @@
 			"Title":"Yuru Camp△ Season 2",
 			"Watched_episodes":3,
 			"Total_episodes":13,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"masha"
 		},
 		{
 			"Mal_id":43325,
 			"Title":"Yuukoku no Moriarty 2nd Season",
-			"Watched_episodes":6,
+			"Watched_episodes":7,
 			"Total_episodes":13,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
 		{
 			"Mal_id":40174,
 			"Title":"Zombieland Saga: Revenge",
-			"Watched_episodes":5,
+			"Watched_episodes":6,
 			"Total_episodes":12,
-			"status":"Airing",
+			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
@@ -194,7 +194,7 @@
 			"Title":"Given",
 			"Watched_episodes":0,
 			"Total_episodes":11,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
@@ -203,7 +203,7 @@
 			"Title":"Ookami to Koushinryou",
 			"Watched_episodes":0,
 			"Total_episodes":13,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
@@ -212,7 +212,7 @@
 			"Title":"Overlord",
 			"Watched_episodes":0,
 			"Total_episodes":13,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
@@ -221,7 +221,7 @@
 			"Title":"Tanaka-kun wa Itsumo Kedaruge",
 			"Watched_episodes":0,
 			"Total_episodes":12,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
@@ -230,7 +230,7 @@
 			"Title":"Violet Evergarden",
 			"Watched_episodes":0,
 			"Total_episodes":13,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
@@ -239,7 +239,7 @@
 			"Title":"Zankyou no Terror",
 			"Watched_episodes":0,
 			"Total_episodes":11,
-			"status":"Release",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"mehdi"
 		}

@@ -9,16 +9,18 @@ window.addEventListener('DOMContentLoaded', () => {
   const patchMal = document.querySelector("#patchMal");
   const butShowAnimeAgenda = document.querySelector("#showAgenda")
 
-  // butonRefresh.addEventListener('click', function(){refreshAnime()});
+  butonRefresh.addEventListener('click', function(){creatAnotherTitle()});
   // tokenMal.addEventListener('click', function(){token_recuperation()});
   // patchMal.addEventListener('click', function(){patchMyanimelist(21, 107, 1000 , 8)});
-  butShowAnimeAgenda.addEventListener('click', function(){showAnimeAgenda()})
+  butShowAnimeAgenda.addEventListener('click', function(){creatAgendaAnime()})
 
   function refreshAnime()
   {
     getAnimeCurrentlyWatching("cheark");
     getAnimeAgendaAdkami();
     creatAnotherTitle();
+    // creatAgendaAnime();
+    // showAnimeAgenda();
   }
 
   function getAnimeCurrentlyWatching(user)
@@ -57,11 +59,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (statusAnime == null)
       {
-        json_watching_anime += ',\n\t\t\t"status":"' + "Airing";
+        json_watching_anime += ',\n\t\t\t"Status":"' + "Airing";
       }
       else
       {
-        json_watching_anime += ',\n\t\t\t"status":"' + "Release";
+        json_watching_anime += ',\n\t\t\t"Status":"' + "Release";
       }
 
       json_watching_anime += '",\n\t\t\t"Type":"' + animelist[i].type;
@@ -196,17 +198,18 @@ window.addEventListener('DOMContentLoaded', () => {
     let myanimelistJsonFile = fs.readFileSync('./Json/myanimelistAnime.json');
     let myAnimeListJson = JSON.parse(myanimelistJsonFile);
     let objetMyanimelistJson = myAnimeListJson['animeMyanimelist'];
-    let titleMyanimelist;
+    let titleMyanimelist ;
     let anotherTitleList = "";
     let titleListSplitAnime = "";
     let titleListSplitTitle = "";
     let titleListAnother = "";
-    let anotherTitleJson = "";
+    let anotherTitleJson = "{";
+    let teststock = "";
 
     for (let i = 0; i < objetMyanimelistJson.length; i++)
     {
       titleMyanimelist = objetMyanimelistJson[i].Title;
-      anotherTitleList += titleMyanimelist;
+      teststock += titleMyanimelist + "//";
       anotherTitleList += titleTryOu(titleMyanimelist);
       anotherTitleList += titleJustS(titleMyanimelist);
       anotherTitleList += titleNoDoblePoint(titleMyanimelist);
@@ -215,23 +218,32 @@ window.addEventListener('DOMContentLoaded', () => {
 
     titleListSplitAnime = anotherTitleList.split("//");
     titleListSplitAnime.pop();
-    anotherTitleJson += '{\n\t\t"anotherTitle":[';
+    teststock = teststock.split("//");
+
 
     for (let y = 0; y < titleListSplitAnime.length; y++)
     {
       titleListAnother = titleListSplitAnime[y].split("[]");
-      anotherTitleJson += '\n\t\t{';
+      anotherTitleJson += '\n\t"' + teststock[y] + '": [';
 
       for (let x = 0; x < titleListAnother.length; x++)
       {
-        anotherTitleJson += '\n\t\t\t"Title_' + x + '":"' + titleListAnother[x] + '",';
+
+        if (titleListAnother[x] != "")
+        {
+          anotherTitleJson += '\n\t\t"' + titleListAnother[x] + '",';
+        }
+        else if (titleListAnother.length == 1)
+        {
+          anotherTitleJson += '\n\t"" ';
+        }
       }
       anotherTitleJson = anotherTitleJson.slice(0, -1);
-      anotherTitleJson += '\n\t\t},';
+      anotherTitleJson += '\n\t],';
     }
 
     anotherTitleJson = anotherTitleJson.slice(0, -1);
-    anotherTitleJson += '\n\t]\n}';
+    anotherTitleJson += '\n}';
 
     fs.writeFile("./Json/anotherTitle.json", anotherTitleJson, function(err, result)
     {
@@ -257,6 +269,10 @@ window.addEventListener('DOMContentLoaded', () => {
       titleNoDoblePointlist = '[]' + titleMyanimelist.replace(":", "");
       firstSplit = titleMyanimelist.split(":");
       titleNoDoblePointlist += '[]' + firstSplit[0];
+    }
+    else
+    {
+      titleNoDoblePointlist = "";
     }
 
     return titleNoDoblePointlist;
@@ -428,6 +444,85 @@ window.addEventListener('DOMContentLoaded', () => {
 
     }
    return nbOFOu;
+  }
+
+  function creatAgendaAnime()
+  {
+    let myanimelistFile = fs.readFileSync('./Json/myanimelistAnime.json');
+    let myanimelistJson = JSON.parse(myanimelistFile);
+    let objectMyanimelistJson = myanimelistJson['animeMyanimelist'];
+    let animeAgendaJson = "";
+
+    for (let i = 0; i < objectMyanimelistJson.length; i++)
+    {
+      if(objectMyanimelistJson[i].Status == "Airing") // anime en cour
+      {
+        animeAgendaJson = getAnimeAiring(objectMyanimelistJson[i]);
+      }
+      else if (objectMyanimelistJson[i].Status == "Release") // anime fini de sortire
+      {
+        animeAgendaJson = getAnimeRelease(objectMyanimelistJson[i]);
+      }
+      else // anime pas encore sortie
+      {
+        console.log(objectMyanimelistJson[i].Title + " pas encore sortie");
+      }
+    }
+
+  }
+
+  function getAnimeAiring(animeArray)
+  {
+    let animeStock = "";
+    linkMyanimelistAdkami(animeArray.Title);
+
+    animeStock += '"\t\tMal_id":' + animeArray.Mal_id;
+    animeStock += ',\n\t\t"Title":"' + animeArray.Title;
+    animeStock += '",\n\t\t"last_watched_episodes":' + animeArray.Watched_episodes;
+    animeStock += ',\n\t\t"total_number_episodes":' + animeArray.Total_episodes;
+    animeStock += ',\n\t\t"Type":"' + animeArray.Type;
+    animeStock += '",\n\t\t"Tags":"' + animeArray.Tags;
+    animeStock += '"\n\t},';
+
+    // console.log(animeStock);
+  }
+
+  function getAnimeRelease(animeArray)
+  {
+    // console.log("Sortie: " + animeArray.Title);
+  }
+
+  function linkMyanimelistAdkami(tiltle)
+  {
+    let adkamiFile = fs.readFileSync('./Json/adkamiAnime.json');
+    let adkamiJson = JSON.parse(adkamiFile);
+    let objectAdkamiJson = adkamiJson['animeAdkami'];
+
+    let anotherTitleFile = fs.readFileSync('./Json/anotherTitle.json');
+    let anotherTitleJson = JSON.parse(anotherTitleFile);
+    let objectAnotherTitleJson = anotherTitleJson[tiltle];
+    let test = objectAnotherTitleJson[0];
+    let test2 = Object.keys(test);
+    let stockanime = "";
+
+    // for (let y = 0; y < test2.length; y++)
+    // {
+    //   stockanime += test2[y] + "\n";
+    // }
+
+    console.log(objectAnotherTitleJson);
+
+    for (let i = 0; i < objectAdkamiJson.length; i++)
+    {
+      if (objectAdkamiJson[i].Title == tiltle)
+      {
+        // console.log(objectAdkamiJson[i].Title);
+        // console.log(objectAdkamiJson[i].Episode);
+        // console.log(objectAdkamiJson[i].Day);
+      }
+    }
+
+
   }
 
   function token_recuperation()

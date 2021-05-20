@@ -1,109 +1,98 @@
 {
-		"anotherTitle":[
-		{
-			"Title_0":"Akatsuki no Yonaundefined"
-		},
-		{
-			"Title_0":"Boku no Hero Academia 5th Season",
-			"Title_1":"Boku no Hero Academia S5undefined"
-		},
-		{
-			"Title_0":"Fruits Basket: The Final",
-			"Title_1":"Fruits Basket The Final",
-			"Title_2":"Fruits Basket"
-		},
-		{
-			"Title_0":"Fumetsu no Anata eundefined"
-		},
-		{
-			"Title_0":"Hige wo Soru. Soshite Joshikousei wo Hirou.",
-			"Title_1":"Hige wo Soru. Soshite Joshikosei wo Hirou.",
-			"Title_2":"Hige wo Soru. Soshite Joshikosei wo Hiro.",
-			"Title_3":"Hige wo Soru. Soshite Joshikousei wo Hiro.undefined"
-		},
-		{
-			"Title_0":"Ijiranaide, Nagatoro-sanundefined"
-		},
-		{
-			"Title_0":"Isekai Maou to Shoukan Shoujo no Dorei Majutsu Ω",
-			"Title_1":"Isekai Mao to Shoukan Shoujo no Dorei Majutsu Ω",
-			"Title_2":"Isekai Mao to Shokan Shoujo no Dorei Majutsu Ω",
-			"Title_3":"Isekai Maou to Shokan Shoujo no Dorei Majutsu Ω",
-			"Title_4":"Isekai Mao to Shokan Shojo no Dorei Majutsu Ω",
-			"Title_5":"Isekai Maou to Shokan Shojo no Dorei Majutsu Ω",
-			"Title_6":"Isekai Mao to Shoukan Shojo no Dorei Majutsu Ω",
-			"Title_7":"Isekai Maou to Shoukan Shojo no Dorei Majutsu Ωundefined"
-		},
-		{
-			"Title_0":"Kumo Desu ga, Nani ka?undefined"
-		},
-		{
-			"Title_0":"Kuro Gal ni Natta kara Shinyuu to shitemita.undefined"
-		},
-		{
-			"Title_0":"Mairimashita! Iruma-kun 2nd Season",
-			"Title_1":"Mairimashita! Iruma-kun S2undefined"
-		},
-		{
-			"Title_0":"Mashiro no Otoundefined"
-		},
-		{
-			"Title_0":"Nanatsu no Taizai: Fundo no Shinpan",
-			"Title_1":"Nanatsu no Taizai Fundo no Shinpan",
-			"Title_2":"Nanatsu no Taizai"
-		},
-		{
-			"Title_0":"Nomad: Megalo Box 2",
-			"Title_1":"Nomad Megalo Box 2",
-			"Title_2":"Nomad"
-		},
-		{
-			"Title_0":"One Pieceundefined"
-		},
-		{
-			"Title_0":"Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashitaundefined"
-		},
-		{
-			"Title_0":"Tensura Nikki: Tensei shitara Slime Datta Ken",
-			"Title_1":"Tensura Nikki Tensei shitara Slime Datta Ken",
-			"Title_2":"Tensura Nikki"
-		},
-		{
-			"Title_0":"Wonder Egg Priorityundefined"
-		},
-		{
-			"Title_0":"Yuru Camp△ Season 2undefined"
-		},
-		{
-			"Title_0":"Yuukoku no Moriarty 2nd Season",
-			"Title_1":"Yuukoku no Moriarty S2undefined"
-		},
-		{
-			"Title_0":"Zombieland Saga: Revenge",
-			"Title_1":"Zombieland Saga Revenge",
-			"Title_2":"Zombieland Saga"
-		},
-		{
-			"Title_0":"Givenundefined"
-		},
-		{
-			"Title_0":"Ookami to Koushinryou",
-			"Title_1":"Ookami to Koshinryou",
-			"Title_2":"Ookami to Koshinryo",
-			"Title_3":"Ookami to Koushinryoundefined"
-		},
-		{
-			"Title_0":"Overlordundefined"
-		},
-		{
-			"Title_0":"Tanaka-kun wa Itsumo Kedarugeundefined"
-		},
-		{
-			"Title_0":"Violet Evergardenundefined"
-		},
-		{
-			"Title_0":"Zankyou no Terror",
-			"Title_1":"Zankyo no Terrorundefined"
-		}
+	"Akatsuki no Yona": [
+	""
+	],
+	"Boku no Hero Academia 5th Season": [
+		"Boku no Hero Academia S5"
+	],
+	"Fruits Basket: The Final": [
+		"Fruits Basket The Final",
+		"Fruits Basket"
+	],
+	"Fumetsu no Anata e": [
+	""
+	],
+	"Hige wo Soru. Soshite Joshikousei wo Hirou.": [
+		"Hige wo Soru. Soshite Joshikosei wo Hirou.",
+		"Hige wo Soru. Soshite Joshikosei wo Hiro.",
+		"Hige wo Soru. Soshite Joshikousei wo Hiro."
+	],
+	"Ijiranaide, Nagatoro-san": [
+	""
+	],
+	"Isekai Maou to Shoukan Shoujo no Dorei Majutsu Ω": [
+		"Isekai Mao to Shoukan Shoujo no Dorei Majutsu Ω",
+		"Isekai Mao to Shokan Shoujo no Dorei Majutsu Ω",
+		"Isekai Maou to Shokan Shoujo no Dorei Majutsu Ω",
+		"Isekai Mao to Shokan Shojo no Dorei Majutsu Ω",
+		"Isekai Maou to Shokan Shojo no Dorei Majutsu Ω",
+		"Isekai Mao to Shoukan Shojo no Dorei Majutsu Ω",
+		"Isekai Maou to Shoukan Shojo no Dorei Majutsu Ω"
+	],
+	"Kumo Desu ga, Nani ka?": [
+	""
+	],
+	"Kuro Gal ni Natta kara Shinyuu to shitemita.": [
+	""
+	],
+	"Mairimashita! Iruma-kun 2nd Season": [
+		"Mairimashita! Iruma-kun S2"
+	],
+	"Mashiro no Oto": [
+	""
+	],
+	"Mini Dragon": [
+	""
+	],
+	"Nanatsu no Taizai: Fundo no Shinpan": [
+		"Nanatsu no Taizai Fundo no Shinpan",
+		"Nanatsu no Taizai"
+	],
+	"Nomad: Megalo Box 2": [
+		"Nomad Megalo Box 2",
+		"Nomad"
+	],
+	"One Piece": [
+	""
+	],
+	"Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita": [
+	""
+	],
+	"Tensura Nikki: Tensei shitara Slime Datta Ken": [
+		"Tensura Nikki Tensei shitara Slime Datta Ken",
+		"Tensura Nikki"
+	],
+	"Wonder Egg Priority": [
+	""
+	],
+	"Yuru Camp△ Season 2": [
+	""
+	],
+	"Yuukoku no Moriarty 2nd Season": [
+		"Yuukoku no Moriarty S2"
+	],
+	"Zombieland Saga: Revenge": [
+		"Zombieland Saga Revenge",
+		"Zombieland Saga"
+	],
+	"Given": [
+	""
+	],
+	"Ookami to Koushinryou": [
+		"Ookami to Koshinryou",
+		"Ookami to Koshinryo",
+		"Ookami to Koushinryo"
+	],
+	"Overlord": [
+	""
+	],
+	"Tanaka-kun wa Itsumo Kedaruge": [
+	""
+	],
+	"Violet Evergarden": [
+	""
+	],
+	"Zankyou no Terror": [
+		"Zankyo no Terror"
 	]
 }

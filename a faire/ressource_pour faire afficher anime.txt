@@ -1,0 +1,14 @@
+information pour faire afficher les animes:
+
+        - Title
+        - heure de sortie
+        - image anime
+        - dernier episode sortie
+        - jour de sortie
+        - status de l'anime
+        - type anime (si pas de tag class="notags")
+        - tags
+        - lien episode
+        - dernier episode regarder
+        - nombre total episode
+        - voice

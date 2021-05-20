@@ -2,7 +2,7 @@
 		"animeAdkami":[
 		{
 			"Title":"Detective Conan",
-			"Episode":1005,
+			"Episode":1006,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/7.jpg",
@@ -11,7 +11,7 @@
 		},
 		{
 			"Title":"Koi to Yobu ni wa Kimochi Warui",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4119.jpg?1617045817",
@@ -20,7 +20,7 @@
 		},
 		{
 			"Title":"Yakunara Mug Cup Mo",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4127.jpg?1617356031",
@@ -28,8 +28,17 @@
 			"Day":"Lundi"
 		},
 		{
+			"Title":"Yakunara Mug Cup Mo",
+			"Episode":7,
+			"Type episode":"Spécial",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/4127.jpg?1617356031",
+			"Hours":"16:30",
+			"Day":"Lundi"
+		},
+		{
 			"Title":"Hige wo Soru. Soshite Joshikosei wo Hirou.",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4139.jpg?1617609146",
@@ -38,7 +47,7 @@
 		},
 		{
 			"Title":"Itazuraguma no Gloomy",
-			"Episode":5,
+			"Episode":6,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4163.jpg?1618246048",
@@ -47,7 +56,7 @@
 		},
 		{
 			"Title":"Fumetsu no Anata e",
-			"Episode":5,
+			"Episode":6,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4162.jpg?1618224842",
@@ -56,7 +65,7 @@
 		},
 		{
 			"Title":"Fruits Basket (2019) S3",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3339.jpg?1554485002",
@@ -65,7 +74,7 @@
 		},
 		{
 			"Title":"MARS RED",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4118.jpg?1617005561",
@@ -74,7 +83,7 @@
 		},
 		{
 			"Title":"Odd Taxi",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4140.jpg?1617714043",
@@ -83,7 +92,7 @@
 		},
 		{
 			"Title":"Tensura Nikki Tensei Shitara Slime Datta Ken",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4142.jpg?1617715197",
@@ -92,7 +101,7 @@
 		},
 		{
 			"Title":"Seijo no Maryoku wa Bannou desu",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4141.jpg?1617714705",
@@ -101,7 +110,7 @@
 		},
 		{
 			"Title":"Jouran : The Princess of Snow and Blood",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4121.jpg?1617097355",
@@ -110,7 +119,7 @@
 		},
 		{
 			"Title":"Kobayashi-san Chi no Maid Dragon S2",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Spécial",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/2009.jpg?=1484121509",
@@ -119,7 +128,7 @@
 		},
 		{
 			"Title":"Osananajimi ga Zettai ni Makenai Love Comedy",
-			"Episode":5,
+			"Episode":6,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4164.jpg?1618380944",
@@ -128,7 +137,7 @@
 		},
 		{
 			"Title":"Kyuukyoku Shinka shita Full Dive RPG ga Genjitsu yori mo Kusoge Dattara",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4143.jpg?1617797187",
@@ -137,7 +146,7 @@
 		},
 		{
 			"Title":"Super Cub",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4144.jpg?1617797505",
@@ -146,7 +155,7 @@
 		},
 		{
 			"Title":"Hetalia : Axis Powers S5",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/814.jpg",
@@ -155,7 +164,7 @@
 		},
 		{
 			"Title":"Cestvs : The Roman Fighter",
-			"Episode":5,
+			"Episode":6,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4165.jpg?1618427915",
@@ -163,8 +172,17 @@
 			"Day":"Mercredi"
 		},
 		{
-			"Title":"Cestvs : The Roman Fighter",
-			"Episode":6,
+			"Title":"Maiko-san Chi no Makanai-san",
+			"Episode":4,
+			"Type episode":"Episode",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/4078.jpg?1614275739",
+			"Hours":"03:00",
+			"Day":"Jeudi"
+		},
+		{
+			"Title":"SD Gundam World Heroes",
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4145.jpg?1617888247",
@@ -173,7 +191,7 @@
 		},
 		{
 			"Title":"Nanatsu no Taizai S4",
-			"Episode":18,
+			"Episode":19,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/1267.jpg?1515594987",
@@ -182,7 +200,7 @@
 		},
 		{
 			"Title":"Fairy Ranmaru : Anata no Kokoro Otasuke Shimasu",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4146.jpg?1617896579",
@@ -191,7 +209,7 @@
 		},
 		{
 			"Title":"Zombieland Saga S2",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3080.jpg?1538667893",
@@ -200,7 +218,7 @@
 		},
 		{
 			"Title":"Bakuten!!",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4147.jpg?1617907751",
@@ -209,7 +227,7 @@
 		},
 		{
 			"Title":"Isekai Maou to Shoukan Shoujo no Dorei Majutsu S2",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/2954.jpg?1530798794",
@@ -218,7 +236,7 @@
 		},
 		{
 			"Title":"Shaman King (2021)",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4123.jpg?1617313065",
@@ -226,17 +244,8 @@
 			"Day":"Jeudi"
 		},
 		{
-			"Title":"Ore dake Haireru Kakushi Dungeon",
-			"Episode":12,
-			"Type episode":"Episode",
-			"Voice":"vf",
-			"Picture":"https://image.adkami.com/mini/4035.jpg?1610098943",
-			"Hours":"12:00",
-			"Day":"Vendredi"
-		},
-		{
 			"Title":"Kumo Desu ga, Nani ka?",
-			"Episode":18,
+			"Episode":19,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4036.jpg?1610099412",
@@ -245,7 +254,7 @@
 		},
 		{
 			"Title":"SSSS.Dynazenon",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4124.jpg?1617354700",
@@ -254,7 +263,7 @@
 		},
 		{
 			"Title":"Back Arrow",
-			"Episode":19,
+			"Episode":20,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4033.jpg?1610098260",
@@ -263,7 +272,7 @@
 		},
 		{
 			"Title":"Shakunetsu Kabaddi",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4125.jpg?1617355395",
@@ -272,7 +281,7 @@
 		},
 		{
 			"Title":"Subarashiki Kono Sekai the Animation",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4151.jpg?1617973804",
@@ -281,7 +290,7 @@
 		},
 		{
 			"Title":"Blue Reflection Ray",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4152.jpg?1617974153",
@@ -290,7 +299,7 @@
 		},
 		{
 			"Title":"Mashiro no Oto",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4126.jpg?1617355769",
@@ -298,17 +307,8 @@
 			"Day":"Vendredi"
 		},
 		{
-			"Title":"Jujutsu Kaisen",
-			"Episode":24,
-			"Type episode":"Episode",
-			"Voice":"vf",
-			"Picture":"https://image.adkami.com/mini/3922.jpg?1601663601",
-			"Hours":"23:00",
-			"Day":"Vendredi"
-		},
-		{
 			"Title":"Cardfight!! Vanguard: overDress",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4133.jpg?1617442383",
@@ -317,7 +317,7 @@
 		},
 		{
 			"Title":"Dragon Quest : Dai no Daibouken (2020)",
-			"Episode":32,
+			"Episode":33,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3923.jpg?1601705331",
@@ -326,7 +326,7 @@
 		},
 		{
 			"Title":"Mewkledreamy",
-			"Episode":36,
+			"Episode":37,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3790.jpg?1586855457",
@@ -335,7 +335,7 @@
 		},
 		{
 			"Title":"Boku no Hero Academia S5",
-			"Episode":8,
+			"Episode":9,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/1732.jpg?=1459674063",
@@ -344,7 +344,7 @@
 		},
 		{
 			"Title":"Mairimashita! Iruma-kun S2",
-			"Episode":5,
+			"Episode":6,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3595.jpg?1570277882",
@@ -353,7 +353,7 @@
 		},
 		{
 			"Title":"Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4159.jpg?1618046196",
@@ -362,7 +362,7 @@
 		},
 		{
 			"Title":"Thunderbolt Fantasy S3",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/1861.jpg?=1471192195",
@@ -371,7 +371,7 @@
 		},
 		{
 			"Title":"Vivy : Fluorite Eye's Song",
-			"Episode":8,
+			"Episode":9,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4131.jpg?1617440282",
@@ -380,7 +380,7 @@
 		},
 		{
 			"Title":"Ijiranaide, Nagatoro-san",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4158.jpg?1618045672",
@@ -388,17 +388,8 @@
 			"Day":"Samedi"
 		},
 		{
-			"Title":"Battle Athletess Daiundoukai ReSTART!",
-			"Episode":6,
-			"Type episode":"Episode",
-			"Voice":"vostfr",
-			"Picture":"https://image.adkami.com/mini/4157.jpg?1618045211",
-			"Hours":"18:30",
-			"Day":"Samedi"
-		},
-		{
 			"Title":"86",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4161.jpg?1618046940",
@@ -406,8 +397,17 @@
 			"Day":"Samedi"
 		},
 		{
+			"Title":"Battle Athletess Daiundoukai ReSTART!",
+			"Episode":7,
+			"Type episode":"Episode",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/4157.jpg?1618045211",
+			"Hours":"18:30",
+			"Day":"Samedi"
+		},
+		{
 			"Title":"Shadows House",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4155.jpg?1618042812",
@@ -416,7 +416,7 @@
 		},
 		{
 			"Title":"Bishounen Tanteidan",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4156.jpg?1618043935",
@@ -425,7 +425,7 @@
 		},
 		{
 			"Title":"Tokyo Revengers",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4160.jpg?1618090980",
@@ -434,7 +434,7 @@
 		},
 		{
 			"Title":"Edens Zero",
-			"Episode":6,
+			"Episode":7,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4120.jpg?1617095035",
@@ -443,7 +443,7 @@
 		},
 		{
 			"Title":"Digimon Adventure (2020)",
-			"Episode":48,
+			"Episode":49,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3772.jpg?1586084986",
@@ -452,7 +452,7 @@
 		},
 		{
 			"Title":"One Piece",
-			"Episode":974,
+			"Episode":975,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3.png",
@@ -460,8 +460,17 @@
 			"Day":"Dimanche"
 		},
 		{
+			"Title":"Ladybug S4",
+			"Episode":4,
+			"Type episode":"Episode",
+			"Voice":"vf",
+			"Picture":"https://image.adkami.com/mini/2271.jpg?=1494866129",
+			"Hours":"10:30",
+			"Day":"Dimanche"
+		},
+		{
 			"Title":"Boruto: Naruto Next Generations",
-			"Episode":199,
+			"Episode":200,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/1973.jpg?=1482452333",
@@ -470,7 +479,7 @@
 		},
 		{
 			"Title":"Sentouin, Hakenshimasu!",
-			"Episode":5,
+			"Episode":6,
 			"Type episode":"Episode",
 			"Voice":"vf",
 			"Picture":"https://image.adkami.com/mini/4135.jpg?1617519829",
@@ -479,7 +488,7 @@
 		},
 		{
 			"Title":"Sentouin, Hakenshimasu!",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4135.jpg?1617519829",
@@ -488,7 +497,7 @@
 		},
 		{
 			"Title":"Yuukoku no Moriarty S2",
-			"Episode":18,
+			"Episode":19,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3951.jpg?1602432349",
@@ -497,7 +506,7 @@
 		},
 		{
 			"Title":"Dragon, Ie wo Kau.",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4136.jpg?1617520366",
@@ -506,8 +515,8 @@
 		},
 		{
 			"Title":"Megalo Box S2",
-			"Episode":7,
-			"Type episode":">Episode",
+			"Episode":8,
+			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/2836.jpg?1522949403",
 			"Hours":"17:00",
@@ -515,7 +524,7 @@
 		},
 		{
 			"Title":"Sayonara Watashi no Cramer",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4137.jpg?1617520727",
@@ -524,7 +533,7 @@
 		},
 		{
 			"Title":"Seven Knights Revolution: Eiyuu no Keishousha",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4138.jpg?1617554868",
@@ -533,7 +542,7 @@
 		},
 		{
 			"Title":"Kingdom S3",
-			"Episode":7,
+			"Episode":8,
 			"Type episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/100.jpg?1607939020",
