@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const patchMal = document.querySelector("#patchMal");
   const butShowAnimeAgenda = document.querySelector("#showAgenda")
 
-  butonRefresh.addEventListener('click', function(){creatAnotherTitle()});
+  butonRefresh.addEventListener('click', function(){refreshAnime()});
   // tokenMal.addEventListener('click', function(){token_recuperation()});
   // patchMal.addEventListener('click', function(){patchMyanimelist(21, 107, 1000 , 8)});
   butShowAnimeAgenda.addEventListener('click', function(){creatAgendaAnime()})
@@ -169,7 +169,7 @@ window.addEventListener('DOMContentLoaded', () => {
         animeInfoList += '\n\t\t{';
         animeInfoList += '\n\t\t\t"Title":"' + animeTitle;
         animeInfoList += '",\n\t\t\t"Episode":' + animeEpisode;
-        animeInfoList += ',\n\t\t\t"Type episode":"' + animeTypeEpisode;
+        animeInfoList += ',\n\t\t\t"Type_episode":"' + animeTypeEpisode;
         animeInfoList += '",\n\t\t\t"Voice":"' + animeVoice;
         animeInfoList += '",\n\t\t\t"Picture":"' + animePicture;
         animeInfoList += '",\n\t\t\t"Hours":"' + animeHours;
@@ -473,18 +473,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function getAnimeAiring(animeArray)
   {
-    let animeStock = "";
-    linkMyanimelistAdkami(animeArray.Title);
+    let animeStock = "\t{";
+    let animeAdkamiData;
 
-    animeStock += '"\t\tMal_id":' + animeArray.Mal_id;
-    animeStock += ',\n\t\t"Title":"' + animeArray.Title;
+    animeAdkamiData = linkMyanimelistAdkami(animeArray.Title);
+
+    animeStock += '\n\t\t"Mal_id":' + animeArray.Mal_id;
+    animeStock += ',\n\t\t"Title_Myanimelist":"' + animeArray.Title;
     animeStock += '",\n\t\t"last_watched_episodes":' + animeArray.Watched_episodes;
     animeStock += ',\n\t\t"total_number_episodes":' + animeArray.Total_episodes;
     animeStock += ',\n\t\t"Type":"' + animeArray.Type;
     animeStock += '",\n\t\t"Tags":"' + animeArray.Tags;
+    animeStock += animeAdkamiData;
     animeStock += '"\n\t},';
 
-    // console.log(animeStock);
+    console.log(animeStock);
   }
 
   function getAnimeRelease(animeArray)
@@ -501,27 +504,90 @@ window.addEventListener('DOMContentLoaded', () => {
     let anotherTitleFile = fs.readFileSync('./Json/anotherTitle.json');
     let anotherTitleJson = JSON.parse(anotherTitleFile);
     let objectAnotherTitleJson = anotherTitleJson[tiltle];
-    let test = objectAnotherTitleJson[0];
-    let test2 = Object.keys(test);
-    let stockanime = "";
 
-    // for (let y = 0; y < test2.length; y++)
-    // {
-    //   stockanime += test2[y] + "\n";
-    // }
+    let stockAnimeData = "";
+    let stockAnimeTitle = tiltle.toLowerCase();
+    let titleNoCaps;
+    let testTilte, testTilte2;
+    let titleSplit3Time, titleSplit3Time2;
+    let doubtTitle = "";
 
-    console.log(objectAnotherTitleJson);
-
-    for (let i = 0; i < objectAdkamiJson.length; i++)
+    for (let y = 0; y < objectAnotherTitleJson.length; y++)
     {
-      if (objectAdkamiJson[i].Title == tiltle)
+      if (objectAnotherTitleJson[y] != "")
       {
-        // console.log(objectAdkamiJson[i].Title);
-        // console.log(objectAdkamiJson[i].Episode);
-        // console.log(objectAdkamiJson[i].Day);
+        titleNoCaps = objectAnotherTitleJson[y].toLowerCase();
+        stockAnimeTitle += "[]" +  titleNoCaps;
       }
     }
 
+    stockAnimeTitle = stockAnimeTitle.split("[]");
+
+    for (let i = 0; i < objectAdkamiJson.length; i++)
+    {
+      for (let x = 0; x < stockAnimeTitle.length; x++)
+      {
+        titleNoCaps = objectAdkamiJson[i].Title.toLowerCase();
+        testTilte = titleNoCaps.indexOf(stockAnimeTitle[x]);
+
+        titleSplit3Time = titleNoCaps.split(" ");
+        titleSplit3Time = titleSplit3Time[0] + " " + titleSplit3Time[1] + " " + titleSplit3Time[2] + " " + titleSplit3Time[3];
+
+        titleSplit3Time2 = stockAnimeTitle[x].split(" ");
+        titleSplit3Time2 =  titleSplit3Time2[0] + " " + titleSplit3Time2[1] + " " + titleSplit3Time2[2] + " " + titleSplit3Time2[3];
+
+        testTilte2 =  titleSplit3Time.indexOf(titleSplit3Time2);
+
+        if (titleNoCaps == stockAnimeTitle[x])
+        {
+          stockAnimeData = ',\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
+          stockAnimeData += '",\n\t\t"Picture":"' + objectAdkamiJson[i].Picture;
+          stockAnimeData += '",\n\t\t"Last_episode_release":' + objectAdkamiJson[i].Episode;
+          stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
+          stockAnimeData += '",\n\t\t"Voice":"' + objectAdkamiJson[i].Voice;
+          stockAnimeData += '",\n\t\t"Hours":' + objectAdkamiJson[i].Hours;
+          stockAnimeData += ',\n\t\t"Day":"' + objectAdkamiJson[i].Day;
+
+          return stockAnimeData;
+        }
+        else if (testTilte != -1) // "Titre trouver avec une partie du titre trouver";
+        {
+          // stockAnimeData = "Titre trouver avec une partie du titre trouver\n";
+          stockAnimeData = ',\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
+          stockAnimeData += '",\n\t\t"Picture":"' + objectAdkamiJson[i].Picture;
+          stockAnimeData += '",\n\t\t"Episode":' + objectAdkamiJson[i].Episode;
+          stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
+          stockAnimeData += '",\n\t\t"Voice":"' + objectAdkamiJson[i].Voice;
+          stockAnimeData += '",\n\t\t"Hours":' + objectAdkamiJson[i].Hours;
+          stockAnimeData += ',\n\t\t"Day":"' + objectAdkamiJson[i].Day;
+
+          doubtTitle = 1;
+        }
+        else if (testTilte2 != -1) // "Titre trouver avec 3 premier mot du titre"
+        {
+          // stockAnimeData = "trouver avec les 3 premier mot\n";
+          stockAnimeData = ',\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
+          stockAnimeData += '",\n\t\t"Picture":"' + objectAdkamiJson[i].Picture;
+          stockAnimeData += '",\n\t\t"Episode":' + objectAdkamiJson[i].Episode;
+          stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
+          stockAnimeData += '",\n\t\t"Voice":"' + objectAdkamiJson[i].Voice;
+          stockAnimeData += '",\n\t\t"Hours":' + objectAdkamiJson[i].Hours;
+          stockAnimeData += ',\n\t\t"Day":"' + objectAdkamiJson[i].Day;
+
+          doubtTitle = 1;
+        }
+      }
+    }
+    if (doubtTitle == 1)
+    {
+      // faire un teste en demandant a l'user de verifier le titre de l'anime
+      return stockAnimeData;
+    }
+    else // afficher le nom de l'anime de myanimelist et faire taper par le user le name sur adkami
+    {
+      stockAnimeData = "Erreur: Anime no Find";
+      return stockAnimeData;
+    }
 
   }
 

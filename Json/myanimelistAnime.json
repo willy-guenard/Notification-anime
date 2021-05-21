@@ -12,7 +12,7 @@
 		{
 			"Mal_id":41587,
 			"Title":"Boku no Hero Academia 5th Season",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":25,
 			"Status":"Airing",
 			"Type":"TV",
@@ -21,7 +21,7 @@
 		{
 			"Mal_id":42938,
 			"Title":"Fruits Basket: The Final",
-			"Watched_episodes":5,
+			"Watched_episodes":7,
 			"Total_episodes":13,
 			"Status":"Airing",
 			"Type":"TV",
@@ -64,6 +64,15 @@
 			"Tags":"mehdi"
 		},
 		{
+			"Mal_id":43609,
+			"Title":"Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen OVA",
+			"Watched_episodes":0,
+			"Total_episodes":3,
+			"Status":"Release",
+			"Type":"OVA",
+			"Tags":"null"
+		},
+		{
 			"Mal_id":37984,
 			"Title":"Kumo Desu ga, Nani ka?",
 			"Watched_episodes":18,
@@ -102,7 +111,7 @@
 		{
 			"Mal_id":48590,
 			"Title":"Mini Dragon",
-			"Watched_episodes":6,
+			"Watched_episodes":7,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"ONA",
@@ -111,7 +120,7 @@
 		{
 			"Mal_id":41491,
 			"Title":"Nanatsu no Taizai: Fundo no Shinpan",
-			"Watched_episodes":14,
+			"Watched_episodes":18,
 			"Total_episodes":24,
 			"Status":"Airing",
 			"Type":"TV",
@@ -129,7 +138,7 @@
 		{
 			"Mal_id":21,
 			"Title":"One Piece",
-			"Watched_episodes":521,
+			"Watched_episodes":578,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"TV",
@@ -169,7 +178,7 @@
 			"Total_episodes":13,
 			"Status":"Release",
 			"Type":"TV",
-			"Tags":"masha"
+			"Tags":"null"
 		},
 		{
 			"Mal_id":43325,
