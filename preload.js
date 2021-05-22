@@ -457,11 +457,11 @@ window.addEventListener('DOMContentLoaded', () => {
     {
       if(objectMyanimelistJson[i].Status == "Airing") // anime en cour
       {
-        animeAgendaJson = getAnimeAiring(objectMyanimelistJson[i]);
+        animeAgendaJson += getAnimeAiring(objectMyanimelistJson[i]);
       }
       else if (objectMyanimelistJson[i].Status == "Release") // anime fini de sortire
       {
-        animeAgendaJson = getAnimeRelease(objectMyanimelistJson[i]);
+        animeAgendaJson += getAnimeRelease(objectMyanimelistJson[i]);
       }
       else // anime pas encore sortie
       {
@@ -469,6 +469,17 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    fs.writeFile("./Json/agendaAnime.json", animeAgendaJson, function(err, result)
+    {
+      if(err)
+        {
+          console.log('error', err);
+        }
+        else
+        {
+          console.log("File animeAgenda Json: update");
+        }
+    })
   }
 
   function getAnimeAiring(animeArray)
@@ -485,13 +496,24 @@ window.addEventListener('DOMContentLoaded', () => {
     animeStock += ',\n\t\t"Type":"' + animeArray.Type;
     animeStock += '",\n\t\t"Tags":"' + animeArray.Tags;
     animeStock += animeAdkamiData;
-    animeStock += '"\n\t},';
+    animeStock += '"\n\t},\n';
 
     console.log(animeStock);
+    return animeStock;
   }
 
   function getAnimeRelease(animeArray)
   {
+    let animeStock = "\t{";
+    animeStock += '\n\t\t"Mal_id":' + animeArray.Mal_id;
+    animeStock += ',\n\t\t"Title_Myanimelist":"' + animeArray.Title;
+    animeStock += '",\n\t\t"last_watched_episodes":' + animeArray.Watched_episodes;
+    animeStock += ',\n\t\t"total_number_episodes":' + animeArray.Total_episodes;
+    animeStock += ',\n\t\t"Type":"' + animeArray.Type;
+    animeStock += '",\n\t\t"Tags":"' + animeArray.Tags;
+    animeStock += '"\n\t},\n';
+
+    return animeStock;
     // console.log("Sortie: " + animeArray.Title);
   }
 
@@ -540,7 +562,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (titleNoCaps == stockAnimeTitle[x])
         {
-          stockAnimeData = ',\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
+          stockAnimeData = '",\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
           stockAnimeData += '",\n\t\t"Picture":"' + objectAdkamiJson[i].Picture;
           stockAnimeData += '",\n\t\t"Last_episode_release":' + objectAdkamiJson[i].Episode;
           stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
@@ -553,7 +575,7 @@ window.addEventListener('DOMContentLoaded', () => {
         else if (testTilte != -1) // "Titre trouver avec une partie du titre trouver";
         {
           // stockAnimeData = "Titre trouver avec une partie du titre trouver\n";
-          stockAnimeData = ',\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
+          stockAnimeData = '",\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
           stockAnimeData += '",\n\t\t"Picture":"' + objectAdkamiJson[i].Picture;
           stockAnimeData += '",\n\t\t"Episode":' + objectAdkamiJson[i].Episode;
           stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
@@ -566,7 +588,7 @@ window.addEventListener('DOMContentLoaded', () => {
         else if (testTilte2 != -1) // "Titre trouver avec 3 premier mot du titre"
         {
           // stockAnimeData = "trouver avec les 3 premier mot\n";
-          stockAnimeData = ',\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
+          stockAnimeData = '",\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
           stockAnimeData += '",\n\t\t"Picture":"' + objectAdkamiJson[i].Picture;
           stockAnimeData += '",\n\t\t"Episode":' + objectAdkamiJson[i].Episode;
           stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
