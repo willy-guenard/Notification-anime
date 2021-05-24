@@ -19,6 +19,15 @@
 			"Tags":"null"
 		},
 		{
+			"Mal_id":22839,
+			"Title":"Cross Road",
+			"Watched_episodes":0,
+			"Total_episodes":1,
+			"Status":"Release",
+			"Type":"Special",
+			"Tags":"null"
+		},
+		{
 			"Mal_id":42938,
 			"Title":"Fruits Basket: The Final",
 			"Watched_episodes":7,
@@ -30,7 +39,7 @@
 		{
 			"Mal_id":41025,
 			"Title":"Fumetsu no Anata e",
-			"Watched_episodes":5,
+			"Watched_episodes":6,
 			"Total_episodes":20,
 			"Status":"Airing",
 			"Type":"TV",
@@ -48,7 +57,7 @@
 		{
 			"Mal_id":42361,
 			"Title":"Ijiranaide, Nagatoro-san",
-			"Watched_episodes":5,
+			"Watched_episodes":6,
 			"Total_episodes":12,
 			"Status":"Airing",
 			"Type":"TV",
@@ -57,17 +66,26 @@
 		{
 			"Mal_id":41623,
 			"Title":"Isekai Maou to Shoukan Shoujo no Dorei Majutsu Ω",
-			"Watched_episodes":6,
+			"Watched_episodes":7,
 			"Total_episodes":10,
 			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"mehdi"
 		},
 		{
+			"Mal_id":40748,
+			"Title":"Jujutsu Kaisen (TV)",
+			"Watched_episodes":0,
+			"Total_episodes":24,
+			"Status":"Release",
+			"Type":"TV",
+			"Tags":"null"
+		},
+		{
 			"Mal_id":43609,
 			"Title":"Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen OVA",
 			"Watched_episodes":0,
-			"Total_episodes":3,
+			"Total_episodes":1,
 			"Status":"Release",
 			"Type":"OVA",
 			"Tags":"null"
@@ -75,7 +93,7 @@
 		{
 			"Mal_id":37984,
 			"Title":"Kumo Desu ga, Nani ka?",
-			"Watched_episodes":18,
+			"Watched_episodes":19,
 			"Total_episodes":24,
 			"Status":"Airing",
 			"Type":"TV",
@@ -86,7 +104,7 @@
 			"Title":"Kuro Gal ni Natta kara Shinyuu to shitemita.",
 			"Watched_episodes":3,
 			"Total_episodes":8,
-			"Status":"Airing",
+			"Status":"Release",
 			"Type":"TV",
 			"Tags":"null"
 		},
@@ -138,16 +156,25 @@
 		{
 			"Mal_id":21,
 			"Title":"One Piece",
-			"Watched_episodes":578,
+			"Watched_episodes":746,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"TV",
 			"Tags":"null"
 		},
 		{
+			"Mal_id":44074,
+			"Title":"Shiguang Daili Ren",
+			"Watched_episodes":0,
+			"Total_episodes":11,
+			"Status":"Airing",
+			"Type":"ONA",
+			"Tags":"null"
+		},
+		{
 			"Mal_id":40586,
 			"Title":"Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita",
-			"Watched_episodes":6,
+			"Watched_episodes":7,
 			"Total_episodes":12,
 			"Status":"Airing",
 			"Type":"TV",
@@ -183,7 +210,7 @@
 		{
 			"Mal_id":43325,
 			"Title":"Yuukoku no Moriarty 2nd Season",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":13,
 			"Status":"Airing",
 			"Type":"TV",
@@ -192,7 +219,7 @@
 		{
 			"Mal_id":40174,
 			"Title":"Zombieland Saga: Revenge",
-			"Watched_episodes":6,
+			"Watched_episodes":7,
 			"Total_episodes":12,
 			"Status":"Airing",
 			"Type":"TV",

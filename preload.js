@@ -8,11 +8,21 @@ window.addEventListener('DOMContentLoaded', () => {
   const tokenMal = document.querySelector("#tokenMal");
   const patchMal = document.querySelector("#patchMal");
   const butShowAnimeAgenda = document.querySelector("#showAgenda")
+  const butonTest = document.querySelector("#butonTest")
 
   butonRefresh.addEventListener('click', function(){refreshAnime()});
   // tokenMal.addEventListener('click', function(){token_recuperation()});
   // patchMal.addEventListener('click', function(){patchMyanimelist(21, 107, 1000 , 8)});
   butShowAnimeAgenda.addEventListener('click', function(){creatAgendaAnime()})
+  butonTest.addEventListener('click', function(){test()})
+
+  function test()
+   {
+     let animeFile = fs.readFileSync('./Json/test.json');
+     let animeJson = JSON.parse(animeFile);
+
+     console.log(animeJson.Mardi[0]);
+   }
 
   function refreshAnime()
   {
@@ -451,7 +461,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let myanimelistFile = fs.readFileSync('./Json/myanimelistAnime.json');
     let myanimelistJson = JSON.parse(myanimelistFile);
     let objectMyanimelistJson = myanimelistJson['animeMyanimelist'];
-    let animeAgendaJson = "";
+    let animeAgendaJson = '{\n\t"anime": [\n';
 
     for (let i = 0; i < objectMyanimelistJson.length; i++)
     {
@@ -468,6 +478,9 @@ window.addEventListener('DOMContentLoaded', () => {
         console.log(objectMyanimelistJson[i].Title + " pas encore sortie");
       }
     }
+
+    animeAgendaJson = animeAgendaJson.slice(0, -2);
+    animeAgendaJson += '\n\t]\n}'
 
     fs.writeFile("./Json/agendaAnime.json", animeAgendaJson, function(err, result)
     {
@@ -498,7 +511,6 @@ window.addEventListener('DOMContentLoaded', () => {
     animeStock += animeAdkamiData;
     animeStock += '"\n\t},\n';
 
-    console.log(animeStock);
     return animeStock;
   }
 
@@ -567,8 +579,8 @@ window.addEventListener('DOMContentLoaded', () => {
           stockAnimeData += '",\n\t\t"Last_episode_release":' + objectAdkamiJson[i].Episode;
           stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
           stockAnimeData += '",\n\t\t"Voice":"' + objectAdkamiJson[i].Voice;
-          stockAnimeData += '",\n\t\t"Hours":' + objectAdkamiJson[i].Hours;
-          stockAnimeData += ',\n\t\t"Day":"' + objectAdkamiJson[i].Day;
+          stockAnimeData += '",\n\t\t"Hours":"' + objectAdkamiJson[i].Hours;
+          stockAnimeData += '",\n\t\t"Day":"' + objectAdkamiJson[i].Day;
 
           return stockAnimeData;
         }
@@ -580,8 +592,8 @@ window.addEventListener('DOMContentLoaded', () => {
           stockAnimeData += '",\n\t\t"Episode":' + objectAdkamiJson[i].Episode;
           stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
           stockAnimeData += '",\n\t\t"Voice":"' + objectAdkamiJson[i].Voice;
-          stockAnimeData += '",\n\t\t"Hours":' + objectAdkamiJson[i].Hours;
-          stockAnimeData += ',\n\t\t"Day":"' + objectAdkamiJson[i].Day;
+          stockAnimeData += '",\n\t\t"Hours":"' + objectAdkamiJson[i].Hours;
+          stockAnimeData += '",\n\t\t"Day":"' + objectAdkamiJson[i].Day;
 
           doubtTitle = 1;
         }
@@ -593,8 +605,8 @@ window.addEventListener('DOMContentLoaded', () => {
           stockAnimeData += '",\n\t\t"Episode":' + objectAdkamiJson[i].Episode;
           stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
           stockAnimeData += '",\n\t\t"Voice":"' + objectAdkamiJson[i].Voice;
-          stockAnimeData += '",\n\t\t"Hours":' + objectAdkamiJson[i].Hours;
-          stockAnimeData += ',\n\t\t"Day":"' + objectAdkamiJson[i].Day;
+          stockAnimeData += '",\n\t\t"Hours":"' + objectAdkamiJson[i].Hours;
+          stockAnimeData += '",\n\t\t"Day":"' + objectAdkamiJson[i].Day;
 
           doubtTitle = 1;
         }
