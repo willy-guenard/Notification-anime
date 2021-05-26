@@ -19,18 +19,9 @@
 			"Tags":"null"
 		},
 		{
-			"Mal_id":22839,
-			"Title":"Cross Road",
-			"Watched_episodes":0,
-			"Total_episodes":1,
-			"Status":"Release",
-			"Type":"Special",
-			"Tags":"null"
-		},
-		{
 			"Mal_id":42938,
 			"Title":"Fruits Basket: The Final",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":13,
 			"Status":"Airing",
 			"Type":"TV",
@@ -120,7 +111,7 @@
 		{
 			"Mal_id":42590,
 			"Title":"Mashiro no Oto",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":12,
 			"Status":"Airing",
 			"Type":"TV",
@@ -156,7 +147,7 @@
 		{
 			"Mal_id":21,
 			"Title":"One Piece",
-			"Watched_episodes":746,
+			"Watched_episodes":770,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"TV",
@@ -170,6 +161,15 @@
 			"Status":"Airing",
 			"Type":"ONA",
 			"Tags":"null"
+		},
+		{
+			"Mal_id":7724,
+			"Title":"Shiki",
+			"Watched_episodes":0,
+			"Total_episodes":22,
+			"Status":"Release",
+			"Type":"TV",
+			"Tags":"prochain"
 		},
 		{
 			"Mal_id":40586,

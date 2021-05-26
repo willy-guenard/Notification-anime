@@ -17,13 +17,16 @@
     ],
     "Mardi":[
         {
-          "title":"steins gate"
+          "title":"steins gate",
+          "days":"mardi"
         },
         {
-          "title":"koe no katachi"
+          "title":"koe no katachi",
+          "days":"mercredi"
         },
         {
-          "title":"shigasu wa kimi no uso"
+          "title":"shigasu wa kimi no uso",
+          "days":"jeudo"
         }
       ]
     }

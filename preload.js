@@ -14,15 +14,64 @@ window.addEventListener('DOMContentLoaded', () => {
   // tokenMal.addEventListener('click', function(){token_recuperation()});
   // patchMal.addEventListener('click', function(){patchMyanimelist(21, 107, 1000 , 8)});
   butShowAnimeAgenda.addEventListener('click', function(){creatAgendaAnime()})
-  butonTest.addEventListener('click', function(){test()})
+  butonTest.addEventListener('click', function(){showAnimeAgenda()})
 
   function test()
    {
      let animeFile = fs.readFileSync('./Json/test.json');
      let animeJson = JSON.parse(animeFile);
+     let boite = animeJson.Mardi;
 
-     console.log(animeJson.Mardi[0]);
+     animeJson.Mardi[2].days = "jeudi";
+
+     console.log(animeJson);
+
+
+    for (let i = 0; i < boite.length; i++)
+    {
+      switch (boite[i].days)
+      {
+        case "mardi":
+
+          console.log("mardi");
+          console.log(boite[i].title);
+
+          break;
+
+        case "mercredi":
+
+          console.log("mercredi");
+          console.log(boite[i].title);
+          break;
+
+        case "jeudi":
+          console.log("jeudi");
+          console.log(boite[i].title);
+          break;
+
+        default:
+        console.log("days pas detecter");
+      }
+
+    }
+
    }
+
+
+
+     // fs.writeFile("./Json/test.json", animeFile, function(err, result)
+     // {
+     //   if(err)
+     //     {
+     //       console.log('error', err);
+     //     }
+     //     else
+     //     {
+     //       console.log("File test Json: update");
+     //     }
+     //  })
+     // }
+
 
   function refreshAnime()
   {
@@ -118,7 +167,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function refreshAgendaAdkamiJson(infosAnimeAdkami)
   {
-    const daysList = ["null", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+    const daysList = ["null", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
     let splitPictureAnime = infosAnimeAdkami.split('<div class="agenda-list">');
     let agendaList = splitPictureAnime[1].split('<div class="col-12">');
     let agendaListSplitDay = agendaList[0].split('<h3>');
@@ -523,7 +572,8 @@ window.addEventListener('DOMContentLoaded', () => {
     animeStock += ',\n\t\t"total_number_episodes":' + animeArray.Total_episodes;
     animeStock += ',\n\t\t"Type":"' + animeArray.Type;
     animeStock += '",\n\t\t"Tags":"' + animeArray.Tags;
-    animeStock += '"\n\t},\n';
+    animeStock += '",\n\t\t"Day":' + '"sortie"';
+    animeStock += '\n\t},\n';
 
     return animeStock;
     // console.log("Sortie: " + animeArray.Title);
@@ -620,7 +670,7 @@ window.addEventListener('DOMContentLoaded', () => {
     else // afficher le nom de l'anime de myanimelist et faire taper par le user le name sur adkami
     {
       stockAnimeData = "Erreur: Anime no Find";
-      return stockAnimeData;
+      return '",\n\t\t"Day":"erreur';
     }
 
   }
@@ -660,17 +710,98 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function showAnimeAgenda()
   {
-    let dimanche = document.querySelector("#dimanche");
-    let sortie = document.querySelector("#sortie");
+    let animeFile = fs.readFileSync('./Json/agendaAnime.json');
+    let animeJson = JSON.parse(animeFile);
+    let anime = animeJson.anime;
+    let animeLundi = "";
+    let animeMardi = "";
+    let animeMercredi = "";
+    let animeJeudi = "";
+    let animeVendredi = "";
+    let animeSamedi = "";
+    let animeDimanche = "";
+    let animeSortie = "";
 
-    let aHref = "http://www.mavanimes.co/mairimashita-iruma-kun-saison-2-01-vostfr/";
-    let imgSrc = "https://image.adkami.com/mini/3595.jpg?1570277882";
-    let horraire = "ʕ•ᴥ•ʔ";
-    let pEpisode = "Episode 1";
-    let pTitle = "Mairimashita! Iruma-kun S2";
+
+    for (let i = 0; i < anime.length; i++)
+    {
+     switch (anime[i].Day)
+     {
+       case "lundi":
+         animeLundi += splitDataAnime(anime[i]);
+         break;
+
+       case "mardi":
+         animeMardi += splitDataAnime(anime[i]);
+         break;
+
+       case "mercredi":
+         animeMercredi += splitDataAnime(anime[i]);
+         break;
+
+       case "jeudi":
+         animeJeudi += splitDataAnime(anime[i]);
+         break;
+
+       case "vendredi":
+         animeVendredi += splitDataAnime(anime[i]);
+         break;
+
+       case "samedi":
+         animeSamedi += splitDataAnime(anime[i]);
+         break;
+
+       case "dimanche":
+         animeDimanche += splitDataAnime(anime[i]);
+         break;
+
+       case "sortie":
+         animeSortie += splitDataAnime(anime[i]);
+         break;
+
+       default:
+       console.log("anime pas reconu " + anime[i].Title_Myanimelist);
+     }
+
+    }
+
+
+    // let dimanche = document.querySelector("#dimanche");
+    // let sortie = document.querySelector("#sortie");
+    //
+    // let aHref = "http://www.mavanimes.co/mairimashita-iruma-kun-saison-2-01-vostfr/";
+    // let imgSrc = "https://image.adkami.com/mini/3595.jpg?1570277882";
+    // let horraire = "ʕ•ᴥ•ʔ";
+    // let pEpisode = "Episode 1";
+    // let pTitle = "Mairimashita! Iruma-kun S2";
+    //
+    // newAnime(sortie, aHref, imgSrc, horraire, pEpisode, pTitle);
+    // newAnime(sortie, aHref, imgSrc, horraire, pEpisode+1, pTitle);
+  }
+
+
+  function splitDataAnime(animeData)
+  {
+    let sortie, aHref, imgSrc, horraire, pEpisode, pTitle;
+
+    sortie = document.querySelector("#" + animeData.Day);
+    aHref = "eeeeeee";
+    imgSrc = animeData.Picture;
+    horraire = animeData.Hours;
+    if (animeData.Day == "sortie")
+    {
+      pEpisode = animeData.last_watched_episodes + 1;
+      pEpisode =  "Episode "+ pEpisode
+    }
+    else
+    {
+       pEpisode = animeData.Type_episodes + " ";
+       pEpisode += animeData.Last_episode_release;
+    }
+
+    pTitle = animeData.Title_Myanimelist;
 
     newAnime(sortie, aHref, imgSrc, horraire, pEpisode, pTitle);
-    newAnime(sortie, aHref, imgSrc, horraire, pEpisode+1, pTitle);
   }
 
   function newAnime(sortie, aHref, imgSrc, horraire, pEpisode, pTitle)

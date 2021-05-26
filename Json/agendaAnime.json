@@ -6,7 +6,8 @@
 		"last_watched_episodes":1,
 		"total_number_episodes":24,
 		"Type":"TV",
-		"Tags":"null"
+		"Tags":"null",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":41587,
@@ -21,20 +22,12 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"11:30",
-		"Day":"Samedi"
-	},
-	{
-		"Mal_id":22839,
-		"Title_Myanimelist":"Cross Road",
-		"last_watched_episodes":0,
-		"total_number_episodes":1,
-		"Type":"Special",
-		"Tags":"null"
+		"Day":"samedi"
 	},
 	{
 		"Mal_id":42938,
 		"Title_Myanimelist":"Fruits Basket: The Final",
-		"last_watched_episodes":7,
+		"last_watched_episodes":8,
 		"total_number_episodes":13,
 		"Type":"TV",
 		"Tags":"null",
@@ -44,7 +37,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"19:35",
-		"Day":"Lundi"
+		"Day":"lundi"
 	},
 	{
 		"Mal_id":41025,
@@ -59,7 +52,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"18:30",
-		"Day":"Lundi"
+		"Day":"lundi"
 	},
 	{
 		"Mal_id":40938,
@@ -74,7 +67,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"17:00",
-		"Day":"Lundi"
+		"Day":"lundi"
 	},
 	{
 		"Mal_id":42361,
@@ -89,7 +82,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"18:00",
-		"Day":"Samedi"
+		"Day":"samedi"
 	},
 	{
 		"Mal_id":41623,
@@ -104,7 +97,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"20:45",
-		"Day":"Jeudi"
+		"Day":"jeudi"
 	},
 	{
 		"Mal_id":40748,
@@ -112,7 +105,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":24,
 		"Type":"TV",
-		"Tags":"null"
+		"Tags":"null",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":43609,
@@ -120,7 +114,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":1,
 		"Type":"OVA",
-		"Tags":"null"
+		"Tags":"null",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":37984,
@@ -135,7 +130,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"15:30",
-		"Day":"Vendredi"
+		"Day":"vendredi"
 	},
 	{
 		"Mal_id":47591,
@@ -143,7 +138,8 @@
 		"last_watched_episodes":3,
 		"total_number_episodes":8,
 		"Type":"TV",
-		"Tags":"null"
+		"Tags":"null",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":41402,
@@ -158,12 +154,12 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"13:15",
-		"Day":"Samedi"
+		"Day":"samedi"
 	},
 	{
 		"Mal_id":42590,
 		"Title_Myanimelist":"Mashiro no Oto",
-		"last_watched_episodes":7,
+		"last_watched_episodes":8,
 		"total_number_episodes":12,
 		"Type":"TV",
 		"Tags":"null",
@@ -173,7 +169,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"20:45",
-		"Day":"Vendredi"
+		"Day":"vendredi"
 	},
 	{
 		"Mal_id":48590,
@@ -181,7 +177,8 @@
 		"last_watched_episodes":7,
 		"total_number_episodes":0,
 		"Type":"ONA",
-		"Tags":"nullErreur: Anime no Find"
+		"Tags":"null",
+		"Day":"erreur"
 	},
 	{
 		"Mal_id":41491,
@@ -196,7 +193,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"14:30",
-		"Day":"Jeudi"
+		"Day":"jeudi"
 	},
 	{
 		"Mal_id":40729,
@@ -204,12 +201,13 @@
 		"last_watched_episodes":7,
 		"total_number_episodes":13,
 		"Type":"TV",
-		"Tags":"maxErreur: Anime no Find"
+		"Tags":"max",
+		"Day":"erreur"
 	},
 	{
 		"Mal_id":21,
 		"Title_Myanimelist":"One Piece",
-		"last_watched_episodes":746,
+		"last_watched_episodes":770,
 		"total_number_episodes":0,
 		"Type":"TV",
 		"Tags":"null",
@@ -219,7 +217,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"09:00",
-		"Day":"Dimanche"
+		"Day":"dimanche"
 	},
 	{
 		"Mal_id":44074,
@@ -227,7 +225,17 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":11,
 		"Type":"ONA",
-		"Tags":"nullErreur: Anime no Find"
+		"Tags":"null",
+		"Day":"erreur"
+	},
+	{
+		"Mal_id":7724,
+		"Title_Myanimelist":"Shiki",
+		"last_watched_episodes":0,
+		"total_number_episodes":22,
+		"Type":"TV",
+		"Tags":"prochain",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":40586,
@@ -242,7 +250,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"15:30",
-		"Day":"Samedi"
+		"Day":"samedi"
 	},
 	{
 		"Mal_id":41488,
@@ -257,7 +265,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"17:00",
-		"Day":"Mardi"
+		"Day":"mardi"
 	},
 	{
 		"Mal_id":43299,
@@ -265,7 +273,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":12,
 		"Type":"TV",
-		"Tags":"null"
+		"Tags":"null",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":38474,
@@ -273,7 +282,8 @@
 		"last_watched_episodes":3,
 		"total_number_episodes":13,
 		"Type":"TV",
-		"Tags":"null"
+		"Tags":"null",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":43325,
@@ -288,7 +298,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"16:00",
-		"Day":"Dimanche"
+		"Day":"dimanche"
 	},
 	{
 		"Mal_id":40174,
@@ -303,7 +313,7 @@
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"17:30",
-		"Day":"Jeudi"
+		"Day":"jeudi"
 	},
 	{
 		"Mal_id":39533,
@@ -311,7 +321,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":11,
 		"Type":"TV",
-		"Tags":"mehdi"
+		"Tags":"mehdi",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":2966,
@@ -319,7 +330,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":13,
 		"Type":"TV",
-		"Tags":"mehdi"
+		"Tags":"mehdi",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":29803,
@@ -327,7 +339,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":13,
 		"Type":"TV",
-		"Tags":"mehdi"
+		"Tags":"mehdi",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":32093,
@@ -335,7 +348,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":12,
 		"Type":"TV",
-		"Tags":"mehdi"
+		"Tags":"mehdi",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":33352,
@@ -343,7 +357,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":13,
 		"Type":"TV",
-		"Tags":"mehdi"
+		"Tags":"mehdi",
+		"Day":"sortie"
 	},
 	{
 		"Mal_id":23283,
@@ -351,7 +366,8 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":11,
 		"Type":"TV",
-		"Tags":"mehdi"
+		"Tags":"mehdi",
+		"Day":"sortie"
 	}
 	]
 }
