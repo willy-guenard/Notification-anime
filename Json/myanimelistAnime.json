@@ -1,15 +1,6 @@
 {
 		"animeMyanimelist":[
 		{
-			"Mal_id":25013,
-			"Title":"Akatsuki no Yona",
-			"Watched_episodes":1,
-			"Total_episodes":24,
-			"Status":"Release",
-			"Type":"TV",
-			"Tags":"null"
-		},
-		{
 			"Mal_id":41587,
 			"Title":"Boku no Hero Academia 5th Season",
 			"Watched_episodes":8,
@@ -57,7 +48,7 @@
 		{
 			"Mal_id":41623,
 			"Title":"Isekai Maou to Shoukan Shoujo no Dorei Majutsu Ω",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":10,
 			"Status":"Airing",
 			"Type":"TV",
@@ -138,7 +129,7 @@
 		{
 			"Mal_id":21,
 			"Title":"One Piece",
-			"Watched_episodes":825,
+			"Watched_episodes":901,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"TV",
@@ -146,7 +137,7 @@
 		},
 		{
 			"Mal_id":44074,
-			"Title":"Shi Guang Dai Li Ren",
+			"Title":"Shiguang Daili Ren",
 			"Watched_episodes":0,
 			"Total_episodes":11,
 			"Status":"Airing",
@@ -210,7 +201,7 @@
 		{
 			"Mal_id":40174,
 			"Title":"Zombieland Saga: Revenge",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":12,
 			"Status":"Airing",
 			"Type":"TV",

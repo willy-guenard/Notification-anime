@@ -13,9 +13,9 @@
 
 
 [] agenda anime:
-        [] faire afficher les animes le bon jour
-        [] faire afficher les anime dans l'ordre quil sorte
-        [] faire afficher les  episode de la semaine
+        [✓] faire afficher les animes le bon jour
+        [✓] faire afficher les anime dans l'ordre quil sorte
+        [✓] faire afficher les episode de la semaine
         [] faire changer de couleur quand l'anime est sortie
         [] faire afficher les anime qui son deja fini dans une dernier case
 

@@ -1,15 +1,6 @@
 {
 	"anime": [
 	{
-		"Mal_id":25013,
-		"Title_Myanimelist":"Akatsuki no Yona",
-		"last_watched_episodes":1,
-		"total_number_episodes":24,
-		"Type":"TV",
-		"Tags":"null",
-		"Day":"sortie"
-	},
-	{
 		"Mal_id":41587,
 		"Title_Myanimelist":"Boku no Hero Academia 5th Season",
 		"last_watched_episodes":8,
@@ -87,7 +78,7 @@
 	{
 		"Mal_id":41623,
 		"Title_Myanimelist":"Isekai Maou to Shoukan Shoujo no Dorei Majutsu Ω",
-		"last_watched_episodes":7,
+		"last_watched_episodes":8,
 		"total_number_episodes":10,
 		"Type":"TV",
 		"Tags":"mehdi",
@@ -198,7 +189,7 @@
 	{
 		"Mal_id":21,
 		"Title_Myanimelist":"One Piece",
-		"last_watched_episodes":825,
+		"last_watched_episodes":901,
 		"total_number_episodes":0,
 		"Type":"TV",
 		"Tags":"null",
@@ -212,18 +203,12 @@
 	},
 	{
 		"Mal_id":44074,
-		"Title_Myanimelist":"Shi Guang Dai Li Ren",
+		"Title_Myanimelist":"Shiguang Daili Ren",
 		"last_watched_episodes":0,
 		"total_number_episodes":11,
 		"Type":"ONA",
 		"Tags":"null",
-		"Title_Adkami":"Shi Guang Dai Li Ren",
-		"Picture":"https://image.adkami.com/mini/4197.jpg?1621595537",
-		"Last_episode_release":4,
-		"Type_episodes":"Episode",
-		"Voice":"vostfr",
-		"Hours":"17:00",
-		"Day":"vendredi"
+		"Day":"erreur"
 	},
 	{
 		"Mal_id":7724,
@@ -300,7 +285,7 @@
 	{
 		"Mal_id":40174,
 		"Title_Myanimelist":"Zombieland Saga: Revenge",
-		"last_watched_episodes":7,
+		"last_watched_episodes":8,
 		"total_number_episodes":12,
 		"Type":"TV",
 		"Tags":"mehdi",

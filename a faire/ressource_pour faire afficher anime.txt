@@ -1,14 +1,40 @@
-information pour faire afficher les animes:
+- demander a l'user de valider les titre chercher par partie
+- demander a l'user d'ecrire les noms des animes qui ne sons pas detecter mais en Airing
+- si l'anime n'existe pas dans adkami demander a l'user d'ecrire les infos important de l'anime
 
-        - Title
-        - heure de sortie
-        - image anime
-        - dernier episode sortie
-        - jour de sortie
-        - status de l'anime
-        - type anime (si pas de tag class="notags")
-        - tags
-        - lien episode
-        - dernier episode regarder
-        - nombre total episode
-        - voice
+- faire un stockage des infos des anime agenda en cour
+- faire un stockage des infos des animes qui vienne de finir
+
+- faire la gestion d'afficage simple
+- faire l'afficher avec la possibiliter de filtre
+- faire affichage avec les indice visuel de sortie
+
+- changer la couleur des anime quand il son sortie
+- faire une notif quand les episode sorte
+- faire envoyer un msg a mehdi quand un episode sorte et quon doit le regardera 2
+
+- faire le token en backend
+- faire le refresh token
+
+
+a faore :
+
+  - anime sortie pas d'images ni de episode a jour ( gestion splite dataanime if(days == sortie))
+  - pas dans l'ordre heure ( faire gestion de 2 anime sort meem heure)
+  - faire une gestion si je suis pas a jour sur l'anime
+  - faire la gestion des filtre( class nom filtre )
+  - changer la couleur du fond si lanime et sortie ou pas
+  - faire que les anime on un lien pour voir l'episode qui ce lance dans opera
+  -
+
+
+actualiser [comparesont avec le fichier general puis vas chercher les solo]
+
+
+probleme:
+
+  - quand un anime a plusieur qui sort le meme jour 1 seul et afficher
+  - faire une condition pour les anime avec plusieur tags
+  - quand je rapuie sur le bouton pour faire afficher, rajoute a la place ce actualliser
+  - les anime qui ne sons pas detecter avec les nom another ( pas afficher)
+  - les anime deja sortie non pas de bannier
