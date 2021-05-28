@@ -639,7 +639,7 @@ window.addEventListener('DOMContentLoaded', () => {
           // stockAnimeData = "Titre trouver avec une partie du titre trouver\n";
           stockAnimeData = '",\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
           stockAnimeData += '",\n\t\t"Picture":"' + objectAdkamiJson[i].Picture;
-          stockAnimeData += '",\n\t\t"Episode":' + objectAdkamiJson[i].Episode;
+          stockAnimeData += '",\n\t\t"Last_episode_release":' + objectAdkamiJson[i].Episode;
           stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
           stockAnimeData += '",\n\t\t"Voice":"' + objectAdkamiJson[i].Voice;
           stockAnimeData += '",\n\t\t"Hours":"' + objectAdkamiJson[i].Hours;
@@ -652,7 +652,7 @@ window.addEventListener('DOMContentLoaded', () => {
           // stockAnimeData = "trouver avec les 3 premier mot\n";
           stockAnimeData = '",\n\t\t"Title_Adkami":"' + objectAdkamiJson[i].Title;
           stockAnimeData += '",\n\t\t"Picture":"' + objectAdkamiJson[i].Picture;
-          stockAnimeData += '",\n\t\t"Episode":' + objectAdkamiJson[i].Episode;
+          stockAnimeData += '",\n\t\t"Last_episode_release":' + objectAdkamiJson[i].Episode;
           stockAnimeData += ',\n\t\t"Type_episodes":"' + objectAdkamiJson[i].Type_episode;
           stockAnimeData += '",\n\t\t"Voice":"' + objectAdkamiJson[i].Voice;
           stockAnimeData += '",\n\t\t"Hours":"' + objectAdkamiJson[i].Hours;
@@ -713,7 +713,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let animeFile = fs.readFileSync('./Json/agendaAnime.json');
     let animeJson = JSON.parse(animeFile);
     let anime = animeJson.anime;
-    let animeLundi = "";
+    let animeLundi =  "";
     let animeMardi = "";
     let animeMercredi = "";
     let animeJeudi = "";
@@ -760,51 +760,98 @@ window.addEventListener('DOMContentLoaded', () => {
          break;
 
        default:
-       console.log("anime pas reconu " + anime[i].Title_Myanimelist);
+       // console.log("anime pas reconu " + anime[i].Title_Myanimelist);
      }
-
     }
 
+    if (animeLundi != "" ) { oderAnimeDay(animeLundi); }
 
-    // let dimanche = document.querySelector("#dimanche");
-    // let sortie = document.querySelector("#sortie");
-    //
-    // let aHref = "http://www.mavanimes.co/mairimashita-iruma-kun-saison-2-01-vostfr/";
-    // let imgSrc = "https://image.adkami.com/mini/3595.jpg?1570277882";
-    // let horraire = "ʕ•ᴥ•ʔ";
-    // let pEpisode = "Episode 1";
-    // let pTitle = "Mairimashita! Iruma-kun S2";
-    //
-    // newAnime(sortie, aHref, imgSrc, horraire, pEpisode, pTitle);
-    // newAnime(sortie, aHref, imgSrc, horraire, pEpisode+1, pTitle);
+    if (animeMardi != "" ) { oderAnimeDay(animeMardi); }
+
+    if (animeMercredi != "" ) { oderAnimeDay(animeMercredi); }
+
+    if (animeJeudi != "" ) { oderAnimeDay(animeJeudi); }
+
+    if (animeVendredi != "" ) { oderAnimeDay(animeVendredi); }
+
+    if (animeSamedi != "" ) { oderAnimeDay(animeSamedi); }
+
+    if (animeDimanche != "" ) { oderAnimeDay(animeDimanche); }
+
   }
 
-
-  function splitDataAnime(animeData)
+  function splitDataAnime(arrayAnimeData)
   {
-    let sortie, aHref, imgSrc, horraire, pEpisode, pTitle;
+    let day, aHref, imgSrc, horraire, pEpisode, pTitle;
+    let animeData = "";
+    let tags = "";
 
-    sortie = document.querySelector("#" + animeData.Day);
-    aHref = "eeeeeee";
-    imgSrc = animeData.Picture;
-    horraire = animeData.Hours;
-    if (animeData.Day == "sortie")
+    day = arrayAnimeData.Day;
+    aHref = "";
+    imgSrc = arrayAnimeData.Picture;
+    horraire = arrayAnimeData.Hours;
+
+    if (arrayAnimeData.Day == "sortie")
     {
-      pEpisode = animeData.last_watched_episodes + 1;
+      pEpisode = arrayAnimeData.last_watched_episodes + 1;
       pEpisode =  "Episode "+ pEpisode
     }
     else
     {
-       pEpisode = animeData.Type_episodes + " ";
-       pEpisode += animeData.Last_episode_release;
+       pEpisode = arrayAnimeData.Type_episodes + " ";
+       pEpisode += arrayAnimeData.Last_episode_release;
     }
 
-    pTitle = animeData.Title_Myanimelist;
+    pTitle = arrayAnimeData.Title_Myanimelist;
 
-    newAnime(sortie, aHref, imgSrc, horraire, pEpisode, pTitle);
+    if (arrayAnimeData.Tags != null) { tags = arrayAnimeData.Tags; }
+
+    animeData = day + "||" + aHref + "||" + imgSrc + "||" + horraire + "||" + pEpisode + "||" + pTitle + "||" + tags + "{}";
+
+    return animeData;
   }
 
-  function newAnime(sortie, aHref, imgSrc, horraire, pEpisode, pTitle)
+  function oderAnimeDay(animeDay)
+  {
+    let animeStockArray = "", animeDataArray = "", hoursStock, test = [""], testStock;
+
+     animeDay = animeDay.slice(0, -2)
+     animeStockArray = animeDay.split("{}");
+
+     for (let i = 0; i < animeStockArray.length; i++)
+     {
+       animeDataArray = animeStockArray[i].split("||");
+
+       test[i] = animeDataArray;
+
+     }
+
+     testStock = test.sort(function (a, b)
+     {
+      let stockA, stockB;
+
+       stockA = a[3].split(":");
+       stockB = b[3].split(":");
+
+       if (stockA[0] == stockB[0])
+       {
+         return stockA[1] - stockB[1];
+       }
+       else
+       {
+         return stockA[0] - stockB[0];
+       }
+     });
+
+     console.log(testStock);
+
+     for (let x = 0; x < testStock.length; x++)
+     {
+       newAnime(testStock[x]);
+     }
+  }
+
+  function newAnime(test)
   {
     let lien = document.createElement('a');
     let divAnime = document.createElement('div');
@@ -813,6 +860,14 @@ window.addEventListener('DOMContentLoaded', () => {
     let divInfosclass = document.createElement('div');
     let episode = document.createElement('p');
     let title = document.createElement('p');
+
+    let days = document.querySelector("#" + test[0]);
+    let aHref = test[1];
+    let imgSrc = test[2];
+    let horraire = test[3];
+    let pEpisode = test[4];
+    let pTitle = test[5];
+    let tags = test[6];
 
     lien.href = aHref;
     divAnime.className = "anime";
@@ -825,7 +880,7 @@ window.addEventListener('DOMContentLoaded', () => {
     title.className = "title";
     title.textContent = pTitle;
 
-    sortie.appendChild(lien);
+    days.appendChild(lien);
     lien.appendChild(divAnime);
     divAnime.appendChild(image);
     divAnime.appendChild(heure);

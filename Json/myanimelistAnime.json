@@ -91,15 +91,6 @@
 			"Tags":"mehdi"
 		},
 		{
-			"Mal_id":47591,
-			"Title":"Kuro Gal ni Natta kara Shinyuu to shitemita.",
-			"Watched_episodes":3,
-			"Total_episodes":8,
-			"Status":"Release",
-			"Type":"TV",
-			"Tags":"null"
-		},
-		{
 			"Mal_id":41402,
 			"Title":"Mairimashita! Iruma-kun 2nd Season",
 			"Watched_episodes":0,
@@ -120,7 +111,7 @@
 		{
 			"Mal_id":48590,
 			"Title":"Mini Dragon",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"ONA",
@@ -138,7 +129,7 @@
 		{
 			"Mal_id":40729,
 			"Title":"Nomad: Megalo Box 2",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":13,
 			"Status":"Airing",
 			"Type":"TV",
@@ -147,7 +138,7 @@
 		{
 			"Mal_id":21,
 			"Title":"One Piece",
-			"Watched_episodes":770,
+			"Watched_episodes":825,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"TV",
@@ -155,7 +146,7 @@
 		},
 		{
 			"Mal_id":44074,
-			"Title":"Shiguang Daili Ren",
+			"Title":"Shi Guang Dai Li Ren",
 			"Watched_episodes":0,
 			"Total_episodes":11,
 			"Status":"Airing",

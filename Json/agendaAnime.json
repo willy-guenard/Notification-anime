@@ -33,7 +33,7 @@
 		"Tags":"null",
 		"Title_Adkami":"Fruits Basket (2019) S3",
 		"Picture":"https://image.adkami.com/mini/3339.jpg?1554485002",
-		"Episode":8,
+		"Last_episode_release":8,
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"19:35",
@@ -93,7 +93,7 @@
 		"Tags":"mehdi",
 		"Title_Adkami":"Isekai Maou to Shoukan Shoujo no Dorei Majutsu S2",
 		"Picture":"https://image.adkami.com/mini/2954.jpg?1530798794",
-		"Episode":8,
+		"Last_episode_release":8,
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"20:45",
@@ -133,15 +133,6 @@
 		"Day":"vendredi"
 	},
 	{
-		"Mal_id":47591,
-		"Title_Myanimelist":"Kuro Gal ni Natta kara Shinyuu to shitemita.",
-		"last_watched_episodes":3,
-		"total_number_episodes":8,
-		"Type":"TV",
-		"Tags":"null",
-		"Day":"sortie"
-	},
-	{
 		"Mal_id":41402,
 		"Title_Myanimelist":"Mairimashita! Iruma-kun 2nd Season",
 		"last_watched_episodes":0,
@@ -174,7 +165,7 @@
 	{
 		"Mal_id":48590,
 		"Title_Myanimelist":"Mini Dragon",
-		"last_watched_episodes":7,
+		"last_watched_episodes":8,
 		"total_number_episodes":0,
 		"Type":"ONA",
 		"Tags":"null",
@@ -189,7 +180,7 @@
 		"Tags":"null",
 		"Title_Adkami":"Nanatsu no Taizai S4",
 		"Picture":"https://image.adkami.com/mini/1267.jpg?1515594987",
-		"Episode":20,
+		"Last_episode_release":20,
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"14:30",
@@ -198,7 +189,7 @@
 	{
 		"Mal_id":40729,
 		"Title_Myanimelist":"Nomad: Megalo Box 2",
-		"last_watched_episodes":7,
+		"last_watched_episodes":8,
 		"total_number_episodes":13,
 		"Type":"TV",
 		"Tags":"max",
@@ -207,7 +198,7 @@
 	{
 		"Mal_id":21,
 		"Title_Myanimelist":"One Piece",
-		"last_watched_episodes":770,
+		"last_watched_episodes":825,
 		"total_number_episodes":0,
 		"Type":"TV",
 		"Tags":"null",
@@ -221,12 +212,18 @@
 	},
 	{
 		"Mal_id":44074,
-		"Title_Myanimelist":"Shiguang Daili Ren",
+		"Title_Myanimelist":"Shi Guang Dai Li Ren",
 		"last_watched_episodes":0,
 		"total_number_episodes":11,
 		"Type":"ONA",
 		"Tags":"null",
-		"Day":"erreur"
+		"Title_Adkami":"Shi Guang Dai Li Ren",
+		"Picture":"https://image.adkami.com/mini/4197.jpg?1621595537",
+		"Last_episode_release":4,
+		"Type_episodes":"Episode",
+		"Voice":"vostfr",
+		"Hours":"17:00",
+		"Day":"vendredi"
 	},
 	{
 		"Mal_id":7724,
@@ -309,7 +306,7 @@
 		"Tags":"mehdi",
 		"Title_Adkami":"Zombieland Saga S2",
 		"Picture":"https://image.adkami.com/mini/3080.jpg?1538667893",
-		"Episode":8,
+		"Last_episode_release":8,
 		"Type_episodes":"Episode",
 		"Voice":"vostfr",
 		"Hours":"17:30",
