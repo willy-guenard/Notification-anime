@@ -17,7 +17,7 @@
 - faire le refresh token
 
 
-a faore :
+a faire :
 
   - anime sortie pas d'images ni de episode a jour ( gestion splite dataanime if(days == sortie))
   - pas dans l'ordre heure ( faire gestion de 2 anime sort meem heure)
