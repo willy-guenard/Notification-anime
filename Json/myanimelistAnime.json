@@ -3,11 +3,11 @@
 		{
 			"Mal_id":41587,
 			"Title":"Boku no Hero Academia 5th Season",
-			"Watched_episodes":8,
+			"Watched_episodes":10,
 			"Total_episodes":25,
 			"Status":"Airing",
 			"Type":"TV",
-			"Tags":"null"
+			"Tags":"test, j'ai peur , a ouier chaud le type"
 		},
 		{
 			"Mal_id":42938,
@@ -75,7 +75,7 @@
 		{
 			"Mal_id":37984,
 			"Title":"Kumo Desu ga, Nani ka?",
-			"Watched_episodes":19,
+			"Watched_episodes":20,
 			"Total_episodes":24,
 			"Status":"Airing",
 			"Type":"TV",
@@ -93,7 +93,7 @@
 		{
 			"Mal_id":42590,
 			"Title":"Mashiro no Oto",
-			"Watched_episodes":8,
+			"Watched_episodes":9,
 			"Total_episodes":12,
 			"Status":"Airing",
 			"Type":"TV",
@@ -129,7 +129,7 @@
 		{
 			"Mal_id":21,
 			"Title":"One Piece",
-			"Watched_episodes":901,
+			"Watched_episodes":976,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"TV",
@@ -165,7 +165,7 @@
 		{
 			"Mal_id":41488,
 			"Title":"Tensura Nikki: Tensei shitara Slime Datta Ken",
-			"Watched_episodes":7,
+			"Watched_episodes":8,
 			"Total_episodes":12,
 			"Status":"Airing",
 			"Type":"TV",
@@ -192,7 +192,7 @@
 		{
 			"Mal_id":43325,
 			"Title":"Yuukoku no Moriarty 2nd Season",
-			"Watched_episodes":8,
+			"Watched_episodes":9,
 			"Total_episodes":13,
 			"Status":"Airing",
 			"Type":"TV",

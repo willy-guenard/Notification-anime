@@ -783,9 +783,35 @@ function newAnime(test)
   let pEpisode = test[4];
   let pTitle = test[5];
   let tags = test[6];
+  let tagSplit, tagsTight = "", tagsNoSpecial;
 
   lien.href = aHref;
-  lien.className = tags;
+  tags = tags.split(",");
+
+  if (tags[1] == null)
+  {
+      lien.className = tags;
+  }
+  else
+  {
+    for (let i = 0; i < tags.length; i++)
+    {
+      tagSplit = tags[i].split(" ");
+      for (let y = 0; y < tagSplit.length; y++)
+      {
+        if (tagSplit[y] != "")
+        {
+           tagsNoSpecial = removeSpecial(tagSplit[y]);
+            tagsTight += tagsNoSpecial;
+        }
+      }
+      tagsTight += " ";
+    }
+    lien.className = tagsTight;
+  }
+
+
+
   divAnime.className  = "anime";
 
   if (test[0] != "sortie")
@@ -809,6 +835,29 @@ function newAnime(test)
   divInfosclass.appendChild(episode);
   divInfosclass.appendChild(title);
 
+}
+
+function isNumber (text) {
+      reg = new RegExp('[0-9]+$');
+      if(text) {
+        return reg.test(text);
+      }
+      return false;
+    }
+
+function removeSpecial (text) {
+  if(text) {
+    var lower = text.toLowerCase();
+    var upper = text.toUpperCase();
+    var result = "";
+    for(var i=0; i<lower.length; ++i) {
+      if(isNumber(text[i]) || (lower[i] != upper[i]) || (lower[i].trim() === '') || (lower[i].trim() === '.')) {
+        result += text[i];
+      }
+    }
+    return result;
+  }
+  return '';
 }
 
 function token_recuperation()

@@ -25,10 +25,9 @@ a faire :
   - faire la gestion des filtre( class nom filtre )
   - changer la couleur du fond si lanime et sortie ou pas
   - faire que les anime on un lien pour voir l'episode qui ce lance dans opera
-  -
-
-
-actualiser [comparesont avec le fichier general puis vas chercher les solo]
+  - actualiser [comparesont avec le fichier general puis vas chercher les solo]
+  - faire une sauvegarde des infos des anime qui vien de finir de sortire
+  - faire une gestion de filtre
 
 
 probleme:
@@ -38,3 +37,13 @@ probleme:
   - quand je rapuie sur le bouton pour faire afficher, rajoute a la place ce actualliser
   - les anime qui ne sons pas detecter avec les nom another ( pas afficher)
   - les anime deja sortie non pas de bannier
+  - quand je relance l'applie ne prend pas a jour agenda adkami / myanimelist / anothertitle
+
+  pour filtre besoin de recuperais les nom des tags
+
+
+prevenir que pour mettre les tags separer par des ,
+
+regarder si je peut regler le probleme qui fait que mon json ecrit des truc obscure (adkami)
+
+pour filtre crer changer le css de a + faire un css de la class que lon veut
