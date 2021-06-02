@@ -6,7 +6,7 @@
 		"last_watched_episodes":10,
 		"total_number_episodes":25,
 		"Type":"TV",
-		"Tags":"test, j'ai peur , a ouier chaud le type",
+		"Tags":"null",
 		"Title_Adkami":"Boku no Hero Academia S5",
 		"Picture":"https://image.adkami.com/mini/1732.jpg?=1459674063",
 		"Last_episode_release":11,
@@ -18,7 +18,7 @@
 	{
 		"Mal_id":42938,
 		"Title_Myanimelist":"Fruits Basket: The Final",
-		"last_watched_episodes":8,
+		"last_watched_episodes":9,
 		"total_number_episodes":13,
 		"Type":"TV",
 		"Tags":"null",
@@ -96,7 +96,7 @@
 		"last_watched_episodes":0,
 		"total_number_episodes":24,
 		"Type":"TV",
-		"Tags":"null",
+		"Tags":"j'arrive,soon, moldavi",
 		"Day":"sortie"
 	},
 	{
@@ -156,7 +156,7 @@
 	{
 		"Mal_id":48590,
 		"Title_Myanimelist":"Mini Dragon",
-		"last_watched_episodes":8,
+		"last_watched_episodes":9,
 		"total_number_episodes":0,
 		"Type":"ONA",
 		"Tags":"null",
@@ -235,9 +235,18 @@
 		"Day":"samedi"
 	},
 	{
+		"Mal_id":16417,
+		"Title_Myanimelist":"Tamako Market",
+		"last_watched_episodes":0,
+		"total_number_episodes":12,
+		"Type":"TV",
+		"Tags":"null",
+		"Day":"sortie"
+	},
+	{
 		"Mal_id":41488,
 		"Title_Myanimelist":"Tensura Nikki: Tensei shitara Slime Datta Ken",
-		"last_watched_episodes":8,
+		"last_watched_episodes":9,
 		"total_number_episodes":12,
 		"Type":"TV",
 		"Tags":"null",
@@ -261,7 +270,7 @@
 	{
 		"Mal_id":38474,
 		"Title_Myanimelist":"Yuru Camp△ Season 2",
-		"last_watched_episodes":3,
+		"last_watched_episodes":5,
 		"total_number_episodes":13,
 		"Type":"TV",
 		"Tags":"null",
@@ -292,7 +301,7 @@
 		"Title_Adkami":"Zombieland Saga S2",
 		"Picture":"https://image.adkami.com/mini/3080.jpg?1538667893",
 		"Last_episode_release":9,
-		"Type_episodes":"Episode",
+		"Type_episodes":">Episode",
 		"Voice":"vostfr",
 		"Hours":"17:30",
 		"Day":"jeudi"

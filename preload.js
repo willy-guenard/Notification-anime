@@ -2,17 +2,23 @@
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', () => {
 
-  const butonRefresh = document.querySelector("#butonRefresh");
+  const butonShowanime = document.querySelector("#butonShowanime");
   const tokenMal = document.querySelector("#tokenMal");
-  const patchMal = document.querySelector("#patchMal");
-  const butShowAnimeAgenda = document.querySelector("#showAgenda")
-  const butonTest = document.querySelector("#butonTest")
+  // const patchMal = document.querySelector("#patchMal");
+  const acutaliserAnotherTitle = document.querySelector("#acutaliserAnotherTitle")
+  const acutaliserAdkami = document.querySelector("#acutaliserAdkami")
+  const acutaliserMyanimelist = document.querySelector("#acutaliserMyanimelist")
+  const acutaliserAnimeAgenda = document.querySelector("#acutaliserAnimeAgenda")
+  const refreshAll = document.querySelector("#refreshAll")
 
-  butonRefresh.addEventListener('click', function(){refreshAnime()});
-  // tokenMal.addEventListener('click', function(){token_recuperation()});
+  butonShowanime.addEventListener('click', function(){window.location.reload()});
+  tokenMal.addEventListener('click', function(){token_recuperation()});
   // patchMal.addEventListener('click', function(){patchMyanimelist(21, 107, 1000 , 8)});
-  butShowAnimeAgenda.addEventListener('click', function(){creatAgendaAnime()})
-  butonTest.addEventListener('click', function(){});
+  acutaliserAnotherTitle.addEventListener('click', function(){creatAnotherTitle()})
+  acutaliserAdkami.addEventListener('click', function(){getAnimeAgendaAdkami()});
+  acutaliserMyanimelist.addEventListener('click', function(){getAnimeCurrentlyWatching("cheark")});
+  acutaliserAnimeAgenda.addEventListener('click', function(){creatAgendaAnime()});
+  refreshAll.addEventListener('click', function(){refreshAnime()});
 
   showAnimeAgenda();
 })
@@ -26,7 +32,7 @@ function refreshAnime()
   getAnimeAgendaAdkami();
   creatAnotherTitle();
   // creatAgendaAnime();
-  // showAnimeAgenda();
+  // window.location.reload()
 }
 
 function getAnimeCurrentlyWatching(user)

@@ -7,12 +7,12 @@
 			"Total_episodes":25,
 			"Status":"Airing",
 			"Type":"TV",
-			"Tags":"test, j'ai peur , a ouier chaud le type"
+			"Tags":"null"
 		},
 		{
 			"Mal_id":42938,
 			"Title":"Fruits Basket: The Final",
-			"Watched_episodes":8,
+			"Watched_episodes":9,
 			"Total_episodes":13,
 			"Status":"Airing",
 			"Type":"TV",
@@ -61,7 +61,7 @@
 			"Total_episodes":24,
 			"Status":"Release",
 			"Type":"TV",
-			"Tags":"null"
+			"Tags":"j'arrive,soon, moldavi"
 		},
 		{
 			"Mal_id":43609,
@@ -102,7 +102,7 @@
 		{
 			"Mal_id":48590,
 			"Title":"Mini Dragon",
-			"Watched_episodes":8,
+			"Watched_episodes":9,
 			"Total_episodes":0,
 			"Status":"Airing",
 			"Type":"ONA",
@@ -163,9 +163,18 @@
 			"Tags":"mehdi"
 		},
 		{
+			"Mal_id":16417,
+			"Title":"Tamako Market",
+			"Watched_episodes":0,
+			"Total_episodes":12,
+			"Status":"Release",
+			"Type":"TV",
+			"Tags":"null"
+		},
+		{
 			"Mal_id":41488,
 			"Title":"Tensura Nikki: Tensei shitara Slime Datta Ken",
-			"Watched_episodes":8,
+			"Watched_episodes":9,
 			"Total_episodes":12,
 			"Status":"Airing",
 			"Type":"TV",
@@ -183,7 +192,7 @@
 		{
 			"Mal_id":38474,
 			"Title":"Yuru Camp△ Season 2",
-			"Watched_episodes":3,
+			"Watched_episodes":5,
 			"Total_episodes":13,
 			"Status":"Release",
 			"Type":"TV",

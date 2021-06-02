@@ -82,6 +82,15 @@
 			"Day":"lundi"
 		},
 		{
+			"Title":"Fumetsu no Anata e",
+			"Episode":1,
+			"Type_episode":"Episode",
+			"Voice":"vf",
+			"Picture":"https://image.adkami.com/mini/4162.jpg?1618224842",
+			"Hours":"21:00",
+			"Day":"lundi"
+		},
+		{
 			"Title":"Tensura Nikki Tensei Shitara Slime Datta Ken",
 			"Episode":9,
 			"Type_episode":"Episode",
@@ -192,7 +201,7 @@
 		{
 			"Title":"Zombieland Saga S2",
 			"Episode":9,
-			"Type_episode":"Episode",
+			"Type_episode":">Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3080.jpg?1538667893",
 			"Hours":"17:30",
@@ -379,20 +388,20 @@
 			"Day":"samedi"
 		},
 		{
-			"Title":"Ijiranaide, Nagatoro-san",
-			"Episode":9,
-			"Type_episode":"Episode",
-			"Voice":"vostfr",
-			"Picture":"https://image.adkami.com/mini/4158.jpg?1618045672",
-			"Hours":"18:00",
-			"Day":"samedi"
-		},
-		{
 			"Title":"Vivy : Fluorite Eye's Song",
 			"Episode":11,
 			"Type_episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/4131.jpg?1617440282",
+			"Hours":"18:00",
+			"Day":"samedi"
+		},
+		{
+			"Title":"Ijiranaide, Nagatoro-san",
+			"Episode":9,
+			"Type_episode":"Episode",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/4158.jpg?1618045672",
 			"Hours":"18:00",
 			"Day":"samedi"
 		},
@@ -514,20 +523,20 @@
 			"Day":"dimanche"
 		},
 		{
-			"Title":"Dragon, Ie wo Kau.",
-			"Episode":10,
-			"Type_episode":"Episode",
-			"Voice":"vostfr",
-			"Picture":"https://image.adkami.com/mini/4136.jpg?1617520366",
-			"Hours":"16:00",
-			"Day":"dimanche"
-		},
-		{
 			"Title":"Yuukoku no Moriarty S2",
 			"Episode":21,
 			"Type_episode":"Episode",
 			"Voice":"vostfr",
 			"Picture":"https://image.adkami.com/mini/3951.jpg?1602432349",
+			"Hours":"16:00",
+			"Day":"dimanche"
+		},
+		{
+			"Title":"Dragon, Ie wo Kau.",
+			"Episode":10,
+			"Type_episode":"Episode",
+			"Voice":"vostfr",
+			"Picture":"https://image.adkami.com/mini/4136.jpg?1617520366",
 			"Hours":"16:00",
 			"Day":"dimanche"
 		},
