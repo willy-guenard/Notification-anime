@@ -23,7 +23,9 @@
         [] refresh(ma list myanime list) + (adkami)
         [] un lien pour aller sur l'agenda adlami (avec un logo)
         [] un bouton pour voir la liste des anime qui son pas en cour de sortie
-        [] un truc pour filtrer les anime par rapport au tag (myanimelist,vostfr/vf,
+        [] un truc pour filtrer les anime par rapport au tag (myanimelist,vostfr/vf
+          [] quand je click une premier fois fait afficher que les animes du tag et quand je reapuis desactive
+          [✓] filtre 1 tag predefini
 
 [] option a rajouter:
         [] clicker sur l'anime ouvre la pages de l'episode

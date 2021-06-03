@@ -26,6 +26,31 @@ app.whenReady().then(() => {
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
 
+    ipcMain.on('asynchronous-message', (event, token) => {
+
+      var creatToken = new BrowserWindow({
+        width: 1090,
+        height: 900,
+        // maxWidth: 701,
+        // minWidth: 701,
+        // maxHeight: 600,
+        // minHeight: 600,
+        modal: true,
+      })
+
+      creatToken.removeMenu();
+      creatToken.webContents.openDevTools();
+      creatToken.loadURL('https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=29fc8b678220461db9399d28c82624e1&code_challenge=NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAEr4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7PEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g&state=testApi1');
+
+      // set to null
+      creatToken.on('close', () => {
+      let boite = creatToken.URl;
+      console.log(boite);
+      });
+
+    })
+
+
   //icone barre tache '''''''''''''''''''''''''a continuer
   let tray = new Tray(path.join(__dirname, './Picture/sardoche_army.jpg'))
   const contextMenu = Menu.buildFromTemplate([{ label: 'salut', type: 'radio' }])
