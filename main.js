@@ -42,10 +42,9 @@ app.whenReady().then(() => {
       creatToken.webContents.openDevTools();
       creatToken.loadURL('https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=29fc8b678220461db9399d28c82624e1&code_challenge=NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAEr4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7PEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g&state=testApi1');
 
-      // set to null
-      creatToken.on('close', () => {
-      let boite = creatToken.URl;
+      let boite = creatToken.
       console.log(boite);
+      creatToken.on('close', () => {
       });
 
     })
