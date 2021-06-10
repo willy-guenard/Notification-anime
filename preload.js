@@ -1,5 +1,8 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
+const {ipcRenderer} = require("electron");
+const fs = require('fs');
+
 window.addEventListener('DOMContentLoaded', () => {
 
   const butonShowanime = document.querySelector("#butonShowanime");
@@ -24,8 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   showAnimeAgenda();
 })
-const {ipcRenderer} = require("electron");
-const fs = require('fs');
+
 
 
 function refreshAnime()
@@ -856,8 +858,10 @@ function removeSpecial (text) {
     var lower = text.toLowerCase();
     var upper = text.toUpperCase();
     var result = "";
-    for(var i=0; i<lower.length; ++i) {
-      if(isNumber(text[i]) || (lower[i] != upper[i]) || (lower[i].trim() === '') || (lower[i].trim() === '.')) {
+    for(let i = 0; i < lower.length; ++i)
+    {
+      if(isNumber(text[i]) || (lower[i] != upper[i]) || (lower[i].trim() === '') || (lower[i].trim() === '.'))
+      {
         result += text[i];
       }
     }

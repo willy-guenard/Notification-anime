@@ -1,5 +1,5 @@
 // package
-const {app, BrowserWindow, Menu, Tray, ipcMain, session } = require('electron')
+const {app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, session } = require('electron')
 const path = require('path')
 
 
@@ -27,26 +27,47 @@ app.whenReady().then(() => {
     mainWindow.webContents.openDevTools();
 
     ipcMain.on('asynchronous-message', (event, token) => {
+      let code_challenge = "";
+      let a = 128;
+      let b = 'abcdefghijklmnopqrstuvwxyz1234567890-_.~ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let c = b[Math.floor(Math.random() * b.length)];
 
-      var creatToken = new BrowserWindow({
-        width: 1090,
-        height: 900,
-        // maxWidth: 701,
-        // minWidth: 701,
-        // maxHeight: 600,
-        // minHeight: 600,
-        modal: true,
+      for (let d = 0; d < a; d++)
+      {
+        code_challenge += b[Math.floor(Math.random() * b.length)];
+      }
+
+      let response_type = "code";
+      let client_id = "29fc8b678220461db9399d28c82624e1";
+      let state = "requestTokenMyanimelist";
+      let urlViewToken = "https://myanimelist.net/v1/oauth2/authorize?response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge + "&state=" + state;
+
+
+      const windowToken = new BrowserWindow({
+         width: 1500,
+         height: 900,
+         darkTheme: true,
+         webPreferences: {
+           preload: path.join(__dirname, './secondeWindow/seconpreload.js'),
+           contextIsolation: true
+         }
+       })
+
+      const viewToken = new BrowserView()
+      windowToken.setBrowserView(viewToken)
+      viewToken.setAutoResize({width:true, height:true, x:false, y:false})
+      viewToken.setBounds({ x: 50, y: 100, width: 1000, height: 1500 })
+      viewToken.webContents.loadURL(urlViewToken)
+
+      windowToken.removeMenu();
+      windowToken.webContents.openDevTools();
+      windowToken.loadFile('./secondeWindow/secondeWindow.html');
+
+
+      ipcMain.on('Cannel-Url', (event, url) => {
+        let boite = viewToken.webContents.getURL();
+        console.log(boite);
       })
-
-      creatToken.removeMenu();
-      creatToken.webContents.openDevTools();
-      creatToken.loadURL('https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=29fc8b678220461db9399d28c82624e1&code_challenge=NklUDX_CzS8qrMGWaDzgKs6VqrinuVFHa0xnpWPDy7_fggtM6kAEr4jnTwOgzK7nPYfE9n60rsY4fhDExWzr5bf7PEvMMmSXcT2hWkCstFGIJKoaimoq5GvAEQD8NZ8g&state=testApi1');
-
-      let boite = creatToken.
-      console.log(boite);
-      creatToken.on('close', () => {
-      });
-
     })
 
 
