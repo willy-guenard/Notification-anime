@@ -56,7 +56,7 @@ app.whenReady().then(() => {
       const viewToken = new BrowserView()
       windowToken.setBrowserView(viewToken)
       viewToken.setAutoResize({width:true, height:true, x:false, y:false})
-      viewToken.setBounds({ x: 50, y: 100, width: 1000, height: 1500 })
+      viewToken.setBounds({ x: 50, y: 100, width: 1250, height: 1500 })
       viewToken.webContents.loadURL(urlViewToken)
 
       windowToken.removeMenu();
