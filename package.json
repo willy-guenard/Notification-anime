@@ -18,5 +18,10 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^12.0.2"
+  },
+  "dependencies": {
+    "form-data": "^4.0.0",
+    "formdata": "^0.10.4",
+    "xmlhttprequest": "^1.8.0"
   }
 }
