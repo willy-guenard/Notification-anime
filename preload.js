@@ -2,6 +2,7 @@
 // It has the same sandbox as a Chrome extension.
 const {ipcRenderer} = require("electron");
 const fs = require('fs');
+const mariadb = require("mariadb");
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -688,7 +689,6 @@ function showAnimeAgenda()
 
      case "sortie":
        animeSortie = splitDataAnime(anime[i]);
-       newAnime(animeSortie);
        break;
 
      default:
@@ -827,7 +827,15 @@ function newAnime(test)
     image.src = imgSrc;
   }
 
-  heure.className = "time";
+  // if (test[4] == dernier episode sortie)
+  // {
+    heure.className = "time";
+  // }
+  // else
+  // {
+  //   heure.className = "time animeSortieILate";
+  // }
+
   heure.textContent = horraire;
   divInfosclass.className = "infosanime";
   episode.className = "episode";

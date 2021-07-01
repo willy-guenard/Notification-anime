@@ -17,13 +17,13 @@
         [✓] faire afficher les anime dans l'ordre quil sorte
         [✓] faire afficher les episode de la semaine
         [] faire changer de couleur quand l'anime est sortie
-        [] faire afficher les anime qui son deja fini dans une dernier case
+        [] faire une autre pages pour les animes dejas sortie
 
 [] main action
         [] refresh(ma list myanime list) + (adkami)
         [] un lien pour aller sur l'agenda adlami (avec un logo)
         [] un bouton pour voir la liste des anime qui son pas en cour de sortie
-        [] un truc pour filtrer les anime par rapport au tag (myanimelist,vostfr/vf
+        [] un truc pour filtrer les anime par rapport au tag (myanimelist,vostfr/vf)
           [] quand je click une premier fois fait afficher que les animes du tag et quand je reapuis desactive
           [✓] filtre 1 tag predefini
 
