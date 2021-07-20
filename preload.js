@@ -48,7 +48,6 @@ function insertUpdateMyanimelistDb(myAnimeListJson)
     let selectMyanimelist, status, titleAnime;
     pool.getConnection()
       .then(conn => {
-
         for (let i = 0; i < myAnimeListJson.length; i++)
         {
           if (myAnimeListJson[i].airing_status == 1) { status = "Airing" } else{ status = "Release"}
@@ -68,36 +67,20 @@ function insertUpdateMyanimelistDb(myAnimeListJson)
       .catch(err => { console.log("erreur: " + err); });
 }
 
-function isNumber (text) {
-      reg = new RegExp('[]+$');
-      if(text)
-      {
-        return reg.test(text);
-      }
-      return false;
-    }
-
-function removeSpecial (text)
+function removeSpecial(title)
 {
-  if(text)
-  {
-    let lower = text.toLowerCase();
-    let upper = text.toUpperCase();
-    let result = "";
+  title = title.replace(/[^\w\s!.,:/=?I~[]+;~-_0-9]/gi, '');
+  title = title.replace(/[＿␣]/gi, '_');
+  title = title.replace(/[∬]/gi, '2');
+  title = title.replace(/[◎]/gi, ' 2');
+  title = title.replace(/[√']/gi, '');
+  title = title.replace(/[△★☆]/gi, ' ');
+  title = title.replace(/[Ψ]/gi, 'psi');
 
-    for(let i = 0; i < lower.length; ++i)
-    {
-      if(isNumber(text[i]) || (lower[i] != upper[i]) || (lower[i].trim() === '') || (lower[i].trim() === '.'))
-      {
-        result += text[i];
-      }
-    }
-    return result;
-  }
-  return '';
+  return title
 }
 
 function showAnimeAgenda() // pas oublier
 {
-
+  
 }
