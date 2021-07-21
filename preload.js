@@ -76,13 +76,141 @@ function creatAnotherTitle(conn)
   {
     for (let i = 0; i < result.length; i++)
     {
-      anotherTitleList = "";
+      anotherTitleList = result[i].Title_anime + "\n";
       if (titleTryOu(result[i].Title_anime) != undefined) { anotherTitleList = titleTryOu(result[i].Title_anime) + "\n"; }
       if (titleJustS(result[i].Title_anime) != undefined) { anotherTitleList += titleJustS(result[i].Title_anime) + "\n"; }
       if (titleNoDoblePoint(result[i].Title_anime) != undefined) { anotherTitleList += titleNoDoblePoint(result[i].Title_anime) + "\n"; }
       if (anotherTitleList != "") {console.log(anotherTitleList);}
     }
   })
+}
+
+
+function titleTryOu(titleMyanimelist)
+{
+  let nbOFOu = numberOfRepetitions(titleMyanimelist, "ou");
+  let titleFromOuToO;
+  let stockTitle1, stockTitle2, stockTitle3, stockTitle4, stockTitle5, stockTitle6, stockTitle7;
+  let stockFirstOu, stockSecondeOu;
+
+  switch (nbOFOu)
+  {
+    case 0:
+      // c'est non
+    break;
+
+    case 1:
+      titleFromOuToO = titleMyanimelist.replace('ou', 'o');
+
+    break;
+
+    case 2:
+      stockFirstOu = titleMyanimelist.indexOf('ou');
+
+      // o|ou
+      stockTitle1 = titleMyanimelist.replace('ou', 'o');
+      titleFromOuToO = stockTitle1 + "\n";
+
+      // o|o
+      stockTitle2 = stockTitle1.replace('ou', 'o');
+      titleFromOuToO += stockTitle2 + "\n";
+
+      // ou|o
+      stockTitle2 = stockTitle2.split('');
+      stockTitle2.splice(stockFirstOu + 1, 0, 'u');
+
+      for (let i = 0; i < stockTitle2.length; i++)
+        {
+          titleFromOuToO += stockTitle2[i];
+        }
+
+    break;
+
+    case 3:
+      // o ou ou
+      stockTitle1 = titleMyanimelist.replace('ou', 'o');
+      titleFromOuToO = stockTitle1 + "\n";
+
+      // o o ou
+      stockTitle2 = stockTitle1.replace('ou', 'o');
+      titleFromOuToO += stockTitle2 + "\n";
+
+      // ou o ou
+      stockFirstOu = titleMyanimelist.indexOf('ou');
+      stockTitle3 = stockTitle2.split('');
+      stockTitle3.splice(stockFirstOu + 1, 0, 'u');
+
+      for (let i = 0; i < stockTitle3.length; i++)
+        {
+          titleFromOuToO += stockTitle3[i];
+        }
+        titleFromOuToO += "\n";
+
+      // o o o
+      stockTitle4 = stockTitle2.replace('ou', 'o');
+      titleFromOuToO += stockTitle4 + "\n";
+
+      // ou o o
+      stockFirstOu = titleMyanimelist.indexOf('ou');
+
+      stockTitle5 = stockTitle4.split('');
+      stockTitle5.splice(stockFirstOu + 1, 0, 'u');
+
+      for (let i = 0; i < stockTitle5.length; i++)
+        {
+          titleFromOuToO += stockTitle5[i];
+        }
+        titleFromOuToO += "\n";
+
+      // o ou o
+      stockFirstOu = titleMyanimelist.indexOf('ou');
+      stockSecondeOu = titleMyanimelist.indexOf('ou', stockFirstOu + 1);
+
+      stockTitle6 = stockTitle4.split('');
+      stockTitle6.splice(stockSecondeOu, 0, 'u');
+
+      for (let i = 0; i < stockTitle6.length; i++)
+        {
+          titleFromOuToO += stockTitle6[i];
+        }
+        titleFromOuToO += "\n";
+
+      // ou ou o
+      stockFirstOu = titleMyanimelist.indexOf('ou');
+      stockSecondeOu = titleMyanimelist.indexOf('ou', stockFirstOu + 1);
+
+      stockTitle7 = stockTitle4.split('');
+      stockTitle7.splice(stockFirstOu + 1, 0, 'u');
+      stockTitle7.splice(stockSecondeOu + 1 , 0, 'u');
+
+      for (let i = 0; i < stockTitle7.length; i++)
+        {
+          titleFromOuToO += stockTitle7[i];
+        }
+    break;
+
+    default:
+    console.log("O(u)verflow");
+  }
+  return titleFromOuToO;
+}
+
+function numberOfRepetitions(maChaine, recherche)
+{
+ let nbOFOu = 0;
+ let melange;
+
+ for (let i = 0; i < maChaine.length; i++)
+ {
+   melange = maChaine[i] + maChaine[i + 1]
+
+   if (melange == recherche)
+   {
+     nbOFOu++;
+   }
+
+  }
+ return nbOFOu;
 }
 
 function titleJustS(titleMyanimelist)
