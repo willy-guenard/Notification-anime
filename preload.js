@@ -40,6 +40,7 @@ function getAnimeWatching(userName)
   {
     animeMyanimelistjson = request.response;
     insertUpdateMyanimelistDb(animeMyanimelistjson["anime"]);
+    creatAnotherTitle();
   }
 }
 
@@ -51,7 +52,7 @@ function insertUpdateMyanimelistDb(myAnimeListJson)
         for (let i = 0; i < myAnimeListJson.length; i++)
         {
           if (myAnimeListJson[i].airing_status == 1) { status = "Airing" } else{ status = "Release"}
-          titleAnime = removeSpecial(myAnimeListJson[i].title);
+          titleAnime = removeSpecial(myAnimeListJson[i].title)
 
           conn.query("INSERT INTO myanimelist (MAL_id, Tilte_Myanimelist, Last_watched_episodes, Total_number_episodes, url_myanimelist, Picture_Myanimelist, Type_episodes, Tags, Status, is_rewatching, score) VALUES (" + myAnimeListJson[i].mal_id + ", '" + titleAnime + "', " + myAnimeListJson[i].watched_episodes + ", " + myAnimeListJson[i].total_episodes + ", '" + myAnimeListJson[i].url + "', '" + myAnimeListJson[i].image_url + "', '" + myAnimeListJson[i].type + "', '" + myAnimeListJson[i].tags + "', '" + status + "', '" + myAnimeListJson[i].is_rewatching  + "', " + myAnimeListJson[i].score + ") ON DUPLICATE KEY UPDATE Last_watched_episodes = VALUES(Last_watched_episodes), Tags = VALUES(Tags), Status = VALUES(Status), score = VALUES(score)");
 
@@ -65,6 +66,27 @@ function insertUpdateMyanimelistDb(myAnimeListJson)
 
       })
       .catch(err => { console.log("erreur: " + err); });
+}
+
+function creatAnotherTitle()
+{
+  let selectAnime;
+  pool.getConnection()
+    .then(conn => {
+
+      selectAnime = conn.query("SELECT Title_anime from anime where id_adkami IS NULL AND id_other_anime IS NULL;");
+      selectAnime.then(function(result)
+      {
+
+        for (let i = 0; i < result.length; i++)
+        {
+          console.log(result[i].Title_anime);
+        }
+
+      })
+
+    })
+    .catch(err => { console.log("erreur: " + err); });
 }
 
 function removeSpecial(title)
@@ -82,5 +104,5 @@ function removeSpecial(title)
 
 function showAnimeAgenda() // pas oublier
 {
-  
+  console.log(removeSpecial("fefe151515△★☆Ψ"));
 }
