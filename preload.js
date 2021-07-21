@@ -76,10 +76,11 @@ function creatAnotherTitle(conn)
   {
     for (let i = 0; i < result.length; i++)
     {
-      // anotherTitleList = titleTryOu(result[i].Title_anime);
-      anotherTitleList = titleJustS(result[i].Title_anime);
-      // anotherTitleList = titleNoDoblePoint(result[i].Title_anime);
-      // console.log(anotherTitleList);
+      anotherTitleList = "";
+      if (titleTryOu(result[i].Title_anime) != undefined) { anotherTitleList = titleTryOu(result[i].Title_anime) + "\n"; }
+      if (titleJustS(result[i].Title_anime) != undefined) { anotherTitleList += titleJustS(result[i].Title_anime) + "\n"; }
+      if (titleNoDoblePoint(result[i].Title_anime) != undefined) { anotherTitleList += titleNoDoblePoint(result[i].Title_anime) + "\n"; }
+      if (anotherTitleList != "") {console.log(anotherTitleList);}
     }
   })
 }
@@ -167,8 +168,7 @@ function titleJustS(titleMyanimelist)
       newTitle = newTitle + "S" + numberSeason;
     }
   }
-  if (newTitle != "") { console.log(newTitle); return newTitle; }
-
+  if (newTitle != "") {  return newTitle; }
 }
 
 function titleNoDoblePoint(titleMyanimelist)
@@ -176,10 +176,11 @@ function titleNoDoblePoint(titleMyanimelist)
   let titleNoDoblePointlist;
   let firstSplit;
 
-  if ( titleMyanimelist.indexOf(":") != -1 ) { titleNoDoblePointlist = titleMyanimelist.replace(":", ""); }
-  else { titleNoDoblePointlist = ""; }
-
-  return titleNoDoblePointlist;
+  if ( titleMyanimelist.indexOf(":") != -1 )
+  {
+    titleNoDoblePointlist = titleMyanimelist.replace(":", "");
+    return titleNoDoblePointlist;
+  }
 }
 
 function removeSpecial(title)
