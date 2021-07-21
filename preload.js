@@ -89,7 +89,7 @@ function creatAnotherTitle()
     .catch(err => { console.log("erreur: " + err); });
 }
 
-function removeSpecial(title)
+function removeSpecial(title) 
 {
   title = title.replace(/[^\w\s!.,:/=?I~[]+;~-_0-9]/gi, '');
   title = title.replace(/[＿␣]/gi, '_');
