@@ -40,7 +40,6 @@ function getAnimeWatching(userName)
   {
     animeMyanimelistjson = request.response;
     insertUpdateMyanimelistDb(animeMyanimelistjson["anime"]);
-    creatAnotherTitle();
   }
 }
 
@@ -63,33 +62,127 @@ function insertUpdateMyanimelistDb(myAnimeListJson)
             conn.query("INSERT INTO anime (id_myanimelist, Title_anime) VALUES (" + result[0].id_myanimelist + ", '" + result[0].Tilte_Myanimelist + "') ON DUPLICATE KEY UPDATE Title_anime = VALUES(Title_anime)");
           })
         }
+        creatAnotherTitle(conn);
 
       })
       .catch(err => { console.log("erreur: " + err); });
 }
 
-function creatAnotherTitle()
+function creatAnotherTitle(conn)
 {
-  let selectAnime;
-  pool.getConnection()
-    .then(conn => {
-
-      selectAnime = conn.query("SELECT Title_anime from anime where id_adkami IS NULL AND id_other_anime IS NULL;");
-      selectAnime.then(function(result)
-      {
-
-        for (let i = 0; i < result.length; i++)
-        {
-          console.log(result[i].Title_anime);
-        }
-
-      })
-
-    })
-    .catch(err => { console.log("erreur: " + err); });
+  let selectAnime, anotherTitleList;
+  selectAnime = conn.query("SELECT Title_anime from anime where id_adkami IS NULL AND id_other_anime IS NULL;");
+  selectAnime.then(function(result)
+  {
+    for (let i = 0; i < result.length; i++)
+    {
+      // anotherTitleList = titleTryOu(result[i].Title_anime);
+      anotherTitleList = titleJustS(result[i].Title_anime);
+      // anotherTitleList = titleNoDoblePoint(result[i].Title_anime);
+      // console.log(anotherTitleList);
+    }
+  })
 }
 
-function removeSpecial(title) 
+function titleJustS(titleMyanimelist)
+{
+  let testSeason, testTenSeason, newTitle = '', numberSeason, numbre20Saison;
+
+
+  testSeason = titleMyanimelist.indexOf('1st');
+  if ( testSeason != -1 )
+  {
+    testTenSeason = titleMyanimelist[testSeason - 1]
+
+    if ( !isNaN( parseInt(testTenSeason) ) )  // X1  [X>1]
+    {
+      numberSeason = titleMyanimelist.slice(testSeason - 1, testSeason + 1);
+      newTitle = titleMyanimelist.slice(0, testSeason -1);
+    }
+    else //1
+    {
+      numberSeason = 1;
+      newTitle = titleMyanimelist.slice(0, testSeason);
+    }
+
+    newTitle = newTitle + "S" + numberSeason;
+  }
+
+  testSeason = titleMyanimelist.indexOf('2nd');
+  if ( testSeason != -1 )
+  {
+    testTenSeason = titleMyanimelist[testSeason - 1]
+
+    if ( !isNaN( parseInt(testTenSeason) ) ) // X2  [X>1]
+    {
+      numberSeason = titleMyanimelist.slice(testSeason - 1, testSeason + 1);
+      newTitle = titleMyanimelist.slice(0, testSeason -1);
+    }
+    else //2
+    {
+      numberSeason = 2;
+      newTitle = titleMyanimelist.slice(0, testSeason);
+    }
+    newTitle = newTitle + "S" + numberSeason;
+  }
+
+  testSeason = titleMyanimelist.indexOf('3rd');
+  if ( testSeason != -1 )
+  {
+    testTenSeason = titleMyanimelist[testSeason - 1]
+
+    if ( !isNaN( parseInt(testTenSeason) ) ) // X3 [X>1]
+    {
+      numberSeason = titleMyanimelist.slice(testSeason - 1, testSeason + 1);
+      newTitle = titleMyanimelist.slice(0, testSeason -1);
+    }
+    else//3
+    {
+      numberSeason = 3;
+      newTitle = titleMyanimelist.slice(0, testSeason);
+    }
+
+    newTitle = newTitle + "S" + numberSeason;
+  }
+
+  testSeason = titleMyanimelist.indexOf('th');
+  if ( testSeason != -1 )  // th est detecter dans la chaine de character
+  {
+    testTEnSeason = titleMyanimelist[testSeason - 1] // character avant th
+    if ( !isNaN( parseInt(testTEnSeason) ) ) // test si Xth et un chiffre
+    {
+
+      testTEnSeason = titleMyanimelist[testSeason - 2] // character avant Xth
+      if ( !isNaN( parseInt(testTEnSeason) ) ) // test character avant Xth et un chiffre ou pas  [XXth]
+      {
+        numberSeason = titleMyanimelist.slice(testSeason - 2, testSeason);
+        newTitle = titleMyanimelist.slice(0, testSeason - 2);
+      }
+      else // [Xth]
+      {
+        numberSeason = titleMyanimelist.slice(testSeason - 1, testSeason);
+        newTitle = titleMyanimelist.slice(0, testSeason - 1);
+      }
+
+      newTitle = newTitle + "S" + numberSeason;
+    }
+  }
+  if (newTitle != "") { console.log(newTitle); return newTitle; }
+
+}
+
+function titleNoDoblePoint(titleMyanimelist)
+{
+  let titleNoDoblePointlist;
+  let firstSplit;
+
+  if ( titleMyanimelist.indexOf(":") != -1 ) { titleNoDoblePointlist = titleMyanimelist.replace(":", ""); }
+  else { titleNoDoblePointlist = ""; }
+
+  return titleNoDoblePointlist;
+}
+
+function removeSpecial(title)
 {
   title = title.replace(/[^\w\s!.,:/=?I~[]+;~-_0-9]/gi, '');
   title = title.replace(/[＿␣]/gi, '_');
@@ -102,7 +195,7 @@ function removeSpecial(title)
   return title
 }
 
+
 function showAnimeAgenda() // pas oublier
 {
-  console.log(removeSpecial("fefe151515△★☆Ψ"));
 }
