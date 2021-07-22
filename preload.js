@@ -1,6 +1,6 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-const {ipcRenderer} = require("electron");
+const ipcRenderer = require("electron");
 const fs = require('fs');
 const mariadb = require("mariadb");
 const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"});
@@ -20,11 +20,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function refreshAnime()
 {
-  getAnimeWatching("cheark"); // modifier apres prendre valleur que je recupaire de l'user
-  // insertUpdateMyanimelistDb(myAnimeListJson);
+  let anotherTItle;
+  
+  getAnimeMalWatching("cheark"); // modifier apres prendre valleur que je recupaire de l'user
+  anotherTItle = creatAnotherTitle();
+  //adkami(anotherTItle)
+  //gestion des anime qui ne son pas dans adkami
+  //affichage()
 }
 
-function getAnimeWatching(userName)
+function getAnimeMalWatching(userName)
 {
   // api jikan request to get anime in the watching list of a user
   let url = "https://api.jikan.moe/v3";
@@ -45,7 +50,7 @@ function getAnimeWatching(userName)
 
 function insertUpdateMyanimelistDb(myAnimeListJson)
 {
-    let selectMyanimelist, status, titleAnime;
+    let selectMyanimelist, status, titleAnime, anotherTitleList;
     pool.getConnection()
       .then(conn => {
         for (let i = 0; i < myAnimeListJson.length; i++)
@@ -62,29 +67,32 @@ function insertUpdateMyanimelistDb(myAnimeListJson)
             conn.query("INSERT INTO anime (id_myanimelist, Title_anime) VALUES (" + result[0].id_myanimelist + ", '" + result[0].Tilte_Myanimelist + "') ON DUPLICATE KEY UPDATE Title_anime = VALUES(Title_anime)");
           })
         }
-        creatAnotherTitle(conn);
-
       })
       .catch(err => { console.log("erreur: " + err); });
 }
 
-function creatAnotherTitle(conn)
+function creatAnotherTitle()
 {
-  let selectAnime, anotherTitleList;
-  selectAnime = conn.query("SELECT Title_anime from anime where id_adkami IS NULL AND id_other_anime IS NULL;");
-  selectAnime.then(function(result)
-  {
-    for (let i = 0; i < result.length; i++)
-    {
-      anotherTitleList = result[i].Title_anime + "\n";
-      if (titleTryOu(result[i].Title_anime) != undefined) { anotherTitleList = titleTryOu(result[i].Title_anime) + "\n"; }
-      if (titleJustS(result[i].Title_anime) != undefined) { anotherTitleList += titleJustS(result[i].Title_anime) + "\n"; }
-      if (titleNoDoblePoint(result[i].Title_anime) != undefined) { anotherTitleList += titleNoDoblePoint(result[i].Title_anime) + "\n"; }
-      if (anotherTitleList != "") {console.log(anotherTitleList);}
-    }
-  })
-}
+  let selectAnime, anotherTitleList = "";
 
+  pool.getConnection()
+  .then(conn => {
+    selectAnime = conn.query("SELECT Title_anime from anime where id_adkami IS NULL AND id_other_anime IS NULL;");
+    selectAnime.then(function(result)
+    {
+      for (let i = 0; i < result.length; i++)
+      {
+        anotherTitleList += result[i].Title_anime + "\n";
+        if ( titleTryOu(result[i].Title_anime) != undefined ) { anotherTitleList += titleTryOu(result[i].Title_anime) + "\n"; }
+        if ( titleJustS(result[i].Title_anime) != undefined ) { anotherTitleList += titleJustS(result[i].Title_anime) + "\n"; }
+        if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { anotherTitleList += titleNoDoblePoint(result[i].Title_anime) + "\n"; }
+        anotherTitleList += "\n";
+      }
+    console.log(anotherTitleList);
+    })
+  })
+  .catch(err => { console.log("erreur: " + err); });
+}
 
 function titleTryOu(titleMyanimelist)
 {
