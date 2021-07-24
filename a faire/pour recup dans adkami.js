@@ -51,6 +51,7 @@ detectiveconan.childNodes[1].children[3].children[1].innerText
 
 
 
+document.getElementsByClassName('colone')[0].children[1].children[0].children
 
 
 ///////////////////////////////////////////////////////////////////////////////
