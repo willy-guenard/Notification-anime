@@ -367,7 +367,37 @@ function getAnimeAgendaAdkami()
 
 function refreshAgendaAdkamiJson(infosAnimeAdkami)
 {
-  console.log(infosAnimeAdkami.getElementsByClassName('colone'));
+  let day;
+  let testSortie;
+  let maxDay = infosAnimeAdkami.getElementsByClassName('colone');
+  let nbAnimeDay, titleAnime;
+
+  for (let iDay = 0; iDay < maxDay.length; iDay++)
+  {
+    day = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[0].textContent;
+    nbAnimeDay = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children;
+    titleAnime = "[" + day + "]\n\t";
+
+    for (let iAnime = 1; iAnime < nbAnimeDay.length; iAnime++)
+    {
+      testSortie = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].localName;
+
+      if (testSortie == "a")
+      {
+        titleAnime += infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[2].children[1].textContent;
+      }
+      else if (testSortie == 'div')
+      {
+        titleAnime += infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[2].children[1].children[0].textContent;
+      }
+      else
+      {
+        titleAnime += "warning";
+      }
+      titleAnime += "\n\t";
+    }
+    console.log(titleAnime);
+  }
 }
 
 function adkami(titleListAnother)
@@ -384,5 +414,5 @@ function getLinks()
 
 function showAnimeAgenda() // pas oublier
 {
-
+  getAnimeAgendaAdkami();
 }
