@@ -367,37 +367,93 @@ function getAnimeAgendaAdkami()
 
 function refreshAgendaAdkamiJson(infosAnimeAdkami)
 {
-  let day;
-  let testSortie;
+  let day, testSortie, episodesAnime, nbAnimeDay, picture_url, yAnime = 0;
   let maxDay = infosAnimeAdkami.getElementsByClassName('colone');
-  let nbAnimeDay, titleAnime;
+  let titleAnime = [], infosAnime = [];
 
   for (let iDay = 0; iDay < maxDay.length; iDay++)
   {
     day = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[0].textContent;
     nbAnimeDay = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children;
-    titleAnime = "[" + day + "]\n\t";
 
-    for (let iAnime = 1; iAnime < nbAnimeDay.length; iAnime++)
+    for (let iAnime = 1; iAnime < nbAnimeDay.length; iAnime++) // check all anime by days
     {
-      testSortie = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].localName;
+      testSortie = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].localName; // first tags by anime
 
-      if (testSortie == "a")
+      if (testSortie == "a") // anime out
       {
-        titleAnime += infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[2].children[1].textContent;
+        testSortie = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[0].localName;
+
+        if (testSortie == "script")
+        {
+          picture_url = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[1].outerHTML; //url_images
+          episodesAnime = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[3].children[0].textContent;
+
+
+          infosAnime[0] = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[3].children[1].textContent; //tile
+          infosAnime[1] = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[1].textContent; //hours
+        }
+        else
+        {
+          picture_url = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[0].outerHTML; //url_images
+          episodesAnime = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[2].children[0].textContent;
+
+          infosAnime[0] = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[2].children[1].textContent; //tile
+          infosAnime[1] = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[1].textContent; //hours
+        }
+
+        picture_url = picture_url.split('"');
+        episodesAnime = episodesAnime.split(" ");
+
+        infosAnime[2] = day; //day
+        infosAnime[3] = picture_url[1];//picture_url
+        infosAnime[4] = episodesAnime[0]; //type Episode
+        infosAnime[5] = episodesAnime[1]; //Episode
+
+        if (episodesAnime.length == 3)
+        {
+          infosAnime[6] = episodesAnime[2]; //voice
+        }
+        else
+        {
+          infosAnime[6] = "vostfr";//voice
+        }
+
       }
-      else if (testSortie == 'div')
+      else if (testSortie == 'div') // anime not out
       {
-        titleAnime += infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[2].children[1].children[0].textContent;
+        episodesAnime = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[2].children[0].textContent;
+        episodesAnime = episodesAnime.split(" ");
+
+        picture_url = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].outerHTML; //url_images
+        picture_url = picture_url.split('"');
+
+        infosAnime[0] = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[2].children[1].children[0].textContent; //titre
+        infosAnime[1] = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[1].textContent; //hours
+        infosAnime[2] = day; //day
+        infosAnime[3] = picture_url[1];//picture_url
+        infosAnime[4] = episodesAnime[0]; //type Episode
+        infosAnime[5] = episodesAnime[1]; //Episode
+
+
+        if (episodesAnime.length == 3)
+        {
+          infosAnime[6] = episodesAnime[2]; //voice
+        }
+        else
+        {
+          infosAnime[6] = "vostfr";//voice
+        }
       }
       else
       {
-        titleAnime += "warning";
+        infosAnime[0] = "warning anime not found";
       }
-      titleAnime += "\n\t";
+      titleAnime[yAnime] = infosAnime;
+      yAnime++;
     }
-    console.log(titleAnime);
   }
+  console.log(titleAnime);
 }
 
 function adkami(titleListAnother)
