@@ -31,13 +31,11 @@ async function refreshAnime()
 {
   let arrayAnimeAdkami, anotherTItle;
 
-   await getAnimeMalWatching("cheark");
-   anotherTItle = await creatAnotherTitle();
-   arrayAnimeAdkami = await getAnimeAgendaAdkami();
-
-  adkamiInsertDb(anotherTItle, arrayAnimeAdkami);
-
-
+  await getAnimeMalWatching("cheark");
+  anotherTItle = await creatAnotherTitle();
+  arrayAnimeAdkami = await getAnimeAgendaAdkami();
+  adkamiAnimeLink = await adkami(anotherTItle, arrayAnimeAdkami);
+  await adkamiInsertDb(adkamiAnimeLink);
   //gestion des anime qui ne son pas dans adkami
   //affichage()
 }
@@ -96,7 +94,7 @@ function creatAnotherTitle()
 
     pool.getConnection()
     .then(conn => {
-      selectAnime = conn.query("SELECT Title_anime from anime where id_adkami IS NULL AND id_other_anime IS NULL;");
+      selectAnime = conn.query("SELECT Title_anime from anime JOIN myanimelist ON anime.id_myanimelist = myanimelist.id_myanimelist where id_adkami IS NULL AND id_other_anime IS NULL AND myanimelist.Status = 'Airing'");
       selectAnime.then(function(result)
       {
         for (let i = 0; i < result.length; i++)
@@ -104,16 +102,19 @@ function creatAnotherTitle()
           stockTitle = "";
           anotherTitleList[i] = new Array();
           anotherTitleList[i][0] = result[i].Title_anime;
-          if ( titleTryOu(result[i].Title_anime) != undefined ) { stockTitle += titleTryOu(result[i].Title_anime) + "\n"; }
-          if ( titleJustS(result[i].Title_anime) != undefined ) { stockTitle += titleJustS(result[i].Title_anime) + "\n"; }
+          if ( titleTryOu(result[i].Title_anime) != undefined ) { stockTitle += titleTryOu(result[i].Title_anime + "|||"); }
+          if ( titleJustS(result[i].Title_anime) != undefined ) { stockTitle += titleJustS(result[i].Title_anime + "|||"); }
           if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { stockTitle += titleNoDoblePoint(result[i].Title_anime); }
 
           if (stockTitle != "")
           {
-            stockTitle = stockTitle.split("/n");
+            stockTitle = stockTitle.split("|||");
             for (let y = 0; y < stockTitle.length; y++)
             {
-              anotherTitleList[i][y + 1] = stockTitle[y]
+              if (stockTitle[y] != "")
+              {
+                anotherTitleList[i][y+1] = stockTitle[y]
+              }
             }
           }
         }
@@ -147,11 +148,11 @@ function titleTryOu(titleMyanimelist)
 
       // o|ou
       stockTitle1 = titleMyanimelist.replace('ou', 'o');
-      titleFromOuToO = stockTitle1 + "\n";
+      titleFromOuToO = stockTitle1 + "";
 
       // o|o
       stockTitle2 = stockTitle1.replace('ou', 'o');
-      titleFromOuToO += stockTitle2 + "\n";
+      titleFromOuToO += stockTitle2 + "";
 
       // ou|o
       stockTitle2 = stockTitle2.split('');
@@ -167,11 +168,11 @@ function titleTryOu(titleMyanimelist)
     case 3:
       // o ou ou
       stockTitle1 = titleMyanimelist.replace('ou', 'o');
-      titleFromOuToO = stockTitle1 + "\n";
+      titleFromOuToO = stockTitle1 + "";
 
       // o o ou
       stockTitle2 = stockTitle1.replace('ou', 'o');
-      titleFromOuToO += stockTitle2 + "\n";
+      titleFromOuToO += stockTitle2 + "";
 
       // ou o ou
       stockFirstOu = titleMyanimelist.indexOf('ou');
@@ -182,11 +183,11 @@ function titleTryOu(titleMyanimelist)
         {
           titleFromOuToO += stockTitle3[i];
         }
-        titleFromOuToO += "\n";
+        titleFromOuToO += "";
 
       // o o o
       stockTitle4 = stockTitle2.replace('ou', 'o');
-      titleFromOuToO += stockTitle4 + "\n";
+      titleFromOuToO += stockTitle4 + "";
 
       // ou o o
       stockFirstOu = titleMyanimelist.indexOf('ou');
@@ -198,7 +199,7 @@ function titleTryOu(titleMyanimelist)
         {
           titleFromOuToO += stockTitle5[i];
         }
-        titleFromOuToO += "\n";
+        titleFromOuToO += "";
 
       // o ou o
       stockFirstOu = titleMyanimelist.indexOf('ou');
@@ -211,7 +212,7 @@ function titleTryOu(titleMyanimelist)
         {
           titleFromOuToO += stockTitle6[i];
         }
-        titleFromOuToO += "\n";
+        titleFromOuToO += "";
 
       // ou ou o
       stockFirstOu = titleMyanimelist.indexOf('ou');
@@ -475,8 +476,101 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
 
 function adkami(anotherTItle, arrayAnimeAdkami)
 {
-  console.log(anotherTItle);
-  console.log(arrayAnimeAdkami);
+  return new Promise((resolve,reject)=>{
+    let animeLinkAdkami = new Array();
+    let testAnimeLink = "", nbAnimeLink = 0;
+    for (let i = 0; i < anotherTItle.length; i++)
+    {
+      testAnimeLink = tryAnimeAdkami(anotherTItle[i], arrayAnimeAdkami, 0, anotherTItle[i].length);
+      if (testAnimeLink != "animeNOtFound")
+      {
+        animeLinkAdkami[nbAnimeLink] = new Array()
+        animeLinkAdkami[nbAnimeLink][0] = anotherTItle[i][0];
+        testAnimeLink = testAnimeLink.split(",");
+        if (testAnimeLink.length > 7)
+        {
+          animeLinkAdkami[nbAnimeLink][1] = testAnimeLink.slice(0, 7);
+          animeLinkAdkami[nbAnimeLink][2] = testAnimeLink.slice(7);
+        }
+        else
+        {
+          animeLinkAdkami[nbAnimeLink][1] = testAnimeLink;
+        }
+
+        nbAnimeLink = nbAnimeLink + 1;
+      }
+      else
+      {
+        adkamiManuelle(anotherTItle[i][0]);
+      }
+    }
+    resolve(animeLinkAdkami);
+  });
+}
+
+function tryAnimeAdkami(anotherTItle, arrayAnimeAdkami, animeNb, anotherTItleSize)
+{
+  let animeFound = 0, stock = "";
+
+  for (let y = 0; y < arrayAnimeAdkami.length; y++)
+  {
+    if (anotherTItle[animeNb] == arrayAnimeAdkami[y][0])
+    {
+      animeFound = 1;
+      if ( stock != "" )
+      {
+        stock += ",";
+      }
+      stock += arrayAnimeAdkami[y];
+    }
+  }
+
+  if ( animeFound == 1 )
+  {
+    return stock;
+  }
+  else
+  {
+    animeNb = animeNb + 1;
+    if ( animeNb < anotherTItleSize )
+    {
+      stock = tryAnimeAdkami( anotherTItle, arrayAnimeAdkami, animeNb, anotherTItleSize);
+      return stock;
+    }
+    else
+    {
+      return "animeNOtFound";
+    }
+  }
+}
+
+function adkamiInsertDb(adkamiAnimeLink)
+{
+  return new Promise((resolve,reject)=>{
+    let selectAnime;
+    pool.getConnection()
+      .then(conn => {
+      for (let i = 0; i < adkamiAnimeLink.length; i++)
+      {
+        for (let y = 1; y < adkamiAnimeLink[i].length; y++)
+        {
+          conn.query("INSERT INTO adkami (Unique_title, Title_Adkami, Last_episodes_release, Picture_adkami, Voice, Day, Hours, Type_episodes) VALUES ('" + adkamiAnimeLink[i][y][0] + " " + adkamiAnimeLink[i][y][4] + " " + adkamiAnimeLink[i][y][6] + "','" + adkamiAnimeLink[i][y][0] + "'," + adkamiAnimeLink[i][y][5] + ",'" + adkamiAnimeLink[i][y][3] + "','" + adkamiAnimeLink[i][y][6] + "','" + adkamiAnimeLink[i][y][2] + "','" + adkamiAnimeLink[i][y][1] + "','" + adkamiAnimeLink[i][y][4] + "') ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
+        }
+        selectAnime = conn.query("SELECT id_adkami from adkami where Title_Adkami = '" + adkamiAnimeLink[i][1][0] + "' AND Voice = 'Vostfr';");
+        selectAnime.then(function(result)
+        {
+          conn.query("UPDATE anime SET id_adkami = " + result[0].id_adkami + " WHERE Title_anime = '" + adkamiAnimeLink[i][0] + "' AND id_adkami is NULL;");
+        })
+      }
+    })
+    .catch(err => { console.log("erreur: " + err); });
+    resolve();
+  });
+}
+
+function adkamiManuelle(animeTitle)
+{
+  console.log("adkamiManuelle");
 }
 
 function showAnimeAgenda() // pas oublier
