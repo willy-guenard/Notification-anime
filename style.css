@@ -111,48 +111,48 @@ p
   top: 75px;
   width: 205px;
   padding: 5px;
-  border: 2px dashed blue;
+  /* border: 2px dashed blue; */
   min-height: 1px;
   /* width: 14.2857143%; */
 }
 
-#lundi
+#Lundi
 {
   left: 0px;
   /* height: 500px; */
 }
 
-#mardi
+#Mardi
 {
   left: 203px;
   /* height: 500px; */
 }
 
-#mercredi
+#Mercredi
 {
   left: 406px;
   /* height: 500px; */
 }
 
-#jeudi
+#Jeudi
 {
   left: 609px;
   /* height: 500px; */
 }
 
-#vendredi
+#Vendredi
 {
   left: 812px;
   /* height: 500px; */
 }
 
-#samedi
+#Samedi
 {
   left: 1015px;
   /* height: 500px; */
 }
 
-#dimanche
+#Dimanche
 {
   left: 1218px;
   /* height: 500px; */

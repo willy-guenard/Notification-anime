@@ -36,8 +36,7 @@ async function refreshAnime()
   arrayAnimeAdkami = await getAnimeAgendaAdkami();
   adkamiAnimeLink = await adkami(anotherTItle, arrayAnimeAdkami);
   await adkamiInsertDb(adkamiAnimeLink);
-  //gestion des anime qui ne son pas dans adkami
-  //affichage()
+  affichage()
 }
 
 function getAnimeMalWatching(userName)
@@ -573,7 +572,192 @@ function adkamiManuelle(animeTitle)
   console.log("adkamiManuelle");
 }
 
+function splitDay(animeAiring)
+{
+  let animeLundi = [], iLundi = 0;
+  let animeMardi  = [], iMardi = 0;
+  let animeMercredi = [], iMercredi = 0;
+  let animeJeudi = [], iJeudi = 0;
+  let animeVendredi = [], iVendredi = 0;
+  let animeSamedi = [], iSamedi = 0;
+  let animeDimanche = [], iDimanche = 0;
+  let animeSortie;
+
+  for (let i = 0; i < animeAiring.length; i++)
+  {
+   switch (animeAiring[i].Day)
+   {
+     case "Lundi":
+       animeLundi[iLundi] = animeAiring[i];
+       iLundi ++;
+       break;
+
+     case "Mardi":
+       animeMardi[iMardi] = animeAiring[i];
+       iMardi ++;
+       break;
+
+     case "Mercredi":
+       animeMercredi[iMercredi] = animeAiring[i];
+       iMercredi ++;
+       break;
+
+     case "Jeudi":
+       animeJeudi[iJeudi] = animeAiring[i];
+       iJeudi ++;
+       break;
+
+     case "Vendredi":
+       animeVendredi[iVendredi] = animeAiring[i];
+       iVendredi ++;
+       break;
+
+     case "Samedi":
+       animeSamedi[iSamedi] = animeAiring[i];
+       iSamedi ++;
+       break;
+
+     case "Dimanche":
+       animeDimanche[iDimanche] = animeAiring[i];
+       iDimanche ++;
+       break;
+
+     default:
+     // console.log("anime pas reconu " + anime[i].Title_Myanimelist);
+   }
+  }
+
+  if (animeLundi != "" ) { oderAnimeDay(animeLundi); }
+
+  if (animeMardi != "" ) { oderAnimeDay(animeMardi); }
+
+  if (animeMercredi != "" ) { oderAnimeDay(animeMercredi); }
+
+  if (animeJeudi != "" ) { oderAnimeDay(animeJeudi); }
+
+  if (animeVendredi != "" ) { oderAnimeDay(animeVendredi); }
+
+  if (animeSamedi != "" ) { oderAnimeDay(animeSamedi); }
+
+  if (animeDimanche != "" ) { oderAnimeDay(animeDimanche); }
+
+}
+
+function oderAnimeDay(anime)
+{
+  let animeStock;
+
+   testStock = anime.sort(function (a, b)
+   {
+    let stockA, stockB;
+     stockA = a.Hours.split(":");
+     stockB = b.Hours.split(":");
+
+     if (stockA[0] == stockB[0])
+     {
+       return stockA[1] - stockB[1];
+     }
+     else
+     {
+       return stockA[0] - stockB[0];
+     }
+   });
+
+   for (let x = 0; x < testStock.length; x++)
+   {
+     newAnime(testStock[x]);
+   }
+}
+
+function newAnime(anime)
+{
+  console.log(anime);
+  let lien = document.createElement('a');
+  let divAnime = document.createElement('div');
+  let image = document.createElement('img');
+  let heure = document.createElement('span');
+  let divInfosclass = document.createElement('div');
+  let episode = document.createElement('p');
+  let title = document.createElement('p');
+
+  let days = document.querySelector("#" + anime.Day);
+  let aHref = anime.url_myanimelist;
+  let imgSrc = anime.Picture_adkami;
+  let horraire = anime.Hours;
+  horraire = horraire.split(":");
+  horraire = horraire[0] + ":" + horraire[1];
+  let pEpisode = anime.Type_episodes;
+  let pTitle = anime.Tilte_Myanimelist;
+  let tags = anime.Tags;
+  let tagSplit, tagsTight = "", tagsNoSpecial;
+
+  lien.href = aHref;
+  tags = tags.split(",");
+
+  if (tags[1] == null)
+  {
+      lien.className = tags;
+  }
+  else
+  {
+    for (let i = 0; i < tags.length; i++)
+    {
+      tagSplit = tags[i].split(" ");
+      for (let y = 0; y < tagSplit.length; y++)
+      {
+        if (tagSplit[y] != "")
+        {
+           tagsNoSpecial = removeSpecial(tagSplit[y]);
+            tagsTight += tagsNoSpecial;
+        }
+      }
+      tagsTight += " ";
+    }
+    lien.className = tagsTight;
+  }
+
+  divAnime.className  = "anime";
+
+
+  // if (test[4] == dernier episode sortie)
+  // {
+    heure.className = "time";
+  // }
+  // else
+  // {
+  //   heure.className = "time animeSortieILate";
+  // }
+
+
+  heure.textContent = horraire;
+  image.src = imgSrc;
+  divInfosclass.className = "infosanime";
+  episode.className = "episode";
+  episode.textContent = pEpisode;
+  title.className = "title";
+  title.textContent = pTitle;
+
+
+  days.appendChild(lien);
+  lien.appendChild(divAnime);
+  divAnime.appendChild(image);
+  divAnime.appendChild(heure);
+  divAnime.appendChild(divInfosclass);
+  divInfosclass.appendChild(episode);
+  divInfosclass.appendChild(title);
+}
+
 function showAnimeAgenda() // pas oublier
 {
-
+  let selectAnimeAiringAdkami;
+  // day title picture hours Type_episodes Last_episodes_release
+  pool.getConnection()
+    .then(conn => {
+      selectAnimeAiringAdkami = conn.query("SELECT myanimelist.Tilte_Myanimelist, myanimelist.Last_watched_episodes, myanimelist.Total_number_episodes, myanimelist.url_myanimelist, myanimelist.Tags, anime.Voice_watching, adkami.Picture_adkami, adkami.Last_episodes_release, adkami.Day, adkami.Hours, adkami.Type_episodes FROM anime  JOIN myanimelist ON anime.id_myanimelist = myanimelist.id_myanimelist JOIN adkami ON anime.id_adkami = adkami.id_adkami WHERE myanimelist.status = 'Airing'");
+      selectAnimeAiringAdkami.then(function(result)
+      {
+        splitDay(result);
+      })
+    })
+    .catch(err => { console.log("erreur: " + err); });
 }
