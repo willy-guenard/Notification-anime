@@ -37,7 +37,7 @@ async function refreshAnime()
   anotherTItle = await creatAnotherTitle();
   arrayAnimeAdkami = await getAnimeAgendaAdkami();
   adkamiAnimeLink = await adkami(anotherTItle, arrayAnimeAdkami);
-  // actualise = await adkamiInsertDb(adkamiAnimeLink);
+  actualise = await adkamiInsertDb(adkamiAnimeLink);
 
   setTimeout(()=>{
     if (actualise == "ready")
@@ -386,7 +386,6 @@ function getAnimeAgendaAdkami()
     {
       let infosAnimeAdkami = request.response;
       arrayAnimeAdkami = refreshAgendaAdkamiJson(infosAnimeAdkami);
-      console.log(infosAnimeAdkami);
       resolve(arrayAnimeAdkami);
     }
   });
@@ -727,7 +726,7 @@ function newAnime(anime)
     lien.className = tagsTight;
   }
 
-  if ( anime.Last_episodes_release > anime.total_episodes )
+  if ( anime.Last_episodes_release > anime.Total_number_episodes && anime.Total_number_episodes != 0)
   {
     episodeSupTotal = anime.Last_episodes_release - anime.total_episodes ;
     pEpisode += episodeSupTotal;
@@ -735,7 +734,7 @@ function newAnime(anime)
   else
   {
     episodeSupTotal = anime.Last_episodes_release;
-    pEpisode += anime.Last_episodes_release;
+    pEpisode += episodeSupTotal;
   }
 
 
@@ -811,7 +810,7 @@ function testAnimeUpdate(lastEpisodeRelease, lasEpisodeWatched, animeSortie)
   }
   else
   {
-    return "";
+    divClass = "";
   }
 
   return divClass;
