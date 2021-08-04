@@ -5,7 +5,7 @@
 
 body
 {
-  background-color: grey ;/*#282C34 gray*/
+  background-color: #363636;/*#282C34 gray*/
   -moz-user-select: none; /* Firefox */
   -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
   -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
@@ -164,8 +164,8 @@ p
   margin-bottom: 5px;
   overflow: hidden;
 
-  border: 2px solid blue;   /*regarder si je laisse afficher ou pas 0277bd*/
-  background-color: blue;
+  border: 2px solid mediumpurple;   /*regarder si je laisse afficher ou pas 0277bd*/
+  background-color: mediumpurple;
   /* border: 2px solid #f44336;
   border-color: #9bd300; */
 
@@ -185,7 +185,7 @@ p
   margin-bottom: 5px;
 
 
-  background-color: blue;
+  background-color: mediumpurple;
   /* background-color: #9bd300; */
 }
 
@@ -226,14 +226,14 @@ p
 
 .animeSortieRetard
 {
-  border-color: purple;
-  background-color: purple;
+  border-color: #0277bd;
+  background-color: #0277bd;
 }
 
 .animeSortie
 {
-  border-color: green;
-  background-color: green;
+  border-color: #9bd300 ;
+  background-color: #9bd300;
 }
 
 .AnimeRetard

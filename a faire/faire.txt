@@ -1,0 +1,64 @@
+                                  [affichage]
+
+  pages principal:
+    - faire que je ne puisse pas changer la pages de base par une autre / pas changer le nom titre
+    - faire des bouton ergonomique plus beau
+    - faire une legende pour les contour anime
+    - quand un anime et en sortie + a jour ouvre la pages myanimelist
+    - faire un affichage visuel pour montrer quelle jour on est
+    - faire que je puisse changer la fenetre de taille les infos  ce mette a l'echelle
+    - faire des filtre pour les animes avec les tags
+
+  quand je click sur un anime ouvre une pages avec la page myanimelist:
+    - faire un dark mods
+    - faire un blocker de pubs
+    - mettre adon pour regarer les video en accelerais
+
+  - faire un bouton qui me permet de passer de aganda anime a list anime fini
+
+  - quand un anime sort faire acctualiser la pages 
+
+
+                                [DB]
+
+  - regarder si toute les Db s'actualise bien toute seul
+    [] myanimelist
+    [] anime
+    [] adkami
+    [] other_anime
+
+  - faire que quand je fini un anime le suprime des DB
+
+  - faire verification des anime qui ne son pas detecter tout seul dans adkami
+    [] dans adkami
+    [] anime pas dans adkami
+        [] faire remplire information pas user
+
+  - quand un anime a fini de sortire attendre 1 semain avant de le passer en anime sortie
+
+
+                              [autre]
+  - faire des preset pour les couleur utiliser {fond, couleur contour anime} [moi, mehdi, hayder]
+            violet, vert: sortie  retard
+            vert, gris: sortie a jour
+            orange, noir: pas sortie retard
+            bleu, jaune: pas sortie
+
+  - faire qu'on puisse en faire un personaliser {liste de couluer, hexa}
+
+  - quand je lance l'app faire un refreh des donner
+  - dire a user de faire les tags pour filtre et autre
+
+
+                              [probleme]
+  - anime qui ne son pas detecter
+        9 anime sans adkami
+          one pieces ( n'est afficher que en fin de semaine)
+          D_Cide (nom bizzar)
+          kobayashi ( nom bizzar)
+          obey ( pas sur adkami)
+          mini dragon ? ( je c'est pas)
+          Tantei wa Mou, Shindeiru. ( pas compris pk pas pris en compte)
+          tensei ( nom de con)
+          vanitas ( nom de con)
+          ybisaki (pas adkami)

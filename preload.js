@@ -748,7 +748,7 @@ function newAnime(anime)
   {
     if ( horraire[0] <= today.getHours() ) // test heure
     {
-      if ( horraire[1] <= today.getMinute() ) // test minute sortie
+      if ( horraire[1] <= today.getMinutes() ) // test minute sortie
       {
         animeDivClass = testAnimeUpdate(episodeSupTotal, anime.Last_watched_episodes, 1) // sortie  ajour/retard
         divAnime.className = "anime " + animeDivClass;

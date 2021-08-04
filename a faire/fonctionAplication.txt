@@ -2,11 +2,11 @@ main function:
   [✓] afficher agenda list Lundi a dimanche
   [✓] afficher anime le jour de leur sortie
   [✓] afficher anime dans l'ordre ou il sorte
-  [] indication visuel pour montrer l'etat de l'anime
+  [✓] indication visuel pour montrer l'etat de l'anime
   [] gestion des filtes (tags)
   [] faire une verification pour les animes avec la recherche en coupant le titre
-  [] 1 bouton acctualise tout
-  [] stocker information anime pour les animes avec un titre different  pour ne pas tout verifier
+  [✓] 1 bouton acctualise tout
+  [✓] stocker information anime pour les animes avec un titre different  pour ne pas tout verifier
   [] quand je click sur un episodes ( faire afficher une pages pour regarder episodes/ouvre dans le lecteur episodes)
   [] user qui valide les animes avec le titre pas trouver dirrect
   [] si anime existe pas sur adkami (fai remplire infos)
@@ -23,24 +23,3 @@ function secondaire:
   [] envois une notification quans episode et sortie
   [] faire un check des animes pour savoir si il son sortie tout les x temps
   [] mettre a jour myanimelist
-
-
-pas sortie: bleu
-pas sortie episode de retard : orange
-sortie regarder  si il reste des episodes: vert
-sortie avec episodes de retard : violet
-
-  margin: 5px 680px 11px;
-
-
-pas sortie = quand jaffiche anime le definir
-episode de retard = definir quand j'affiche
-
-
-creation de l'affichage:
- pas sortie
- episode retard
-
- faire un quand episode sort faire une validation en mode je regarde les class
-
- quand il reste 1 episodes tout les animes devienne des release

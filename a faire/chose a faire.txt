@@ -2,25 +2,25 @@
         [✓] myanimelist list watching
           [] demander nom user de myanimelist
           [] gestion de la demande de token en backend
-            [] faire que le code cacher sois fait randomement
+            [✓] faire que le code cacher sois fait randomement
           [] faire la gestion du refresh de token
         [✓] agenda adkami
         [✓] another titre
         [] anime wakani
         [] anime crunchyroll
         [] anime mavanime
-        [] recuperais une images pour les anime qui on deja fini de sortire
+        [✓] recuperais une images pour les anime qui on deja fini de sortire
 
 
 [] agenda anime:
         [✓] faire afficher les animes le bon jour
         [✓] faire afficher les anime dans l'ordre quil sorte
         [✓] faire afficher les episode de la semaine
-        [] faire changer de couleur quand l'anime est sortie
+        [✓] faire changer de couleur quand l'anime est sortie
         [] faire une autre pages pour les animes dejas sortie
 
 [] main action
-        [] refresh(ma list myanime list) + (adkami)
+        [✓] refresh(ma list myanime list) + (adkami)
         [] un lien pour aller sur l'agenda adlami (avec un logo)
         [] un bouton pour voir la liste des anime qui son pas en cour de sortie
         [] un truc pour filtrer les anime par rapport au tag (myanimelist,vostfr/vf)
@@ -30,7 +30,7 @@
 [] option a rajouter:
         [] clicker sur l'anime ouvre la pages de l'episode
         [] faire un systeme  de filtre pour choisir les animes par rapport au tags myanimelist
-        [] gerer les anime avec plusieur episode pas regarder
+        [✓] gerer les anime avec plusieur episode pas regarder
         [] gere sur qu'elle site on veut regarder cette anime  ( et faire choisire) { jaure un petit logo et je coche celui que je vuet}
         [] faire que l'aplication a une icone ne bas a droite
         [] regler le probleme de content security
