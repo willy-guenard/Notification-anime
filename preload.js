@@ -4,6 +4,7 @@ const ipcRenderer = require("electron");
 const fs = require('fs');
 const mariadb = require("mariadb");
 const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"});
+const today = new Date();
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -22,21 +23,29 @@ function deleteDb()
 {
   pool.getConnection()
     .then(conn => {
-      conn.query("DELETE FROM `notification_anime`.`myanimelist` WHERE  `score`=0;");
+      conn.query("DELETE FROM `notification_anime`.`myanimelist` WHERE  `score` = 0;");
+      conn.query("DELETE FROM `notification_anime`.`adkami` WHERE  `Type_episodes`= 'Episode';");
     })
     .catch(err => { console.log("erreur: " + err); });
 }
 
 async function refreshAnime()
 {
-  let arrayAnimeAdkami, anotherTItle;
+  let arrayAnimeAdkami, anotherTItle, actualise;
 
   await getAnimeMalWatching("cheark");
   anotherTItle = await creatAnotherTitle();
   arrayAnimeAdkami = await getAnimeAgendaAdkami();
   adkamiAnimeLink = await adkami(anotherTItle, arrayAnimeAdkami);
-  await adkamiInsertDb(adkamiAnimeLink);
-  affichage()
+  // actualise = await adkamiInsertDb(adkamiAnimeLink);
+
+  setTimeout(()=>{
+    if (actualise == "ready")
+    {
+      window.location.reload();
+    }
+  } , 5000);
+
 }
 
 function getAnimeMalWatching(userName)
@@ -377,6 +386,7 @@ function getAnimeAgendaAdkami()
     {
       let infosAnimeAdkami = request.response;
       arrayAnimeAdkami = refreshAgendaAdkamiJson(infosAnimeAdkami);
+      console.log(infosAnimeAdkami);
       resolve(arrayAnimeAdkami);
     }
   });
@@ -543,6 +553,11 @@ function tryAnimeAdkami(anotherTItle, arrayAnimeAdkami, animeNb, anotherTItleSiz
   }
 }
 
+function adkamiManuelle(animeTitle)
+{
+  console.log("adkamiManuelle");
+}
+
 function adkamiInsertDb(adkamiAnimeLink)
 {
   return new Promise((resolve,reject)=>{
@@ -563,14 +578,11 @@ function adkamiInsertDb(adkamiAnimeLink)
       }
     })
     .catch(err => { console.log("erreur: " + err); });
-    resolve();
+    resolve("ready");
   });
 }
 
-function adkamiManuelle(animeTitle)
-{
-  console.log("adkamiManuelle");
-}
+
 
 function splitDay(animeAiring)
 {
@@ -671,7 +683,7 @@ function oderAnimeDay(anime)
 
 function newAnime(anime)
 {
-  console.log(anime);
+  let daysArray = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
   let lien = document.createElement('a');
   let divAnime = document.createElement('div');
   let image = document.createElement('img');
@@ -685,11 +697,10 @@ function newAnime(anime)
   let imgSrc = anime.Picture_adkami;
   let horraire = anime.Hours;
   horraire = horraire.split(":");
-  horraire = horraire[0] + ":" + horraire[1];
-  let pEpisode = anime.Type_episodes;
+  let pEpisode = anime.Type_episodes + " ";
   let pTitle = anime.Tilte_Myanimelist;
   let tags = anime.Tags;
-  let tagSplit, tagsTight = "", tagsNoSpecial;
+  let tagSplit, tagsTight = "", tagsNoSpecial, episodeSupTotal, animeDivClass;
 
   lien.href = aHref;
   tags = tags.split(",");
@@ -716,27 +727,63 @@ function newAnime(anime)
     lien.className = tagsTight;
   }
 
-  divAnime.className  = "anime";
+  if ( anime.Last_episodes_release > anime.total_episodes )
+  {
+    episodeSupTotal = anime.Last_episodes_release - anime.total_episodes ;
+    pEpisode += episodeSupTotal;
+  }
+  else
+  {
+    episodeSupTotal = anime.Last_episodes_release;
+    pEpisode += anime.Last_episodes_release;
+  }
 
 
-  // if (test[4] == dernier episode sortie)
-  // {
-    heure.className = "time";
-  // }
-  // else
-  // {
-  //   heure.className = "time animeSortieILate";
-  // }
+  if ( daysArray.indexOf(anime.Day) < today.getDay() && anime.Day != "Dimanche" ) // jour passer
+  {
+    animeDivClass = testAnimeUpdate(episodeSupTotal, anime.Last_watched_episodes, 1);
+    divAnime.className = "anime " + animeDivClass;
+    heure.className = "time " + animeDivClass;
+  }
+  else if ( daysArray[today.getDay()] == anime.Day ) // jour en cour
+  {
+    if ( horraire[0] <= today.getHours() ) // test heure
+    {
+      if ( horraire[1] <= today.getMinute() ) // test minute sortie
+      {
+        animeDivClass = testAnimeUpdate(episodeSupTotal, anime.Last_watched_episodes, 1) // sortie  ajour/retard
+        divAnime.className = "anime " + animeDivClass;
+        heure.className = "time " + animeDivClass;
+      }
+      else  // pas sortie
+      {
+        animeDivClass = testAnimeUpdate(episodeSupTotal - 1, anime.Last_watched_episodes, 0) // pas sortie ajour/retard
+        divAnime.className = "anime " + animeDivClass;
+        heure.className = "time " + animeDivClass;
+      }
+    }
+    else  // pas sortie
+    {
+      animeDivClass = testAnimeUpdate(episodeSupTotal - 1, anime.Last_watched_episodes, 0) // pas sortie ajour/retard
+      divAnime.className = "anime " + animeDivClass;
+      heure.className = "time " + animeDivClass;
+    }
+  }
+  else //jour pas arriver
+  {
+    animeDivClass = testAnimeUpdate(episodeSupTotal - 1, anime.Last_watched_episodes, 0) // pas sortie ajour/retard
+    divAnime.className = "anime " + animeDivClass;
+    heure.className = "time " + animeDivClass;
+  }
 
-
+  horraire = horraire[0] + ":" + horraire[1];
   heure.textContent = horraire;
   image.src = imgSrc;
   divInfosclass.className = "infosanime";
   episode.className = "episode";
-  episode.textContent = pEpisode;
+  episode.textContent = pEpisode ;
   title.className = "title";
   title.textContent = pTitle;
-
 
   days.appendChild(lien);
   lien.appendChild(divAnime);
@@ -745,6 +792,29 @@ function newAnime(anime)
   divAnime.appendChild(divInfosclass);
   divInfosclass.appendChild(episode);
   divInfosclass.appendChild(title);
+}
+
+function testAnimeUpdate(lastEpisodeRelease, lasEpisodeWatched, animeSortie)
+{
+  let divClass;
+  if ( lastEpisodeRelease == lasEpisodeWatched && animeSortie == 1 )  // sortie a jour
+  {
+    divClass = "animeSortie";
+  }
+  else if ( lastEpisodeRelease > lasEpisodeWatched && animeSortie == 1 ) //sortie retard
+  {
+    divClass = "animeSortieRetard";
+  }
+  else if ( lastEpisodeRelease > lasEpisodeWatched && animeSortie != 1 ) //pas sortie retard
+  {
+    divClass = "AnimeRetard";
+  }
+  else
+  {
+    return "";
+  }
+
+  return divClass;
 }
 
 function showAnimeAgenda() // pas oublier
