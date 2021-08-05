@@ -1,0 +1,23 @@
+                          [api myanimelist]
+
+- creation du token
+- refreh du token
+- quand jai regarder un episode faire noter par user que jai fini
+    et actualiser dans myanimelist
+    document.URL (pour recuperais le token)
+
+
+                            [wakanim]
+- check api ou scraping
+
+
+                            [crunchyroll]
+- check api ou scraping
+
+
+                            [mavanime]
+- check api ou scraping
+
+
+
+faire un vpn pour pas etre considerais etre du spam a scraping

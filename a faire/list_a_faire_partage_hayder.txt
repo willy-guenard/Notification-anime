@@ -1,0 +1,14 @@
+- changer le bouton filtre pour quil ne suprime plus les infos de la db
+- changer la ligne ou je defini le score a 0 pour => myAnimeListJson[i].score
+- faire un executable
+~ serveur de mise a jour
+- creation token
+- refresh token
+- user myanimelist rentrer par user
+- update de chaque dans chaque DB
+- delete des animes fini de regarer
+- gestion des anime pas detecter tout de suite pour adkami
+- gestion des anime other_anime
+- indication du jour qu'on est
+- filtre
+- regler les probleme

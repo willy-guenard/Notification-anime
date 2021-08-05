@@ -1,0 +1,8 @@
+                                [autre]
+- changer l'icone dans la barre des tache + dans le petit intituler
+- mettre le systeme de serveur de mise a ajour
+- faire un exercutable de mon app
+
+
+
+- version pour manga
