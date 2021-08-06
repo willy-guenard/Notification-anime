@@ -12,3 +12,31 @@
 - indication du jour qu'on est
 - filtre
 - regler les probleme
+
+
+[affichage]
+- actualise les anime quand l'ap ce lance
+- actualiser agenda quand heure de sortie anime arrive
+
+[reglage user]
+- demande user le speudo
+- demander quelle anime on regarde en vf
+
+
+[DB]
+- gestion des animes pas detecter tout de suite par adkami
+- gestion des animes pas dans adkami
+- surpresion des infos DB quand fini regarder
+- bien update les animes
+
+[now]
+- regarder si toute mes db s'actualise bien
+- regarder si toute mes db s'update bien
+- quand je fini un anime le suprime dans Db myanimelist + adkami/other_anime
+- gestion des animes qui ne sons pas detecter tout de suite
+- gestion anime other
+- faire que quand je click sur anime ouvre autre pages
+- faire affichage pour montrer quelle jour on est
+
+
+certain anime ne s'affiche pas au debut de la semaine voir comment faire
