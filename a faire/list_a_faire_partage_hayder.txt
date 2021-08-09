@@ -1,9 +1,3 @@
-- changer le bouton filtre pour quil ne suprime plus les infos de la db
-- changer la ligne ou je defini le score a 0 pour => myAnimeListJson[i].score
-- faire un executable
-~ serveur de mise a jour
-- creation token
-- refresh token
 - user myanimelist rentrer par user
 - update de chaque dans chaque DB
 - delete des animes fini de regarer
@@ -28,6 +22,7 @@
 - gestion des animes pas dans adkami
 - surpresion des infos DB quand fini regarder
 - bien update les animes
+- changer la ligne ou je defini le score a 0 pour => myAnimeListJson[i].score
 
 [now]
 - regarder si toute mes db s'actualise bien
@@ -38,5 +33,8 @@
 - faire que quand je click sur anime ouvre autre pages
 - faire affichage pour montrer quelle jour on est
 
-
-certain anime ne s'affiche pas au debut de la semaine voir comment faire
+[autre]
+- faire un executable
+~ serveur de mise a jour
+- creation token
+- refresh token
