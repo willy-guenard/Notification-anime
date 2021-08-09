@@ -19,6 +19,12 @@ window.addEventListener('DOMContentLoaded', () => {
   butonSupDB.addEventListener('click', function(){ deleteDb() }); // function temporaire
 
   showAnimeAgenda();
+  console.log(ipcRenderer.sendSync('synchronous-message', 'ping')); // affiche "pong"
+
+  ipcRenderer.on('asynchronous-reply', (event, arg) => {
+    console.log(arg) // affiche "pong"
+  })
+  ipcRenderer.send('asynchronous-message', 'ping')
 })
 
 function deleteDb() // function temporaire/ test whith clear DB
@@ -492,7 +498,7 @@ function linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami)
       }
       else
       {
-        adkamiManuelle(anotherTItle[i][0]);
+        adkamiManuelle(anotherTItle[i][0], arrayAnimeAdkami);
       }
     }
     resolve(animeLinkAdkami);
@@ -538,9 +544,11 @@ function tryAnimeAdkami(anotherTItle, arrayAnimeAdkami, animeNb, anotherTItleSiz
   }
 }
 
-function adkamiManuelle(animeTitle)
+function adkamiManuelle(animeTitle, arrayAnimeAdkami)
 {
   console.log("adkamiManuelle");
+  // ipcRenderer.send('asynchronous-message', 'token')
+
 }
 
 function adkamiInsertDb(adkamiAnimeLink)
@@ -724,7 +732,13 @@ function newAnime(anime)
   }
   else if ( daysArray[today.getDay()] == anime.Day ) // jour en cour
   {
-    if ( horraire[0] <= today.getHours() ) // test heure
+    if ( horraire[0] < today.getHours() ) // heures depasser
+    {
+      animeDivClass = testAnimeUpdate(episodeSupTotal, anime.Last_watched_episodes, 1);
+      divAnime.className = "anime " + animeDivClass;
+      heure.className = "time " + animeDivClass;
+    }
+    else if ( horraire[0] == today.getHours() ) //heurs pile
     {
       if ( horraire[1] <= today.getMinutes() ) // test minute sortie
       {

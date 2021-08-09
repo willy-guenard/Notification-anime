@@ -1,37 +1,21 @@
-- user myanimelist rentrer par user
-- update de chaque dans chaque DB
-- delete des animes fini de regarer
-- gestion des anime pas detecter tout de suite pour adkami
-- gestion des anime other_anime
-- indication du jour qu'on est
-- filtre
-- regler les probleme
-
-
 [affichage]
-- actualise les anime quand l'ap ce lance
-- actualiser agenda quand heure de sortie anime arrive
+- actualise l'agenda quand on lance l'app
+- actualise l'agenda quand l'heure de sortie d'un anime arrive
+- quand je click sur un anime ouvre une autre fenetre avec des infos sur anime (pages myanimelist, d'autre infos)
+- filtre Tags
 
 [reglage user]
-- demande user le speudo
+- faire rentrer le nom du compte de l'user
 - demander quelle anime on regarde en vf
 
-
 [DB]
+- gestion des animes qui sorte pas  semaine
 - gestion des animes pas detecter tout de suite par adkami
 - gestion des animes pas dans adkami
+- gestion des anime other_anime
 - surpresion des infos DB quand fini regarder
 - bien update les animes
 - changer la ligne ou je defini le score a 0 pour => myAnimeListJson[i].score
-
-[now]
-- regarder si toute mes db s'actualise bien
-- regarder si toute mes db s'update bien
-- quand je fini un anime le suprime dans Db myanimelist + adkami/other_anime
-- gestion des animes qui ne sons pas detecter tout de suite
-- gestion anime other
-- faire que quand je click sur anime ouvre autre pages
-- faire affichage pour montrer quelle jour on est
 
 [autre]
 - faire un executable

@@ -27,75 +27,87 @@ app.whenReady().then(() => {
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
 
-    ipcMain.on('asynchronous-message', (event, token) => {
-      let code_challenge = "";
-      let a = 128;
-      let b = 'abcdefghijklmnopqrstuvwxyz1234567890-_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let c = b[Math.floor(Math.random() * b.length)];
 
-      for (let d = 0; d < a; d++)
-      {
-        code_challenge += b[Math.floor(Math.random() * b.length)];
-      }
-
-      let response_type = "code";
-      let client_id = "29fc8b678220461db9399d28c82624e1";
-      let state = "requestTokenMyanimelist";
-      let user = "Cheark";
-      let urlViewToken = "https://myanimelist.net/v1/oauth2/authorize?response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge;
-
-      const windowToken = new BrowserWindow({
-         width: 1500,
-         height: 900,
-         darkTheme: true,
-         webPreferences: {
-           preload: path.join(__dirname, './secondeWindow/seconpreload.js'),
-           contextIsolation: true
-         }
-       })
-
-      const viewToken = new BrowserView()
-      windowToken.setBrowserView(viewToken)
-      viewToken.setAutoResize({width:true, height:true, x:false, y:false})
-      viewToken.setBounds({ x: 50, y: 100, width: 1250, height: 1500 })
-      viewToken.webContents.loadURL(urlViewToken)
-
-      windowToken.removeMenu();
-      windowToken.webContents.openDevTools();
-      windowToken.loadFile('./secondeWindow/secondeWindow.html');
-
-      ipcMain.on('Cannel-Url', (event, url_test) => {
-        let url_code = viewToken.webContents.getURL();
-        let code = url_code.split("=");
-
-        let data = "client_id=" + client_id + "&code=" + code[1] + "&code_verifier=" + code_challenge + "&grant_type=authorization_code";
-
-        let request = new XMLHttpRequest();
-        let url = "https://myanimelist.net/v1/oauth2/token";
-        request.withCredentials = true;
-
-        request.addEventListener("readystatechange", function() {
-          if(this.readyState === 4)
-          {
-            fs.writeFile("./Json/token.json", request.reponseText, function(err, result)
-              {
-                if(err)
-                  {
-                    console.log('error', err);
-                  }
-                  else
-                  {
-                    console.log("Filte Token: update");
-                  }
-              });
-          }
-        });
-        request.open('post', url);
-        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        request.send(data);
-
-      })
+    // window for Manuelle adkami
+    ipcMain.on('test', (event, arg) => {
+      console.log(arg);
+      event.reply('asynchronous-reply', 'pong')
     })
+
+    ipcMain.on('synchronous-message', (event, arg) => {
+      console.log(arg) // affiche "ping"
+      event.returnValue = 'pong'
+    })
+
+    //   ipcMain.on('asynchronous-message', (event, token) => {
+    //   let code_challenge = "";
+    //   let a = 128;
+    //   let b = 'abcdefghijklmnopqrstuvwxyz1234567890-_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    //   let c = b[Math.floor(Math.random() * b.length)];
+    //
+    //   for (let d = 0; d < a; d++)
+    //   {
+    //     code_challenge += b[Math.floor(Math.random() * b.length)];
+    //   }
+    //
+    //   let response_type = "code";
+    //   let client_id = "29fc8b678220461db9399d28c82624e1";
+    //   let state = "requestTokenMyanimelist";
+    //   let user = "Cheark";
+    //   let urlViewToken = "https://myanimelist.net/v1/oauth2/authorize?response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge;
+    //
+    //   const windowToken = new BrowserWindow({
+    //      width: 1500,
+    //      height: 900,
+    //      darkTheme: true,
+    //      webPreferences: {
+    //        preload: path.join(__dirname, './secondeWindow/seconpreload.js'),
+    //        contextIsolation: true
+    //      }
+    //    })
+    //
+    //   const viewToken = new BrowserView()
+    //   windowToken.setBrowserView(viewToken)
+    //   viewToken.setAutoResize({width:true, height:true, x:false, y:false})
+    //   viewToken.setBounds({ x: 50, y: 100, width: 1250, height: 1500 })
+    //   viewToken.webContents.loadURL(urlViewToken)
+    //
+    //   windowToken.removeMenu();
+    //   windowToken.webContents.openDevTools();
+    //   windowToken.loadFile('./secondeWindow/secondeWindow.html');
+    //
+    //   ipcMain.on('Cannel-Url', (event, url_test) => {
+    //     let url_code = viewToken.webContents.getURL();
+    //     let code = url_code.split("=");
+    //
+    //     let data = "client_id=" + client_id + "&code=" + code[1] + "&code_verifier=" + code_challenge + "&grant_type=authorization_code";
+    //
+    //     let request = new XMLHttpRequest();
+    //     let url = "https://myanimelist.net/v1/oauth2/token";
+    //     request.withCredentials = true;
+    //
+    //     request.addEventListener("readystatechange", function() {
+    //       if(this.readyState === 4)
+    //       {
+    //         fs.writeFile("./Json/token.json", request.reponseText, function(err, result)
+    //           {
+    //             if(err)
+    //               {
+    //                 console.log('error', err);
+    //               }
+    //               else
+    //               {
+    //                 console.log("Filte Token: update");
+    //               }
+    //           });
+    //       }
+    //     });
+    //     request.open('post', url);
+    //     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //     request.send(data);
+    //
+    //   })
+    // })
 
 
   //icone barre tache '''''''''''''''''''''''''a continuer
