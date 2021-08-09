@@ -1,9 +1,9 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 const ipcRenderer = require("electron");
-const fs = require('fs');
-const mariadb = require("mariadb");
-const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"});
+const mariadb = require("mariadb"); // Data base
+const jikanjs  = require('jikanjs'); //api myanimelist no officiel
+const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"}); // DB login
 const today = new Date();
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -11,17 +11,17 @@ window.addEventListener('DOMContentLoaded', () => {
   const butonShowanime = document.querySelector("#butonShowanime");
   const tokenMal = document.querySelector("#tokenMal");
   const butonfiltre = document.querySelector("#filtre");
-  const butonSupDB = document.querySelector("#supDB");
+  const butonSupDB = document.querySelector("#supDB"); // buton temporaire
 
   butonShowanime.addEventListener('click', function(){ refreshAnime() });
   tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
   butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
-  butonSupDB.addEventListener('click', function(){ deleteDb() }); // showFiltre("mehdi")
+  butonSupDB.addEventListener('click', function(){ deleteDb() }); // function temporaire
 
   showAnimeAgenda();
 })
 
-function deleteDb()
+function deleteDb() // function temporaire/ test whith clear DB
 {
   pool.getConnection()
     .then(conn => {
@@ -31,64 +31,50 @@ function deleteDb()
     .catch(err => { console.log("erreur: " + err); });
 }
 
-async function refreshAnime()
+async function refreshAnime() // refresh all data anime
 {
   let arrayAnimeAdkami, anotherTItle, actualise;
 
-  await getAnimeMalWatching("cheark");
-  // anotherTItle = await creatAnotherTitle();
-  // arrayAnimeAdkami = await getAnimeAgendaAdkami();
-  // adkamiAnimeLink = await adkami(anotherTItle, arrayAnimeAdkami);
-  // actualise = await adkamiInsertDb(adkamiAnimeLink);
-  //
-  // setTimeout(()=>{
-  //   if (actualise == "ready")
-  //   {
-  //     window.location.reload();
-  //   }
-  // } , 5000);
+  await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
+  anotherTItle = await creatAnotherTitle(); // create variant of title anime to link myanimelist to adkami
+  arrayAnimeAdkami = await getAnimeAgendaAdkami(); // get data from anime in Airing
+  adkamiAnimeLink = await linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami); // link data from adkami with myanimelist title
+  actualise = await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
 
+  setTimeout(()=>{
+    if ( actualise == "ready" )
+    {
+      window.location.reload();
+    }
+  } , 5000);
 }
 
-function getAnimeMalWatching(userName)
+function  jikanApiAnimeMalWatching(myanimelistName)
 {
-   return new Promise((resolve,reject)=>{
-
-    // api jikan request to get anime in the watching list of a user
-    let url = "https://api.jikan.moe/v3";
-    let request = new XMLHttpRequest();
-    let requestGetWathingList = "/user/"+ userName + "/animelist/watching";
-    let animeMyanimelistjson;
-
-    request.open('GET', url + requestGetWathingList);
-    request.responseType = 'json';
-    request.send();
-
-    request.onload = function()
-    {
-      animeMyanimelistjson = request.response;
-      insertUpdateMyanimelistDb(animeMyanimelistjson["anime"]);
-    }
-    setTimeout(()=>{resolve(";)");} , 5000);
+  jikanjs.loadUser(myanimelistName, 'animelist', 'watching').then((response) => {
+    insertUpdateMyanimelistDb(response["anime"]); // function to inser or update anime in myanimelist DB
+  }).catch((err) => {
+    console.error(err); // in case a error happens
   });
 }
 
-function insertUpdateMyanimelistDb(myAnimeListJson)
+function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or update anime in myanimelist DB
 {
-  let selectMyanimelist, status, titleAnime, anotherTitleList;
+  let selectMyanimelist, status, titleAnime;
+  //conection to data DB
   pool.getConnection()
     .then(conn => {
       for (let i = 0; i < myAnimeListJson.length; i++)
       {
-        if (myAnimeListJson[i].airing_status == 1) { status = "Airing" } else { status = "Release"}
-        titleAnime = removeSpecial(myAnimeListJson[i].title)
+        if ( myAnimeListJson[i].airing_status == 1 ) { status = "Airing" } else { status = "Release"}
+        titleAnime = removeSpecialCharacter(myAnimeListJson[i].title);
+        //inser new anime in myanimelist if it already exists just update it
         conn.query("INSERT INTO myanimelist (MAL_id, Tilte_Myanimelist, Last_watched_episodes, Total_number_episodes, url_myanimelist, Picture_Myanimelist, Type_episodes, Tags, Status, is_rewatching, score) VALUES (" + myAnimeListJson[i].mal_id + ", '" + titleAnime + "', " + myAnimeListJson[i].watched_episodes + ", " + myAnimeListJson[i].total_episodes + ", '" + myAnimeListJson[i].url + "', '" + myAnimeListJson[i].image_url + "', '" + myAnimeListJson[i].type + "', '" + myAnimeListJson[i].tags + "', '" + status + "', '" + myAnimeListJson[i].is_rewatching  + "', " + 0 + ") ON DUPLICATE KEY UPDATE Last_watched_episodes = VALUES(Last_watched_episodes), Tags = VALUES(Tags), Status = VALUES(Status), score = VALUES(score)");
 
-        console.log(titleAnime);
-        selectMyanimelist = conn.query("SELECT id_myanimelist,Tilte_Myanimelist from myanimelist where Tilte_Myanimelist = '" + titleAnime + "';");
+        // select myanimelist table for get id and title to create link with foreign key
+        selectMyanimelist = conn.query("SELECT id_myanimelist, Tilte_Myanimelist from myanimelist where Tilte_Myanimelist = '" + titleAnime + "';");
         selectMyanimelist.then(function(result)
         {
-          console.log(result[0]);
           conn.query("INSERT INTO anime (id_myanimelist, Title_anime) VALUES (" + result[0].id_myanimelist + ", '" + result[0].Tilte_Myanimelist + "') ON DUPLICATE KEY UPDATE Title_anime = VALUES(Title_anime)");
         })
       }
@@ -96,7 +82,7 @@ function insertUpdateMyanimelistDb(myAnimeListJson)
     .catch(err => { console.log("erreur: " + err); });
 }
 
-function creatAnotherTitle()
+function creatAnotherTitle() // creat recurrent variant of title anime from myanimelist
 {
   return new Promise((resolve, reject)=>{
     let selectAnime, stockTitle;
@@ -107,21 +93,21 @@ function creatAnotherTitle()
       selectAnime = conn.query("SELECT Title_anime from anime JOIN myanimelist ON anime.id_myanimelist = myanimelist.id_myanimelist where id_adkami IS NULL AND id_other_anime IS NULL AND myanimelist.Status = 'Airing'");
       selectAnime.then(function(result)
       {
-        for (let i = 0; i < result.length; i++)
+        for (let i = 0; i < result.length; i++) // try all title
         {
           stockTitle = "";
           anotherTitleList[i] = new Array();
           anotherTitleList[i][0] = result[i].Title_anime;
-          if ( titleTryOu(result[i].Title_anime) != undefined ) { stockTitle += titleTryOu(result[i].Title_anime + "|||"); }
-          if ( titleJustS(result[i].Title_anime) != undefined ) { stockTitle += titleJustS(result[i].Title_anime + "|||"); }
-          if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { stockTitle += titleNoDoblePoint(result[i].Title_anime); }
+          if ( titleTryOu(result[i].Title_anime) != undefined ) { stockTitle += titleTryOu(result[i].Title_anime + "|||"); } //test if this variant make a result
+          if ( titleJustS(result[i].Title_anime) != undefined ) { stockTitle += titleJustS(result[i].Title_anime + "|||"); } //test if this variant make a result
+          if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { stockTitle += titleNoDoblePoint(result[i].Title_anime); } //test if this variant make a result
 
-          if (stockTitle != "")
+          if ( stockTitle != "" ) // check if we have created new titles
           {
             stockTitle = stockTitle.split("|||");
-            for (let y = 0; y < stockTitle.length; y++)
+            for (let y = 0; y < stockTitle.length; y++) // display all new title
             {
-              if (stockTitle[y] != "")
+              if ( stockTitle[y] != "" )
               {
                 anotherTitleList[i][y+1] = stockTitle[y]
               }
@@ -137,20 +123,19 @@ function creatAnotherTitle()
 
 function titleTryOu(titleMyanimelist)
 {
-  let nbOFOu = numberOfRepetitions(titleMyanimelist, "ou");
+  let nbOFOu = numberOfRepetitions(titleMyanimelist, "ou"); // get number of "ou" in title
   let titleFromOuToO;
   let stockTitle1, stockTitle2, stockTitle3, stockTitle4, stockTitle5, stockTitle6, stockTitle7;
   let stockFirstOu, stockSecondeOu;
 
-  switch (nbOFOu)
+  switch (nbOFOu) // distributed according to the number of "ou" find
   {
     case 0:
-      // c'est non
+      //don't find "ou" in title
     break;
 
     case 1:
       titleFromOuToO = titleMyanimelist.replace('ou', 'o');
-
     break;
 
     case 2:
@@ -193,6 +178,7 @@ function titleTryOu(titleMyanimelist)
         {
           titleFromOuToO += stockTitle3[i];
         }
+
         titleFromOuToO += "";
 
       // o o o
@@ -209,6 +195,7 @@ function titleTryOu(titleMyanimelist)
         {
           titleFromOuToO += stockTitle5[i];
         }
+
         titleFromOuToO += "";
 
       // o ou o
@@ -239,33 +226,30 @@ function titleTryOu(titleMyanimelist)
     break;
 
     default:
-    console.log("O(u)verflow");
+    console.log("too much 'ou' in Title");
   }
   return titleFromOuToO;
 }
 
 function numberOfRepetitions(maChaine, recherche)
 {
- let nbOFOu = 0;
- let melange;
+ let melange, nbOFOu = 0;
 
  for (let i = 0; i < maChaine.length; i++)
  {
    melange = maChaine[i] + maChaine[i + 1]
-
-   if (melange == recherche)
+   if ( melange == recherche )
    {
      nbOFOu++;
    }
-
   }
+
  return nbOFOu;
 }
 
-function titleJustS(titleMyanimelist)
+function titleJustS(titleMyanimelist) // change the way to display the number of the season
 {
-  let testSeason, testTenSeason, newTitle = '', numberSeason, numbre20Saison;
-
+  let testSeason, testTenSeason, newTitle = '', numberSeason;
 
   testSeason = titleMyanimelist.indexOf('1st');
   if ( testSeason != -1 )
@@ -329,8 +313,7 @@ function titleJustS(titleMyanimelist)
     testTEnSeason = titleMyanimelist[testSeason - 1] // character avant th
     if ( !isNaN( parseInt(testTEnSeason) ) ) // test si Xth et un chiffre
     {
-
-      testTEnSeason = titleMyanimelist[testSeason - 2] // character avant Xth
+      testTEnSeason = titleMyanimelist[testSeason - 2]; // character avant Xth
       if ( !isNaN( parseInt(testTEnSeason) ) ) // test character avant Xth et un chiffre ou pas  [XXth]
       {
         numberSeason = titleMyanimelist.slice(testSeason - 2, testSeason);
@@ -345,25 +328,27 @@ function titleJustS(titleMyanimelist)
       newTitle = newTitle + "S" + numberSeason;
     }
   }
-  if (newTitle != "") {  return newTitle; }
+  if  (newTitle != "" ) {  return newTitle; }
 }
 
 function titleNoDoblePoint(titleMyanimelist)
 {
   let titleNoDoblePointlist;
-  let firstSplit;
 
   if ( titleMyanimelist.indexOf(":") != -1 )
   {
     titleNoDoblePointlist = titleMyanimelist.replace(":", "");
     return titleNoDoblePointlist;
   }
+  else
+  {
+    return titleNoDoblePointlist;
+  }
 }
 
-function removeSpecial(title)
+function removeSpecialCharacter(title)
 {
-  title = title.replace(/[^\ws!.:=?I~_;0-9 -]/, '');
-  title = title.replace(/[(TV)]/gi, '');
+  title = title.replace(/[^\ws!.:=?I~_)(;0-9 -]/, '');
   title = title.replace(/[＿␣]/gi, '_');
   title = title.replace(/[∬]/gi, '2');
   title = title.replace(/[◎]/gi, ' 2');
@@ -378,7 +363,7 @@ function getAnimeAgendaAdkami()
 {
   return new Promise((resolve,reject)=>{
     // get agenda anime from adkami
-    let arrayAnimeAdkami;
+    let arrayAnimeAdkami, infosAnimeAdkami;
     let url = "https://www.adkami.com/agenda";
     let request = new XMLHttpRequest();
     request.open('GET', url );
@@ -387,7 +372,7 @@ function getAnimeAgendaAdkami()
     request.send();
     request.onload = function()
     {
-      let infosAnimeAdkami = request.response;
+      infosAnimeAdkami = request.response;
       arrayAnimeAdkami = refreshAgendaAdkamiJson(infosAnimeAdkami);
       resolve(arrayAnimeAdkami);
     }
@@ -400,25 +385,24 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
   let maxDay = infosAnimeAdkami.getElementsByClassName('colone');
   let arrayAnimeAdkami = new Array();
 
-  for (let iDay = 0; iDay < maxDay.length; iDay++)
+  for (let iDay = 0; iDay < maxDay.length; iDay++) //separates the animes from the day it out
   {
     day = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[0].textContent;
     nbAnimeDay = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children;
 
-    for (let iAnime = 1; iAnime < nbAnimeDay.length; iAnime++) // check all anime by days
+    for (let iAnime = 1; iAnime < nbAnimeDay.length; iAnime++) // check all anime day by day
     {
       arrayAnimeAdkami[yAnime] = new Array();
       testSortie = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].localName; // first tags by anime
 
-      if (testSortie == "a") // anime out
+      if ( testSortie == "a" ) // anime out
       {
         testSortie = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[0].localName;
 
-        if (testSortie == "script")
+        if ( testSortie == "script" )
         {
           picture_url = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[1].outerHTML; //url_images
           episodesAnime = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[3].children[0].textContent;
-
 
           arrayAnimeAdkami[yAnime][0] = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[3].children[1].textContent; //tile
           arrayAnimeAdkami[yAnime][1] = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[1].textContent; //hours
@@ -440,7 +424,7 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
         arrayAnimeAdkami[yAnime][4] = episodesAnime[0]; //type Episode
         arrayAnimeAdkami[yAnime][5] = episodesAnime[1]; //Episode
 
-        if (episodesAnime.length == 3)
+        if ( episodesAnime.length == 3 )
         {
           arrayAnimeAdkami[yAnime][6] = episodesAnime[2]; //voice
         }
@@ -450,9 +434,9 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
         }
 
       }
-      else if (testSortie == 'div') // anime not out
+      else if ( testSortie == 'div' ) // anime not out
       {
-        episodesAnime = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[2].children[0].textContent;
+        episodesAnime = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[2].children[0].textContent; // episode
         episodesAnime = episodesAnime.split(" ");
 
         picture_url = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].outerHTML; //url_images
@@ -465,8 +449,7 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
         arrayAnimeAdkami[yAnime][4] = episodesAnime[0]; //type Episode
         arrayAnimeAdkami[yAnime][5] = episodesAnime[1]; //Episode
 
-
-        if (episodesAnime.length == 3)
+        if ( episodesAnime.length == 3 )
         {
           arrayAnimeAdkami[yAnime][6] = episodesAnime[2]; //voice
         }
@@ -485,7 +468,7 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
   return arrayAnimeAdkami;
 }
 
-function adkami(anotherTItle, arrayAnimeAdkami)
+function linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami)
 {
   return new Promise((resolve,reject)=>{
     let animeLinkAdkami = new Array();
@@ -493,19 +476,16 @@ function adkami(anotherTItle, arrayAnimeAdkami)
     for (let i = 0; i < anotherTItle.length; i++)
     {
       testAnimeLink = tryAnimeAdkami(anotherTItle[i], arrayAnimeAdkami, 0, anotherTItle[i].length);
-      if (testAnimeLink != "animeNOtFound")
+
+      if ( testAnimeLink != "animeNOtFound" )
       {
-        animeLinkAdkami[nbAnimeLink] = new Array()
-        animeLinkAdkami[nbAnimeLink][0] = removeSpecial(anotherTItle[i][0]);
-        testAnimeLink = testAnimeLink.split("||");
-        if (testAnimeLink.length > 7)
+        animeLinkAdkami[nbAnimeLink] = new Array();
+        animeLinkAdkami[nbAnimeLink][0] = removeSpecialCharacter(anotherTItle[i][0]);
+        animeLinkAdkami[nbAnimeLink][1] = new Array();
+
+        for (let y = 0; y < testAnimeLink.length; y++)
         {
-          animeLinkAdkami[nbAnimeLink][1] = testAnimeLink.slice(0, 7);
-          animeLinkAdkami[nbAnimeLink][2] = testAnimeLink.slice(7);
-        }
-        else
-        {
-          animeLinkAdkami[nbAnimeLink][1] = testAnimeLink;
+          animeLinkAdkami[nbAnimeLink][1][y] = testAnimeLink[y];
         }
 
         nbAnimeLink = nbAnimeLink + 1;
@@ -521,18 +501,21 @@ function adkami(anotherTItle, arrayAnimeAdkami)
 
 function tryAnimeAdkami(anotherTItle, arrayAnimeAdkami, animeNb, anotherTItleSize)
 {
-  let animeFound = 0, stock = "";
+  let iAnime = 0, animeFound = 0, stock = new Array();
+  stock[0] = "";
 
   for (let y = 0; y < arrayAnimeAdkami.length; y++)
   {
-    if (anotherTItle[animeNb].toLowerCase() == arrayAnimeAdkami[y][0].toLowerCase())
+    arrayAnimeAdkami[y][0] = removeSpecialCharacter(arrayAnimeAdkami[y][0]);
+    if ( anotherTItle[animeNb].toLowerCase() == arrayAnimeAdkami[y][0].toLowerCase() )
     {
       animeFound = 1;
-      if ( stock != "" )
+
+      if ( stock[0] != "" )
       {
-        stock += "||";
+        iAnime++;
       }
-      stock += arrayAnimeAdkami[y];
+      stock[iAnime] = arrayAnimeAdkami[y];
     }
   }
 
@@ -568,12 +551,12 @@ function adkamiInsertDb(adkamiAnimeLink)
       .then(conn => {
       for (let i = 0; i < adkamiAnimeLink.length; i++)
       {
-        console.log(adkamiAnimeLink[i]);
-        for (let y = 1; y < adkamiAnimeLink[i].length; y++)
+        for (let y = 0; y < adkamiAnimeLink[i][1].length; y++)
         {
-          conn.query("INSERT INTO adkami (Unique_title, Title_Adkami, Last_episodes_release, Picture_adkami, Voice, Day, Hours, Type_episodes) VALUES ('" + adkamiAnimeLink[i][y][0] + " " + adkamiAnimeLink[i][y][4] + " " + adkamiAnimeLink[i][y][6] + "','" + adkamiAnimeLink[i][y][0] + "'," + adkamiAnimeLink[i][y][5] + ",'" + adkamiAnimeLink[i][y][3] + "','" + adkamiAnimeLink[i][y][6] + "','" + adkamiAnimeLink[i][y][2] + "','" + adkamiAnimeLink[i][y][1] + "','" + adkamiAnimeLink[i][y][4] + "') ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
+          conn.query("INSERT INTO adkami (Unique_title, Title_Adkami, Last_episodes_release, Picture_adkami, Voice, Day, Hours, Type_episodes) VALUES ('" + adkamiAnimeLink[i][1][y][0] + " " + adkamiAnimeLink[i][1][y][4] + " " + adkamiAnimeLink[i][1][y][6] + "','" + adkamiAnimeLink[i][1][y][0] + "'," + adkamiAnimeLink[i][1][y][5] + ",'" + adkamiAnimeLink[i][1][y][3] + "','" + adkamiAnimeLink[i][1][y][6] + "','" + adkamiAnimeLink[i][1][y][2] + "','" + adkamiAnimeLink[i][1][y][1] + "','" + adkamiAnimeLink[i][1][y][4] + "') ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
         }
-        selectAnime = conn.query("SELECT id_adkami from adkami where Title_Adkami = '" + adkamiAnimeLink[i][1][0] + "' AND Voice = 'Vostfr';");
+
+        selectAnime = conn.query("SELECT id_adkami from adkami where Title_Adkami = '" + adkamiAnimeLink[i][1][0][0] + "' AND Voice = 'Vostfr';");
         selectAnime.then(function(result)
         {
           conn.query("UPDATE anime SET id_adkami = " + result[0].id_adkami + " WHERE Title_anime = '" + adkamiAnimeLink[i][0] + "' AND id_adkami is NULL;");
@@ -584,8 +567,6 @@ function adkamiInsertDb(adkamiAnimeLink)
     resolve("ready");
   });
 }
-
-
 
 function splitDay(animeAiring)
 {
@@ -642,20 +623,13 @@ function splitDay(animeAiring)
    }
   }
 
-  if (animeLundi != "" ) { oderAnimeDay(animeLundi); }
-
-  if (animeMardi != "" ) { oderAnimeDay(animeMardi); }
-
-  if (animeMercredi != "" ) { oderAnimeDay(animeMercredi); }
-
-  if (animeJeudi != "" ) { oderAnimeDay(animeJeudi); }
-
-  if (animeVendredi != "" ) { oderAnimeDay(animeVendredi); }
-
-  if (animeSamedi != "" ) { oderAnimeDay(animeSamedi); }
-
-  if (animeDimanche != "" ) { oderAnimeDay(animeDimanche); }
-
+  if ( animeLundi != "" ) { oderAnimeDay(animeLundi); }
+  if ( animeMardi != "" ) { oderAnimeDay(animeMardi); }
+  if ( animeMercredi != "" ) { oderAnimeDay(animeMercredi); }
+  if ( animeJeudi != "" ) { oderAnimeDay(animeJeudi); }
+  if ( animeVendredi != "" ) { oderAnimeDay(animeVendredi); }
+  if ( animeSamedi != "" ) { oderAnimeDay(animeSamedi); }
+  if ( animeDimanche != "" ) { oderAnimeDay(animeDimanche); }
 }
 
 function oderAnimeDay(anime)
@@ -668,7 +642,7 @@ function oderAnimeDay(anime)
      stockA = a.Hours.split(":");
      stockB = b.Hours.split(":");
 
-     if (stockA[0] == stockB[0])
+     if ( stockA[0] == stockB[0] )
      {
        return stockA[1] - stockB[1];
      }
@@ -708,7 +682,7 @@ function newAnime(anime)
   lien.href = aHref;
   tags = tags.split(",");
 
-  if (tags[1] == null)
+  if ( tags[1] == null )
   {
       lien.className = tags;
   }
@@ -719,9 +693,9 @@ function newAnime(anime)
       tagSplit = tags[i].split(" ");
       for (let y = 0; y < tagSplit.length; y++)
       {
-        if (tagSplit[y] != "")
+        if ( tagSplit[y] != "" )
         {
-           tagsNoSpecial = removeSpecial(tagSplit[y]);
+           tagsNoSpecial = removeSpecialCharacter(tagSplit[y]);
             tagsTight += tagsNoSpecial;
         }
       }
@@ -730,7 +704,7 @@ function newAnime(anime)
     lien.className = tagsTight;
   }
 
-  if ( anime.Last_episodes_release > anime.Total_number_episodes && anime.Total_number_episodes != 0)
+  if ( anime.Last_episodes_release > anime.Total_number_episodes && anime.Total_number_episodes != 0 )
   {
     episodeSupTotal = anime.Last_episodes_release - anime.total_episodes ;
     pEpisode += episodeSupTotal;

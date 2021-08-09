@@ -1,19 +1,7 @@
 - anime qui ne son pas detecter
 
-    Tantei wa Mou, Shindeiru. ( devrais ce link)
-    Tantei wa mou, Shindeiru.
-
-    D_Cide Traumerei the Animation ( devrais ce link)
-    D_Cide Traumerei The Animation
-
-    Tensei shitara Slime Datta Ken 2nd Season Part 2 (2nd Season Part 2 => S2)
-    Tensei Shitara Slime Datta Ken S2
-
     Kobayashi-san Chi no Maid Dragon S ( sur adkmi il a S2 => S)
     Vanitas no Karte (k =>c)
-
-    Boku no Hero Academia 5th Season ( pas d'episode cette semaine)
-    One Piece ( s'actualise 2 jour avnat)
 
     Mini Dragon Specials ( pas sortie je pense)
     Obey Me! ( pas dans adkami et dans icotaku agenda)
@@ -24,6 +12,11 @@
 rajouter dans DB adkami ( une section episodes cette semaine ?)
 
 
-527
+faire une gestion des animes qui ne s'afficher pas tout de suite
 
-jaime pas les teste que je fait pour voir si l'anime et trouver dans another title
+
+quand je recuepaire information dans adkami des fois
+
+VM7847 D:\Prog_stock\projet_taff_all\projet\git\Notification-Anime\preload.js:440 Uncaught TypeError: Cannot read property 'textContent' of undefined
+    at refreshAgendaAdkamiJson (VM7847 D:\Prog_stock\projet_taff_all\projet\git\Notification-Anime\preload.js:440)
+    at XMLHttpRequest.request.onload (VM7847 D:\Prog_stock\projet_taff_all\projet\git\Notification-Anime\preload.js:376)

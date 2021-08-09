@@ -10,8 +10,8 @@ app.whenReady().then(() => {
   const mainWindow = new BrowserWindow({
     width: 1445,
     height: 700,
-    maxWidth: 1445,
-    minWidth: 1445,
+    // maxWidth: 1445,
+    // minWidth: 1445,
     // maxHeight: 600,
     // minHeight: 600,
     webPreferences: {
