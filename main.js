@@ -27,16 +27,27 @@ app.whenReady().then(() => {
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
 
-
     // window for Manuelle adkami
-    ipcMain.on('test', (event, arg) => {
-      console.log(arg);
-      event.reply('asynchronous-reply', 'pong')
-    })
+    ipcMain.on('windowsAnimeManuelle', (event, arg) => {
 
-    ipcMain.on('synchronous-message', (event, arg) => {
-      console.log(arg) // affiche "ping"
-      event.returnValue = 'pong'
+      const windowsAdkamiManuelle = new BrowserWindow({
+        width: 500,
+        height: 200,
+        // maxWidth: 1445,
+        // minWidth: 1445,
+        // maxHeight: 600,
+        // minHeight: 600,
+        webPreferences: {
+          preload: path.join(__dirname, '.\WindowsSecondaire\WindowsAnimeManuelle\windowsAnimeManuellePreload.js'),
+          contextIsolation: true
+        }
+      })
+
+      windowsAdkamiManuelle.removeMenu();
+      windowsAdkamiManuelle.loadFile('.\WindowsSecondaire\WindowsAnimeManuelle\windowsAnimeManuelle.html');
+
+      console.log(arg);
+      event.reply('windowsAnimeManuelle-reply', 'kobayashi-san Chi no maid dragon S')
     })
 
     //   ipcMain.on('asynchronous-message', (event, token) => {

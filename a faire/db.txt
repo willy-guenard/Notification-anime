@@ -18,3 +18,6 @@
  - anime fini de sortie le garde en status d'anime en cour pendant 1 semaine
 
  -decouper les titre pour faire recherche adkami
+
+ quand un anime est a x/x
+ ou qui n'est plus dans watching le surprime des db

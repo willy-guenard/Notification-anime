@@ -1,6 +1,6 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-const ipcRenderer = require("electron");
+const { ipcRenderer } = require("electron");
 const mariadb = require("mariadb"); // Data base
 const jikanjs  = require('jikanjs'); //api myanimelist no officiel
 const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"}); // DB login
@@ -12,20 +12,26 @@ window.addEventListener('DOMContentLoaded', () => {
   const tokenMal = document.querySelector("#tokenMal");
   const butonfiltre = document.querySelector("#filtre");
   const butonSupDB = document.querySelector("#supDB"); // buton temporaire
+  const butontestWindows = document.querySelector("#testWindows");
+
 
   butonShowanime.addEventListener('click', function(){ refreshAnime() });
   tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
   butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
   butonSupDB.addEventListener('click', function(){ deleteDb() }); // function temporaire
+  butontestWindows.addEventListener('click', function(){ testWindows() });
 
   showAnimeAgenda();
-  console.log(ipcRenderer.sendSync('synchronous-message', 'ping')); // affiche "pong"
+})
 
-  ipcRenderer.on('asynchronous-reply', (event, arg) => {
+function testWindows()
+{
+  ipcRenderer.sendSync('windowsAnimeManuelle', "kobayashi-san Chi no maid dragon S2");
+
+  ipcRenderer.on('windowsAnimeManuelle-reply', (event, arg) => {
     console.log(arg) // affiche "pong"
   })
-  ipcRenderer.send('asynchronous-message', 'ping')
-})
+}
 
 function deleteDb() // function temporaire/ test whith clear DB
 {
@@ -714,7 +720,7 @@ function newAnime(anime)
 
   if ( anime.Last_episodes_release > anime.Total_number_episodes && anime.Total_number_episodes != 0 )
   {
-    episodeSupTotal = anime.Last_episodes_release - anime.total_episodes ;
+    episodeSupTotal = anime.Last_episodes_release - anime.Total_number_episodes ;
     pEpisode += episodeSupTotal;
   }
   else
