@@ -1,4 +1,4 @@
-// All of the Node.js APIs are available in the preload process.
+  // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 const { ipcRenderer } = require("electron");
 const mariadb = require("mariadb"); // Data base
@@ -72,16 +72,19 @@ function  jikanApiAnimeMalWatching(myanimelistName)
 
 function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or update anime in myanimelist DB
 {
-  let selectMyanimelist, status, titleAnime;
+  let selectMyanimelist, selectAnimeMyanimelist, status, titleAnime, tags , checkAnimeList;
+  checkAnimeList = new Array();
   //conection to data DB
   pool.getConnection()
     .then(conn => {
       for (let i = 0; i < myAnimeListJson.length; i++)
       {
-        if ( myAnimeListJson[i].airing_status == 1 ) { status = "Airing" } else { status = "Release"}
+        if ( myAnimeListJson[i].airing_status == 1 ) { status = "Airing" } else { status = "Release" }
         titleAnime = removeSpecialCharacter(myAnimeListJson[i].title);
+        if ( myAnimeListJson[i].tags !=  null ) { tags = removeSpecialCharacter(myAnimeListJson[i].tags); } else { tags = myAnimeListJson[i].tags; }
+
         //inser new anime in myanimelist if it already exists just update it
-        conn.query("INSERT INTO myanimelist (MAL_id, Tilte_Myanimelist, Last_watched_episodes, Total_number_episodes, url_myanimelist, Picture_Myanimelist, Type_episodes, Tags, Status, is_rewatching, score) VALUES (" + myAnimeListJson[i].mal_id + ", '" + titleAnime + "', " + myAnimeListJson[i].watched_episodes + ", " + myAnimeListJson[i].total_episodes + ", '" + myAnimeListJson[i].url + "', '" + myAnimeListJson[i].image_url + "', '" + myAnimeListJson[i].type + "', '" + myAnimeListJson[i].tags + "', '" + status + "', '" + myAnimeListJson[i].is_rewatching  + "', " + 0 + ") ON DUPLICATE KEY UPDATE Last_watched_episodes = VALUES(Last_watched_episodes), Tags = VALUES(Tags), Status = VALUES(Status), score = VALUES(score)");
+        conn.query("INSERT INTO myanimelist (MAL_id, Tilte_Myanimelist, Last_watched_episodes, Total_number_episodes, url_myanimelist, Picture_Myanimelist, Type_episodes, Tags, Status, is_rewatching, score) VALUES (" + myAnimeListJson[i].mal_id + ", '" + titleAnime + "', " + myAnimeListJson[i].watched_episodes + ", " + myAnimeListJson[i].total_episodes + ", '" + myAnimeListJson[i].url + "', '" + myAnimeListJson[i].image_url + "', '" + myAnimeListJson[i].type + "', '" + tags + "', '" + status + "', '" + myAnimeListJson[i].is_rewatching  + "', " + 0 + ") ON DUPLICATE KEY UPDATE Last_watched_episodes = VALUES(Last_watched_episodes), Tags = VALUES(Tags), Status = VALUES(Status), score = VALUES(score)");
 
         // select myanimelist table for get id and title to create link with foreign key
         selectMyanimelist = conn.query("SELECT id_myanimelist, Tilte_Myanimelist from myanimelist where Tilte_Myanimelist = '" + titleAnime + "';");
@@ -89,7 +92,57 @@ function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or upda
         {
           conn.query("INSERT INTO anime (id_myanimelist, Title_anime) VALUES (" + result[0].id_myanimelist + ", '" + result[0].Tilte_Myanimelist + "') ON DUPLICATE KEY UPDATE Title_anime = VALUES(Title_anime)");
         })
+        checkAnimeList[i] = titleAnime; //stock all anime in watching list
       }
+
+      selectAnimeMyanimelist = conn.query("SELECT myanimelist.id_myanimelist, myanimelist.Tilte_Myanimelist, anime.id_adkami, anime.id_other_anime  FROM myanimelist JOIN anime ON myanimelist.id_myanimelist = anime.id_myanimelist;"); //all anime in db myanimelist
+      selectAnimeMyanimelist.then(function(animeInDbMyanimelist)
+      {
+        supAnimeStopWatching(checkAnimeList, animeInDbMyanimelist)
+      })
+    })
+    .catch(err => { console.log("erreur: " + err); });
+
+}
+
+function supAnimeStopWatching(animeWatchingList, animeInDbMyanimelist)
+{
+  let testFindAnime, nbAnimeNotFound = 0;
+  animeNofoundInWatchinList = new Array();
+
+  for (let i = 0; i < animeInDbMyanimelist.length; i++)
+  {
+    testFindAnime = animeWatchingList.find(element => element == animeInDbMyanimelist[i].Tilte_Myanimelist);
+
+    if (testFindAnime ==  undefined)
+    {
+      animeNofoundInWatchinList[nbAnimeNotFound]  = animeInDbMyanimelist[i];
+      nbAnimeNotFound ++;
+    }
+  }
+
+  pool.getConnection()
+   .then(conn => {
+     for (let y = 0; y < animeNofoundInWatchinList.length; y++)
+     {
+       conn.query("DELETE FROM myanimelist WHERE id_myanimelist = " + animeNofoundInWatchinList[y].id_myanimelist + ";");
+
+       if(animeNofoundInWatchinList[y].id_adkami != null)
+       {
+         conn.query("DELETE FROM adkami WHERE id_adkami = " + animeNofoundInWatchinList[y].id_adkami + ";");
+       }
+       else
+       {
+         if (animeNofoundInWatchinList[y].id_other_anime != null)  //secutier
+         {
+           conn.query("DELETE FROM other_anime WHERE id_other_anime = " + animeNofoundInWatchinList[y].id_other_anime + ";");
+         }
+         else
+         {
+            console.log("Warning: anime sans DB fixe");
+         }
+       }
+     }
     })
     .catch(err => { console.log("erreur: " + err); });
 }
@@ -495,6 +548,7 @@ function linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami)
         animeLinkAdkami[nbAnimeLink][0] = removeSpecialCharacter(anotherTItle[i][0]);
         animeLinkAdkami[nbAnimeLink][1] = new Array();
 
+        console.log(animeLinkAdkami);
         for (let y = 0; y < testAnimeLink.length; y++)
         {
           animeLinkAdkami[nbAnimeLink][1][y] = testAnimeLink[y];
