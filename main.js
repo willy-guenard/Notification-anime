@@ -38,13 +38,13 @@ app.whenReady().then(() => {
         // maxHeight: 600,
         // minHeight: 600,
         webPreferences: {
-          preload: path.join(__dirname, '.\WindowsSecondaire\WindowsAnimeManuelle\windowsAnimeManuellePreload.js'),
+          preload: path.join(__dirname, './WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),
           contextIsolation: true
         }
       })
 
       windowsAdkamiManuelle.removeMenu();
-      windowsAdkamiManuelle.loadFile('.\WindowsSecondaire\WindowsAnimeManuelle\windowsAnimeManuelle.html');
+      windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindownsAnimeManuelle/windowsAnimeManuelle.html');
 
       console.log(arg);
       event.reply('windowsAnimeManuelle-reply', 'kobayashi-san Chi no maid dragon S')

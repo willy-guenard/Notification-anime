@@ -7,7 +7,7 @@
 [reglage user]
 - faire rentrer le nom du compte de l'user
 - demander quelle anime on regarde en vf
-
+s
 [DB]
 - gestion des animes qui sorte pas  semaine
 - gestion des animes pas detecter tout de suite par adkami
@@ -22,3 +22,9 @@
 ~ serveur de mise a jour
 - creation token
 - refresh token
+
+
+probleme quand jouvre une autre fenetre fait bug la premier
+
+
+VPN

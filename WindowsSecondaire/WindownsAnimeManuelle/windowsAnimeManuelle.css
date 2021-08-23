@@ -1,0 +1,24 @@
+body
+{
+  background-color: #363636;/*#282C34 gray*/
+  -moz-user-select: none; /* Firefox */
+  -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
+  -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
+  user-select: none; /* Propriété standard */
+
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-family: Helvetica\ Neue,Helvetica,Arial,sans-serif; /* a changer*/
+  color: #fff;
+}
+
+form {
+  /* Uniquement centrer le formulaire sur la page */
+  margin: 0 auto;
+  width: 400px;
+  /* Encadré pour voir les limites du formulaire */
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}

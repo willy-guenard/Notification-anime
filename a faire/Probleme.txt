@@ -15,4 +15,4 @@ VM7847 D:\Prog_stock\projet_taff_all\projet\git\Notification-Anime\preload.js:44
     at XMLHttpRequest.request.onload (VM7847 D:\Prog_stock\projet_taff_all\projet\git\Notification-Anime\preload.js:376)
 
 
-faire que quand tout les anime sons deja dans la db ne acutalise pas tout 
+faire que quand tout les anime sons deja dans la db ne acutalise pas tout
