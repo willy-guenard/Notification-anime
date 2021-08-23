@@ -1,18 +1,6 @@
-- anime qui ne son pas detecter
+[] anime qui ne son pas detecter
 
-certain anime ne s'affiche pas au debut de la semaine voir comment faire
+[] certain anime ne s'affiche pas au debut de la semaine voir comment faire
+      - rajouter dans DB adkami ( une section episodes cette semaine ?)
 
-rajouter dans DB adkami ( une section episodes cette semaine ?)
-
-
-faire une gestion des animes qui ne s'afficher pas tout de suite
-
-
-quand je recuepaire information dans adkami des fois
-
-VM7847 D:\Prog_stock\projet_taff_all\projet\git\Notification-Anime\preload.js:440 Uncaught TypeError: Cannot read property 'textContent' of undefined
-    at refreshAgendaAdkamiJson (VM7847 D:\Prog_stock\projet_taff_all\projet\git\Notification-Anime\preload.js:440)
-    at XMLHttpRequest.request.onload (VM7847 D:\Prog_stock\projet_taff_all\projet\git\Notification-Anime\preload.js:376)
-
-
-faire que quand tout les anime sons deja dans la db ne acutalise pas tout
+[] les animes adkami son ajouter a la db mes ne sons pas actualiser

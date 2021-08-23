@@ -1,14 +1,10 @@
  - regarder si toute les DB s'actualise bien toute seul
-   [] myanimelist
-   [] anime
+   [✓] myanimelist
+   [✓] anime
    [] adkami
    [] other_anime
 
- - quand je fini de regarder un anime qui est en train de sortire le suprime
-   [] myanimelist
-   [] anime
-   [] adkami
-   [] other_anime
+ [✓] quand je fini de regarder un anime qui est en train de sortire le suprime (myanimelist, anime, adkami, other_anime)
 
  - gestion des anime pas detecter tout seul
     [] dans adkami

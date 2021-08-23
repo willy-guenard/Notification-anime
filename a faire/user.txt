@@ -15,4 +15,4 @@
   [] user qui valide les animes avec le titre pas trouver dirrect
     [] si anime existe pas sur adkami (fai remplire infos user)
 
-faire demander a l'user pour les anime qu'il regarde en vf
+- demander quelle anime on regarde en vf

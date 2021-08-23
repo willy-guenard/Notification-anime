@@ -1,21 +1,20 @@
                             [Pages Principal]
 
-  - le titre ne doit jamais changer
-  - faire des bouton plus beau
+  - enpercher le titre de la page de changer
+  - meilleur disigne pour bouton
   - faire une legende pour les couleurs
   - faire un bouton anime sortie
         [] change la pages agenda anime en anime sortie
-  - faire un affichage qui indique quelle jour on est
   - Responsive webdesign
   - faire des filtre pour les anime tags
           [] je click une premier fois pour faire afficher reclicker remet en etas normal
   - quand je click sur un anime
         [] ouvre la pages de l'anime dans une autre fenetre
   - quand un anime sort acctualise les db auto
-  - quand je lance l'app acctualise db+affiachages
+  - quand je lance l'app acctualise db + affiachages
   - mettre un petit icone en haut a droite avec la premier lettre de la persone avec qui je regarde anime
-    [sois faire mettre par l'user "friends: mehdi"]
-    [] quand je click sur un episodes ( faire afficher une pages pour regarder episodes/ouvre dans le lecteur episodes)
+        - [sois faire mettre par l'user "friends: mehdi" dans les tags]
+  - [] quand je click sur un episodes ( faire afficher une pages pour regarder episodes/ouvre dans le lecteur episodes)
   - a l'heure ou l'anime doit sortire faire actualiser la pages
 
                             [Extention]

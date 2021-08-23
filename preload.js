@@ -174,7 +174,7 @@ function creatAnotherTitle() // creat recurrent variant of title anime from myan
             {
               if ( stockTitle[y] != "" )
               {
-                anotherTitleList[i][y+1] = stockTitle[y]
+                anotherTitleList[i][y + 1] = stockTitle[y]
               }
             }
           }
