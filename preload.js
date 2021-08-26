@@ -651,18 +651,15 @@ function newAnime(anime)
   let divInfosclass = document.createElement('div');
   let episode = document.createElement('p');
   let title = document.createElement('p');
-
   let days = document.querySelector("#" + anime.Day);
-  let aHref = anime.url_myanimelist;
-  let imgSrc = anime.Picture_adkami;
+
   let horraire = anime.Hours;
   horraire = horraire.split(":");
   let pEpisode = anime.Type_episodes + " ";
-  let pTitle = anime.Tilte_Myanimelist;
   let tags = anime.Tags;
   let tagSplit, tagsTight = "", tagsNoSpecial, episodeSupTotal, animeDivClass;
 
-  lien.href = aHref;
+  lien.href = anime.url_myanimelist;
   tags = tags.split(",");
 
   if ( tags[1] == null )
@@ -752,12 +749,12 @@ function newAnime(anime)
   }
 
   heure.textContent = horraire;
-  image.src = imgSrc;
+  image.src = anime.Picture_adkami;
   divInfosclass.className = "infosanime";
   episode.className = "episode";
   episode.textContent = pEpisode ;
   title.className = "title";
-  title.textContent = pTitle;
+  title.textContent = anime.Tilte_Myanimelist;
 
   days.appendChild(lien);
   lien.appendChild(divAnime);
