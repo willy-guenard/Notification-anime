@@ -58,9 +58,9 @@ async function refreshAnime() // refresh all data anime
     await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
   }
 
-  setTimeout(()=>{
-      window.location.reload();
-  } , 2000);
+  // setTimeout(()=>{
+  //     window.location.reload();
+  // } , 2000);
 }
 
 function  jikanApiAnimeMalWatching(myanimelistName)
@@ -104,7 +104,6 @@ function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or upda
       })
     })
     .catch(err => { console.log("erreur: " + err); });
-
 }
 
 function supAnimeStopWatching(animeWatchingList, animeInDbMyanimelist)
@@ -267,6 +266,7 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
 function refreshAdkamiDB(arrayAnimeAdkami)
 {
   let selectAnimeAdkamiUpdate, dataAnime;
+
   pool.getConnection()
     .then(conn => {
       selectAnimeAdkamiUpdate = conn.query("SELECT Title_Adkami, Voice FROM adkami");
@@ -315,9 +315,9 @@ function creatAnotherTitle() // creat recurrent variant of title anime from myan
           if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_no_double_point = titleNoDoblePoint(result[i].Title_anime); } //test if this variant make a result
         }
 
-        if (result.length == 0)
+        if ( result.length == 0 )
         {
-          resolve(NULL);
+          resolve(null);
         }
 
       resolve(anotherTitleList);

@@ -1,6 +1,14 @@
 [] anime qui ne son pas detecter
 
-[] certain anime ne s'affiche pas au debut de la semaine voir comment faire
-      - rajouter dans DB adkami ( une section episodes cette semaine ?)
+[] inser anime myanimelist fini pas avant que le select another commance
 
-[] les animes adkami son ajouter a la db mes ne sons pas actualiser
+
+
+creatAnotherTitle() s'exec avant le remlisage des db anime et myanimelist
+
+
+
+tryAnimeAdkami()  probleme quand les animes vf sons avant les anime vostfr
+
+
+d'otre probleme a voir dans l'execution avec rien comment anime link
