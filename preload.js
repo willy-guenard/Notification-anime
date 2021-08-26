@@ -60,7 +60,7 @@ async function refreshAnime() // refresh all data anime
 
   setTimeout(()=>{
       window.location.reload();
-  } , 5000);
+  } , 2000);
 }
 
 function  jikanApiAnimeMalWatching(myanimelistName)
@@ -641,96 +641,6 @@ function adkamiInsertDb(adkamiAnimeLink)
   .catch(err => { console.log("erreur: " + err); });
 }
 
-function splitDay(animeAiring)
-{
-  let animeLundi = [], iLundi = 0;
-  let animeMardi  = [], iMardi = 0;
-  let animeMercredi = [], iMercredi = 0;
-  let animeJeudi = [], iJeudi = 0;
-  let animeVendredi = [], iVendredi = 0;
-  let animeSamedi = [], iSamedi = 0;
-  let animeDimanche = [], iDimanche = 0;
-  let animeSortie;
-
-  for (let i = 0; i < animeAiring.length; i++)
-  {
-   switch (animeAiring[i].Day)
-   {
-     case "Lundi":
-       animeLundi[iLundi] = animeAiring[i];
-       iLundi ++;
-       break;
-
-     case "Mardi":
-       animeMardi[iMardi] = animeAiring[i];
-       iMardi ++;
-       break;
-
-     case "Mercredi":
-       animeMercredi[iMercredi] = animeAiring[i];
-       iMercredi ++;
-       break;
-
-     case "Jeudi":
-       animeJeudi[iJeudi] = animeAiring[i];
-       iJeudi ++;
-       break;
-
-     case "Vendredi":
-       animeVendredi[iVendredi] = animeAiring[i];
-       iVendredi ++;
-       break;
-
-     case "Samedi":
-       animeSamedi[iSamedi] = animeAiring[i];
-       iSamedi ++;
-       break;
-
-     case "Dimanche":
-       animeDimanche[iDimanche] = animeAiring[i];
-       iDimanche ++;
-       break;
-
-     default:
-     // console.log("anime pas reconu " + anime[i].Title_Myanimelist);
-   }
-  }
-
-  if ( animeLundi != "" ) { oderAnimeDay(animeLundi); }
-  if ( animeMardi != "" ) { oderAnimeDay(animeMardi); }
-  if ( animeMercredi != "" ) { oderAnimeDay(animeMercredi); }
-  if ( animeJeudi != "" ) { oderAnimeDay(animeJeudi); }
-  if ( animeVendredi != "" ) { oderAnimeDay(animeVendredi); }
-  if ( animeSamedi != "" ) { oderAnimeDay(animeSamedi); }
-  if ( animeDimanche != "" ) { oderAnimeDay(animeDimanche); }
-}
-
-function oderAnimeDay(anime)
-{
-  let animeStock;
-
-   testStock = anime.sort(function (a, b)
-   {
-    let stockA, stockB;
-     stockA = a.Hours.split(":");
-     stockB = b.Hours.split(":");
-
-     if ( stockA[0] == stockB[0] )
-     {
-       return stockA[1] - stockB[1];
-     }
-     else
-     {
-       return stockA[0] - stockB[0];
-     }
-   });
-
-   for (let x = 0; x < testStock.length; x++)
-   {
-     newAnime(testStock[x]);
-   }
-}
-
 function newAnime(anime)
 {
   let daysArray = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
@@ -832,7 +742,15 @@ function newAnime(anime)
     heure.className = "time " + animeDivClass;
   }
 
-  horraire = horraire[0] + ":" + horraire[1];
+  if (anime.Present_this_week == "Yes")
+  {
+    horraire = horraire[0] + ":" + horraire[1];
+  }
+  else
+  {
+    horraire = "???"
+  }
+
   heure.textContent = horraire;
   image.src = imgSrc;
   divInfosclass.className = "infosanime";
@@ -887,10 +805,13 @@ function showAnimeAgenda() // pas oublier
   todayStyle()
   pool.getConnection()
     .then(conn => {
-      selectAnimeAiringAdkami = conn.query("SELECT myanimelist.Tilte_Myanimelist, myanimelist.Last_watched_episodes, myanimelist.Total_number_episodes, myanimelist.url_myanimelist, myanimelist.Tags, anime.Voice_watching, adkami.Picture_adkami, adkami.Last_episodes_release, adkami.Day, adkami.Hours, adkami.Type_episodes, adkami.Present_this_week FROM anime  JOIN myanimelist ON anime.id_myanimelist = myanimelist.id_myanimelist JOIN adkami ON anime.id_adkami = adkami.id_adkami WHERE myanimelist.status = 'Airing'");
+      selectAnimeAiringAdkami = conn.query("SELECT myanimelist.Tilte_Myanimelist, myanimelist.Last_watched_episodes, myanimelist.Total_number_episodes, myanimelist.url_myanimelist, myanimelist.Tags, anime.Voice_watching, adkami.Picture_adkami, adkami.Last_episodes_release, adkami.Day, adkami.Hours, adkami.Type_episodes, adkami.Present_this_week FROM anime  JOIN myanimelist ON anime.id_myanimelist = myanimelist.id_myanimelist JOIN adkami ON anime.id_adkami = adkami.id_adkami WHERE myanimelist.status = 'Airing' ORDER BY DAY, Hours");
       selectAnimeAiringAdkami.then(function(result)
       {
-        splitDay(result);
+        for (let x = 0; x < result.length; x++)
+        {
+          newAnime(result[x]);
+        }
       })
     })
     .catch(err => { console.log("erreur: " + err); });
