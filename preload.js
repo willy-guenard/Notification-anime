@@ -63,12 +63,15 @@ async function refreshAnime() // refresh all data anime
   // } , 2000);
 }
 
-function  jikanApiAnimeMalWatching(myanimelistName)
+function jikanApiAnimeMalWatching(myanimelistName)
 {
-  jikanjs.loadUser(myanimelistName, 'animelist', 'watching').then((response) => {
-    insertUpdateMyanimelistDb(response["anime"]); // function to inser or update anime in myanimelist DB
-  }).catch((err) => {
-    console.error(err); // in case a error happens
+  return new Promise((resolve,reject)=>{
+    jikanjs.loadUser(myanimelistName, 'animelist', 'watching').then((response) => {
+      insertUpdateMyanimelistDb(response["anime"]); // function to inser or update anime in myanimelist DB
+      resolve();
+    }).catch((err) => {
+      console.error(err); // in case a error happens
+    });
   });
 }
 
@@ -96,7 +99,6 @@ function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or upda
         })
         checkAnimeList[i] = titleAnime; //stock all anime in watching list
       }
-
       selectAnimeMyanimelist = conn.query("SELECT myanimelist.id_myanimelist, myanimelist.Tilte_Myanimelist, anime.id_adkami, anime.id_other_anime  FROM myanimelist JOIN anime ON myanimelist.id_myanimelist = anime.id_myanimelist;"); //all anime in db myanimelist
       selectAnimeMyanimelist.then(function(animeInDbMyanimelist)
       {
@@ -196,6 +198,7 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
           titleClean = removeSpecialCharacter(titleClean);
 
           arrayAnimeAdkami[yAnime].Title = titleClean
+          arrayAnimeAdkami[yAnime].Title_low_caps = titleClean.toLowerCase();
           arrayAnimeAdkami[yAnime].Hours = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[1].textContent; //hours
         }
         else
@@ -206,6 +209,7 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
           titleClean = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[2].children[1].textContent; //tile
           titleClean = removeSpecialCharacter(titleClean);
           arrayAnimeAdkami[yAnime].Title = titleClean;
+          arrayAnimeAdkami[yAnime].Title_low_caps = titleClean.toLowerCase();
           arrayAnimeAdkami[yAnime].Hours = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[0].children[1].textContent; //hours
         }
 
@@ -238,6 +242,7 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
         titleClean = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[2].children[1].children[0].textContent; //titre
         titleClean = removeSpecialCharacter(titleClean);
         arrayAnimeAdkami[yAnime].Title = titleClean;
+        arrayAnimeAdkami[yAnime].Title_low_caps = titleClean.toLowerCase();
         arrayAnimeAdkami[yAnime].Hours = infosAnimeAdkami.getElementsByClassName('colone')[iDay].children[iAnime].children[1].textContent; //hours
         arrayAnimeAdkami[yAnime].Day = day; //day
         arrayAnimeAdkami[yAnime].Picture_url = picture_url[1];//picture_url
@@ -265,29 +270,32 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
 
 function refreshAdkamiDB(arrayAnimeAdkami)
 {
-  let selectAnimeAdkamiUpdate, dataAnime;
+  return new Promise((resolve,reject)=>{
+    let selectAnimeAdkamiUpdate, dataAnime;
 
-  pool.getConnection()
-    .then(conn => {
-      selectAnimeAdkamiUpdate = conn.query("SELECT Title_Adkami, Voice FROM adkami");
-      selectAnimeAdkamiUpdate.then(function(animeUpdateAdkami)
-      {
-        for (let i = 0; i < animeUpdateAdkami.length; i++)
+    pool.getConnection()
+      .then(conn => {
+        selectAnimeAdkamiUpdate = conn.query("SELECT Title_Adkami, Voice FROM adkami");
+        selectAnimeAdkamiUpdate.then(function(animeUpdateAdkami)
         {
-          dataAnime = arrayAnimeAdkami.find(element => element.Title == animeUpdateAdkami[i].Title_Adkami && element.Voice == animeUpdateAdkami[i].Voice);
+          for (let i = 0; i < animeUpdateAdkami.length; i++)
+          {
+            dataAnime = arrayAnimeAdkami.find(element => element.Title == animeUpdateAdkami[i].Title_Adkami && element.Voice == animeUpdateAdkami[i].Voice);
 
-          if ( dataAnime != undefined )
-          {
-            conn.query("UPDATE adkami SET Last_episodes_release = " + dataAnime.Episode + ", Present_this_week = 'Yes'  WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "'AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
+            if ( dataAnime != undefined )
+            {
+              conn.query("UPDATE adkami SET Last_episodes_release = " + dataAnime.Episode + ", Present_this_week = 'Yes'  WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "'AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
+            }
+            else
+            {
+              conn.query("UPDATE adkami SET Present_this_week = 'No' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "' AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
+            }
           }
-          else
-          {
-            conn.query("UPDATE adkami SET Present_this_week = 'No' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "' AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
-          }
-        }
+        })
       })
-    })
-    .catch(err => { console.log("erreur: " + err); });
+      .catch(err => { console.log("erreur: " + err); });
+    resolve();
+  });
 }
 
 function creatAnotherTitle() // creat recurrent variant of title anime from myanimelist
@@ -303,16 +311,17 @@ function creatAnotherTitle() // creat recurrent variant of title anime from myan
       {
         for (let i = 0; i < result.length; i++) // try all title
         {
+          title = result[i].Title_anime.toLowerCase();
           anotherTitleList[i] = new Object();
-          anotherTitleList[i].Title_originel = result[i].Title_anime;
+          anotherTitleList[i].Title_originel = title;
 
           if ( titleTryOu(result[i].Title_anime) != undefined ) //test if this variant make a result
           {
-            anotherTitleList[i].Title_try_ou = titleTryOu(result[i].Title_anime);
+            anotherTitleList[i].Title_try_ou = titleTryOu(title);
           }
 
-          if ( titleJustS(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_just_S = titleJustS(result[i].Title_anime); } //test if this variant make a result
-          if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_no_double_point = titleNoDoblePoint(result[i].Title_anime); } //test if this variant make a result
+          if ( titleJustS(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_just_S = titleJustS(title); } //test if this variant make a result
+          if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_no_double_point = titleNoDoblePoint(title); } //test if this variant make a result
         }
 
         if ( result.length == 0 )
@@ -429,7 +438,7 @@ function titleJustS(titleMyanimelist) // change the way to display the number of
       newTitle = titleMyanimelist.slice(0, testSeason);
     }
 
-    newTitle = newTitle + "S" + numberSeason;
+    newTitle = newTitle + "s" + numberSeason;
   }
 
   testSeason = titleMyanimelist.indexOf('2nd');
@@ -447,7 +456,7 @@ function titleJustS(titleMyanimelist) // change the way to display the number of
       numberSeason = 2;
       newTitle = titleMyanimelist.slice(0, testSeason);
     }
-    newTitle = newTitle + "S" + numberSeason;
+    newTitle = newTitle + "s" + numberSeason;
   }
 
   testSeason = titleMyanimelist.indexOf('3rd');
@@ -466,7 +475,7 @@ function titleJustS(titleMyanimelist) // change the way to display the number of
       newTitle = titleMyanimelist.slice(0, testSeason);
     }
 
-    newTitle = newTitle + "S" + numberSeason;
+    newTitle = newTitle + "s" + numberSeason;
   }
 
   testSeason = titleMyanimelist.indexOf('th');
@@ -487,7 +496,7 @@ function titleJustS(titleMyanimelist) // change the way to display the number of
         newTitle = titleMyanimelist.slice(0, testSeason - 1);
       }
 
-      newTitle = newTitle + "S" + numberSeason;
+      newTitle = newTitle + "s" + numberSeason;
     }
   }
   if  (newTitle != "" ) {  return newTitle; }
@@ -526,24 +535,27 @@ function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
   return new Promise((resolve,reject)=>{
     let animeLinkAdkami = new Array();
     let nbAnimeLink = 0;
+    let indexAnime = new Object();
 
     for (let i = 0; i < anotherTitle.length; i++)
     {
       indexAnime = tryAnimeAdkami(anotherTitle[i], arrayAnimeAdkami);
-
-      if ( indexAnime.animeVostfr != -1 )
+      if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1)
       {
-        animeLinkAdkami[nbAnimeLink] = new Object();
-        animeLinkAdkami[nbAnimeLink].Title_myanimelist = anotherTitle[i].Title_originel;
-        animeLinkAdkami[nbAnimeLink].Title_adkami = arrayAnimeAdkami[indexAnime.animeVostfr].Title;
-        animeLinkAdkami[nbAnimeLink].Day = arrayAnimeAdkami[indexAnime.animeVostfr].Day;
-        animeLinkAdkami[nbAnimeLink].Episode = arrayAnimeAdkami[indexAnime.animeVostfr].Episode;
-        animeLinkAdkami[nbAnimeLink].Hours = arrayAnimeAdkami[indexAnime.animeVostfr].Hours;
-        animeLinkAdkami[nbAnimeLink].Picture_url = arrayAnimeAdkami[indexAnime.animeVostfr].Picture_url;
-        animeLinkAdkami[nbAnimeLink].Type_episode = arrayAnimeAdkami[indexAnime.animeVostfr].Type_episode;
-        animeLinkAdkami[nbAnimeLink].Voice = arrayAnimeAdkami[indexAnime.animeVostfr].Voice;
+        if (indexAnime.animeVostfr != -1)
+        {
+          animeLinkAdkami[nbAnimeLink] = new Object();
+          animeLinkAdkami[nbAnimeLink].Title_myanimelist = anotherTitle[i].Title_originel;
+          animeLinkAdkami[nbAnimeLink].Title_adkami = arrayAnimeAdkami[indexAnime.animeVostfr].Title;
+          animeLinkAdkami[nbAnimeLink].Day = arrayAnimeAdkami[indexAnime.animeVostfr].Day;
+          animeLinkAdkami[nbAnimeLink].Episode = arrayAnimeAdkami[indexAnime.animeVostfr].Episode;
+          animeLinkAdkami[nbAnimeLink].Hours = arrayAnimeAdkami[indexAnime.animeVostfr].Hours;
+          animeLinkAdkami[nbAnimeLink].Picture_url = arrayAnimeAdkami[indexAnime.animeVostfr].Picture_url;
+          animeLinkAdkami[nbAnimeLink].Type_episode = arrayAnimeAdkami[indexAnime.animeVostfr].Type_episode;
+          animeLinkAdkami[nbAnimeLink].Voice = arrayAnimeAdkami[indexAnime.animeVostfr].Voice;
 
-        nbAnimeLink++;
+          nbAnimeLink++;
+        }
 
         if (indexAnime.animeVf != -1)
         {
@@ -559,6 +571,7 @@ function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
 
           nbAnimeLink++
         }
+
       }
       else
       {
@@ -571,74 +584,94 @@ function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
 
 function tryAnimeAdkami(anotherTitle, arrayAnimeAdkami)
 {
-  let indexAnime = new Object(), testIndexAnime;
+  let indexAnime = new Object();
 
-  indexAnime.animeVostfr = arrayAnimeAdkami.findIndex( element => element.Title == anotherTitle.Title_originel );
-  if ( indexAnime.animeVostfr != -1 ) { indexAnime.animeVf = newAnimeVf(anotherTitle.Title_originel, arrayAnimeAdkami, indexAnime); };
+  indexAnime = findAnimeAdkami(indexAnime, arrayAnimeAdkami, anotherTitle.Title_originel, -1, null);
+  if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1 ) { return indexAnime; }
 
-  if ( indexAnime.animeVostfr == -1 && anotherTitle.Title_just_S != null )
-   {
-     indexAnime.animeVostfr = arrayAnimeAdkami.findIndex( element => element.Title == anotherTitle.Title_just_S );
-     if ( indexAnime.animeVostfr != -1 ) { indexAnime.animeVf = newAnimeVf(anotherTitle.Title_just_S, arrayAnimeAdkami, indexAnime); };
-   }
-
-  if ( indexAnime.animeVostfr == -1 && anotherTitle.Title_no_double_point != null )
+  if ( anotherTitle.Title_just_S != null )
   {
-     indexAnime.animeVostfr = arrayAnimeAdkami.findIndex( element => element.Title == anotherTitle.Title_no_double_point );
-     if ( indexAnime.animeVostfr != -1 ) { indexAnime.animeVf = newAnimeVf(anotherTitle.Title_no_double_point, arrayAnimeAdkami, indexAnime); };
+    indexAnime = findAnimeAdkami(indexAnime, arrayAnimeAdkami, anotherTitle.Title_just_S, -1, null);
+    if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1 ) { return indexAnime; }
   }
 
-  if ( indexAnime.animeVostfr  == -1 && anotherTitle.Title_try_ou != null )
+  if ( anotherTitle.Title_no_double_point != null )
+  {
+    indexAnime = findAnimeAdkami(indexAnime, arrayAnimeAdkami, anotherTitle.Title_no_double_point, -1, null);
+    if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1 ) { return indexAnime; }
+  }
+
+  if ( anotherTitle.Title_try_ou != null )
   {
     for (let i = 0; i < anotherTitle.Title_try_ou.length; i++)
     {
-      testIndexAnime = arrayAnimeAdkami.findIndex( element => element.Title == anotherTitle.Title_try_ou[i] );
-
-      if (testIndexAnime != -1)
-      {
-        indexAnime.animeVostfr = testIndexAnime;
-        indexAnime.animeVf = newAnimeVf(anotherTitle.Title_try_ou[i], arrayAnimeAdkami, indexAnime);
-      }
+      indexAnime = findAnimeAdkami(indexAnime, arrayAnimeAdkami, anotherTitle.Title_try_ou[i], -1, null);
+      if ( indexAnime.Vostfr != -1 || indexAnime.animeVf != -1 ) { return indexAnime; }
     }
   }
 
   return indexAnime;
 }
 
-function newAnimeVf(anotherTitle, arrayAnimeAdkami, indexAnime)
+function findAnimeAdkami(indexAnime, arrayAnimeAdkami, title, index, firstVoice)
 {
-  let indexAnimeVf, test;
+  if (index != -1 )
+  {
+    if ( firstVoice == "vostfr" )
+    {
+      arrayAnimeAdkami = arrayAnimeAdkami.slice(index + 1);
+      indexSeconde = arrayAnimeAdkami.findIndex(element => element.Title_low_caps == title);
+      if (indexSeconde == -1) { indexAnime.animeVostfr = index; indexAnime.animeVf = -1}
+      else { indexAnime.animeVostfr  = index; indexAnime.animeVf = indexSeconde + index + 1; }
+    }
+    else
+    {
+      arrayAnimeAdkami = arrayAnimeAdkami.slice(index + 1);
+      indexSeconde = arrayAnimeAdkami.findIndex(element => element.Title_low_caps == title)
+      if (indexSeconde == -1) { indexAnime.animeVf = index; indexAnime.animeVostfr = -1}
+      else {indexAnime.animeVf = index;  indexAnime.animeVostfr  = indexSeconde + index + 1; }
+    }
+  }
 
-  arrayAnimeAdkami = arrayAnimeAdkami.slice(indexAnime.animeVostfr + 1);
-  indexAnimeVf = arrayAnimeAdkami.findIndex(element => element.Title == anotherTitle);
+  index = arrayAnimeAdkami.findIndex(element => element.Title_low_caps == title);
+  if ( index != -1 && firstVoice == null )
+  {
+    firstVoice = arrayAnimeAdkami[index].Voice;
+    findAnimeAdkami(indexAnime, arrayAnimeAdkami, title, index, firstVoice);
+  }
 
-  return indexAnimeVf
+  if ( indexAnime.animeVostfr != undefined && indexAnime.animeVf != undefined)
+  { return indexAnime; }
+  else
+  { indexAnime.animeVostfr = -1; indexAnime.animeVf = -1; return indexAnime;}
 }
 
 function adkamiManuelle(animeTitle, arrayAnimeAdkami)
 {
   console.log("adkamiManuelle: " + animeTitle);
   // ipcRenderer.send('asynchronous-message', 'token')
-
 }
 
 function adkamiInsertDb(adkamiAnimeLink)
 {
-  let selectAnime;
-  pool.getConnection()
-    .then(conn => {
-      for (let i = 0; i < adkamiAnimeLink.length; i++)
-      {
-        conn.query("INSERT INTO adkami (Unique_title, Title_Adkami, Last_episodes_release, Picture_adkami, Voice, Day, Hours, Type_episodes, Present_this_week) VALUES ('" + adkamiAnimeLink[i].Title_adkami + " " + adkamiAnimeLink[i].Type_episode + " " + adkamiAnimeLink[i].Voice + "','" + adkamiAnimeLink[i].Title_adkami + "'," + adkamiAnimeLink[i].Episode + ",'" + adkamiAnimeLink[i].Picture_url + "','" + adkamiAnimeLink[i].Voice + "','" + adkamiAnimeLink[i].Day + "','" + adkamiAnimeLink[i].Hours + "','" + adkamiAnimeLink[i].Type_episode + "', 'Yes' ) ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
-
-        selectAnime = conn.query("SELECT adkami.id_adkami from adkami where Title_Adkami = '" + adkamiAnimeLink[i].Title_adkami + "' AND Voice = 'Vostfr';"); // pour la version ou les vf son pris en compte changer apres AND
-        selectAnime.then(function(result)
+  return new Promise((resolve,reject)=>{
+    let selectAnime;
+    pool.getConnection()
+      .then(conn => {
+        for (let i = 0; i < adkamiAnimeLink.length; i++)
         {
-          conn.query("UPDATE anime SET id_adkami = " + result[0].id_adkami + " WHERE Title_anime = '" + adkamiAnimeLink[i].Title_myanimelist + "' AND id_adkami is NULL;");
-        })
-      }
-  })
-  .catch(err => { console.log("erreur: " + err); });
+          conn.query("INSERT INTO adkami (Unique_title, Title_Adkami, Last_episodes_release, Picture_adkami, Voice, Day, Hours, Type_episodes, Present_this_week) VALUES ('" + adkamiAnimeLink[i].Title_adkami + " " + adkamiAnimeLink[i].Type_episode + " " + adkamiAnimeLink[i].Voice + "','" + adkamiAnimeLink[i].Title_adkami + "'," + adkamiAnimeLink[i].Episode + ",'" + adkamiAnimeLink[i].Picture_url + "','" + adkamiAnimeLink[i].Voice + "','" + adkamiAnimeLink[i].Day + "','" + adkamiAnimeLink[i].Hours + "','" + adkamiAnimeLink[i].Type_episode + "', 'Yes' ) ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
+
+          selectAnime = conn.query("SELECT adkami.id_adkami from adkami where Title_Adkami = '" + adkamiAnimeLink[i].Title_adkami + "' AND Voice = 'Vostfr';"); // pour la version ou les vf son pris en compte changer apres AND
+          selectAnime.then(function(result)
+          {
+            conn.query("UPDATE anime SET id_adkami = " + result[0].id_adkami + " WHERE Title_anime = '" + adkamiAnimeLink[i].Title_myanimelist + "' AND id_adkami is NULL;");
+          })
+        }
+    })
+    .catch(err => { console.log("erreur: " + err); });
+    resolve();
+  });
 }
 
 function newAnime(anime)

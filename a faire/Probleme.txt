@@ -1,14 +1,5 @@
-[] anime qui ne son pas detecter
-
 [] inser anime myanimelist fini pas avant que le select another commance
 
 
 
-creatAnotherTitle() s'exec avant le remlisage des db anime et myanimelist
-
-
-
-tryAnimeAdkami()  probleme quand les animes vf sons avant les anime vostfr
-
-
-d'otre probleme a voir dans l'execution avec rien comment anime link
+les functions n'attende pas que les autre est fini
