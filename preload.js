@@ -49,15 +49,19 @@ async function refreshAnime() // refresh all data anime
 
   await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
   arrayAnimeAdkami = await getAnimeAgendaAdkami(); // get data from anime in Airing
+  console.log(arrayAnimeAdkami);
   await refreshAdkamiDB(arrayAnimeAdkami);
   anotherTItle = await creatAnotherTitle(); // create variant of title anime to link myanimelist to adkami
+  console.log(anotherTItle);
 
   if (anotherTItle != null)
   {
     adkamiAnimeLink = await linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami); // link data from adkami with myanimelist title
+    console.log(adkamiAnimeLink);
     await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
   }
 
+  console.log("end");
   // setTimeout(()=>{
   //     window.location.reload();
   // } , 2000);
@@ -68,10 +72,8 @@ function jikanApiAnimeMalWatching(myanimelistName)
   return new Promise((resolve,reject)=>{
     jikanjs.loadUser(myanimelistName, 'animelist', 'watching').then((response) => {
       insertUpdateMyanimelistDb(response["anime"]); // function to inser or update anime in myanimelist DB
-      resolve();
-    }).catch((err) => {
-      console.error(err); // in case a error happens
-    });
+    }).catch((err) => { console.error(err); }); // in case a error happens
+    resolve();
   });
 }
 
@@ -104,6 +106,7 @@ function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or upda
       {
         supAnimeStopWatching(checkAnimeList, animeInDbMyanimelist)
       })
+      console.log("boite");
     })
     .catch(err => { console.log("erreur: " + err); });
 }
@@ -294,7 +297,7 @@ function refreshAdkamiDB(arrayAnimeAdkami)
         })
       })
       .catch(err => { console.log("erreur: " + err); });
-    resolve();
+      resolve();
   });
 }
 
@@ -328,11 +331,10 @@ function creatAnotherTitle() // creat recurrent variant of title anime from myan
         {
           resolve(null);
         }
-
-      resolve(anotherTitleList);
       })
     })
     .catch(err => { console.log("erreur: " + err); });
+    resolve(anotherTitleList);
   });
 }
 

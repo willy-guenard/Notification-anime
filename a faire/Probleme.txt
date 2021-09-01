@@ -3,3 +3,30 @@
 
 
 les functions n'attende pas que les autre est fini
+
+
+kobayashi ( nom diferrent S=> S2
+iruma-kun ( sort pas cette semaine)
+mini dragon ( nom different )
+one pieces ( sort que dimanche)
+vanitasse karte ( nom different karte =>carte)
+
+
+jikanApiAnimeMalWatching
+{
+  insertUpdateMyanimelistDb
+  {
+    removeSpecialCharacter
+    supAnimeStopWatching
+  }
+}
+
+creatAnotherTitle
+{
+  titleTryOu
+  titleJustS
+  titleNoDoblePoint
+}
+
+
+linkAdkamiAndMyanimelist
