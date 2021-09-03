@@ -24,14 +24,14 @@ window.addEventListener('DOMContentLoaded', () => {
   showAnimeAgenda();
 })
 
-function testWindows()
-{
-  ipcRenderer.sendSync('windowsAnimeManuelle', "kobayashi-san Chi no maid dragon S2");
-
-  ipcRenderer.on('windowsAnimeManuelle-reply', (event, arg) => {
-    console.log(arg) // affiche "pong"
-  })
-}
+// function testWindows()
+// {
+//   ipcRenderer.sendSync('windowsAnimeManuelle', "kobayashi-san Chi no maid dragon S2");
+//
+//   ipcRenderer.on('windowsAnimeManuelle-reply', (event, arg) => {
+//     console.log(arg) // affiche "pong"
+//   })
+// }
 
 function deleteDb() // function temporaire/ test whith clear DB
 {
@@ -45,112 +45,119 @@ function deleteDb() // function temporaire/ test whith clear DB
 
 async function refreshAnime() // refresh all data anime
 {
-  let arrayAnimeAdkami, anotherTItle, actualise;
-
-  await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
-  arrayAnimeAdkami = await getAnimeAgendaAdkami(); // get data from anime in Airing
-  console.log(arrayAnimeAdkami);
+  const animeWatchingList = await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
+  await insertUpdateMyanimelistDb(animeWatchingList); // function to inser or update anime in myanimelist DB
+  const arrayAnimeAdkami = await getAnimeAgendaAdkami(); // get data from anime in Airing
   await refreshAdkamiDB(arrayAnimeAdkami);
-  anotherTItle = await creatAnotherTitle(); // create variant of title anime to link myanimelist to adkami
-  console.log(anotherTItle);
+  const anotherTItle = await creatAnotherTitle(); // create variant of title anime to link myanimelist to adkami
 
   if (anotherTItle != null)
   {
-    adkamiAnimeLink = await linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami); // link data from adkami with myanimelist title
-    console.log(adkamiAnimeLink);
+    const adkamiAnimeLink = await linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami); // link data from adkami with myanimelist title
     await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
+    await refreshMainPages();
   }
-
-  console.log("end");
-  // setTimeout(()=>{
-  //     window.location.reload();
-  // } , 2000);
+  else
+  {
+    await refreshMainPages();
+  }
 }
 
-function jikanApiAnimeMalWatching(myanimelistName)
+async function refreshMainPages()
 {
-  return new Promise((resolve,reject)=>{
+  window.location.reload();
+}
+
+async function jikanApiAnimeMalWatching(myanimelistName)
+{
+  return new Promise((resolve,reject) => {
     jikanjs.loadUser(myanimelistName, 'animelist', 'watching').then((response) => {
-      insertUpdateMyanimelistDb(response["anime"]); // function to inser or update anime in myanimelist DB
+      resolve(response["anime"]);
     }).catch((err) => { console.error(err); }); // in case a error happens
-    resolve();
   });
 }
 
 function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or update anime in myanimelist DB
 {
-  let selectMyanimelist, selectAnimeMyanimelist, status, titleAnime, tags , checkAnimeList;
-  checkAnimeList = new Array();
-  //conection to data DB
-  pool.getConnection()
-    .then(conn => {
-      for (let i = 0; i < myAnimeListJson.length; i++)
-      {
-        if ( myAnimeListJson[i].airing_status == 1 ) { status = "Airing" } else { status = "Release" }
-        titleAnime = removeSpecialCharacter(myAnimeListJson[i].title);
-        if ( myAnimeListJson[i].tags !=  null ) { tags = removeSpecialCharacter(myAnimeListJson[i].tags); } else { tags = myAnimeListJson[i].tags; }
-
-        //inser new anime in myanimelist if it already exists just update it
-        conn.query("INSERT INTO myanimelist (MAL_id, Tilte_Myanimelist, Last_watched_episodes, Total_number_episodes, url_myanimelist, Picture_Myanimelist, Type_episodes, Tags, Status, is_rewatching, score) VALUES (" + myAnimeListJson[i].mal_id + ", '" + titleAnime + "', " + myAnimeListJson[i].watched_episodes + ", " + myAnimeListJson[i].total_episodes + ", '" + myAnimeListJson[i].url + "', '" + myAnimeListJson[i].image_url + "', '" + myAnimeListJson[i].type + "', '" + tags + "', '" + status + "', '" + myAnimeListJson[i].is_rewatching  + "', " + 0 + ") ON DUPLICATE KEY UPDATE Last_watched_episodes = VALUES(Last_watched_episodes), Tags = VALUES(Tags), Status = VALUES(Status), score = VALUES(score)");
-
-        // select myanimelist table for get id and title to create link with foreign key
-        selectMyanimelist = conn.query("SELECT id_myanimelist, Tilte_Myanimelist from myanimelist where Tilte_Myanimelist = '" + titleAnime + "';");
-        selectMyanimelist.then(function(result)
+  return new Promise((resolve,reject) => {
+    let selectMyanimelist, selectAnimeMyanimelist, status, titleAnime, tags , checkAnimeList;
+    checkAnimeList = new Array();
+    //conection to data DB
+    pool.getConnection()
+      .then(conn => {
+        for (let i = 0; i < myAnimeListJson.length; i++)
         {
-          conn.query("INSERT INTO anime (id_myanimelist, Title_anime) VALUES (" + result[0].id_myanimelist + ", '" + result[0].Tilte_Myanimelist + "') ON DUPLICATE KEY UPDATE Title_anime = VALUES(Title_anime)");
+          if ( myAnimeListJson[i].airing_status == 1 ) { status = "Airing" } else { status = "Release" }
+          titleAnime = removeSpecialCharacter(myAnimeListJson[i].title);
+          if ( myAnimeListJson[i].tags !=  null ) { tags = removeSpecialCharacter(myAnimeListJson[i].tags); } else { tags = myAnimeListJson[i].tags; }
+
+          //inser new anime in myanimelist if it already exists just update it
+          conn.query("INSERT INTO myanimelist (MAL_id, Tilte_Myanimelist, Last_watched_episodes, Total_number_episodes, url_myanimelist, Picture_Myanimelist, Type_episodes, Tags, Status, is_rewatching, score) VALUES (" + myAnimeListJson[i].mal_id + ", '" + titleAnime + "', " + myAnimeListJson[i].watched_episodes + ", " + myAnimeListJson[i].total_episodes + ", '" + myAnimeListJson[i].url + "', '" + myAnimeListJson[i].image_url + "', '" + myAnimeListJson[i].type + "', '" + tags + "', '" + status + "', '" + myAnimeListJson[i].is_rewatching  + "', " + 0 + ") ON DUPLICATE KEY UPDATE Last_watched_episodes = VALUES(Last_watched_episodes), Tags = VALUES(Tags), Status = VALUES(Status), score = VALUES(score)");
+
+          // select myanimelist table for get id and title to create link with foreign key
+          selectMyanimelist = conn.query("SELECT id_myanimelist, Tilte_Myanimelist from myanimelist where Tilte_Myanimelist = '" + titleAnime + "';");
+          selectMyanimelist.then(function(result)
+          {
+            conn.query("INSERT INTO anime (id_myanimelist, Title_anime) VALUES (" + result[0].id_myanimelist + ", '" + result[0].Tilte_Myanimelist + "') ON DUPLICATE KEY UPDATE Title_anime = VALUES(Title_anime)");
+          })
+          checkAnimeList[i] = titleAnime; //stock all anime in watching list
+        }
+        selectAnimeMyanimelist = conn.query("SELECT myanimelist.id_myanimelist, myanimelist.Tilte_Myanimelist, anime.id_adkami, anime.id_other_anime  FROM myanimelist JOIN anime ON myanimelist.id_myanimelist = anime.id_myanimelist;"); //all anime in db myanimelist
+        selectAnimeMyanimelist.then(function(animeInDbMyanimelist)
+        {
+          supAnimeStopWatching(checkAnimeList, animeInDbMyanimelist)
+          setTimeout(()=>{
+              resolve();
+          } , 500);
         })
-        checkAnimeList[i] = titleAnime; //stock all anime in watching list
-      }
-      selectAnimeMyanimelist = conn.query("SELECT myanimelist.id_myanimelist, myanimelist.Tilte_Myanimelist, anime.id_adkami, anime.id_other_anime  FROM myanimelist JOIN anime ON myanimelist.id_myanimelist = anime.id_myanimelist;"); //all anime in db myanimelist
-      selectAnimeMyanimelist.then(function(animeInDbMyanimelist)
-      {
-        supAnimeStopWatching(checkAnimeList, animeInDbMyanimelist)
       })
-      console.log("boite");
-    })
-    .catch(err => { console.log("erreur: " + err); });
+      .catch(err => { console.log("erreur: " + err); });
+  });
 }
 
 function supAnimeStopWatching(animeWatchingList, animeInDbMyanimelist)
 {
-  let testFindAnime, nbAnimeNotFound = 0;
-  animeNofoundInWatchinList = new Array();
+  return new Promise((resolve,reject) => {
+    let testFindAnime, nbAnimeNotFound = 0;
+    animeNofoundInWatchinList = new Array();
 
-  for (let i = 0; i < animeInDbMyanimelist.length; i++)
-  {
-    testFindAnime = animeWatchingList.find(element => element == animeInDbMyanimelist[i].Tilte_Myanimelist);
-
-    if (testFindAnime ==  undefined)
+    for (let i = 0; i < animeInDbMyanimelist.length; i++)
     {
-      animeNofoundInWatchinList[nbAnimeNotFound]  = animeInDbMyanimelist[i];
-      nbAnimeNotFound ++;
+      testFindAnime = animeWatchingList.find(element => element == animeInDbMyanimelist[i].Tilte_Myanimelist);
+
+      if (testFindAnime ==  undefined)
+      {
+        animeNofoundInWatchinList[nbAnimeNotFound]  = animeInDbMyanimelist[i];
+        nbAnimeNotFound ++;
+      }
     }
-  }
 
-  pool.getConnection()
-   .then(conn => {
-     for (let y = 0; y < animeNofoundInWatchinList.length; y++)
-     {
-       conn.query("DELETE FROM myanimelist WHERE id_myanimelist = " + animeNofoundInWatchinList[y].id_myanimelist + ";");
+    pool.getConnection()
+     .then(conn => {
+       for (let y = 0; y < animeNofoundInWatchinList.length; y++)
+       {
+         conn.query("DELETE FROM myanimelist WHERE id_myanimelist = " + animeNofoundInWatchinList[y].id_myanimelist + ";");
 
-       if(animeNofoundInWatchinList[y].id_adkami != null)
-       {
-         conn.query("DELETE FROM adkami WHERE id_adkami = " + animeNofoundInWatchinList[y].id_adkami + ";");
-       }
-       else
-       {
-         if (animeNofoundInWatchinList[y].id_other_anime != null)  //secutier
+         if(animeNofoundInWatchinList[y].id_adkami != null)
          {
-           conn.query("DELETE FROM other_anime WHERE id_other_anime = " + animeNofoundInWatchinList[y].id_other_anime + ";");
+           conn.query("DELETE FROM adkami WHERE id_adkami = " + animeNofoundInWatchinList[y].id_adkami + ";");
          }
          else
          {
-            console.log("Warning: anime sans DB fixe");
+           if (animeNofoundInWatchinList[y].id_other_anime != null)  //secutier
+           {
+             conn.query("DELETE FROM other_anime WHERE id_other_anime = " + animeNofoundInWatchinList[y].id_other_anime + ";");
+           }
+           else
+           {
+              console.log("Warning: anime sans DB fixe");
+           }
          }
        }
-     }
-    })
-    .catch(err => { console.log("erreur: " + err); });
+       resolve();
+      })
+      .catch(err => { console.log("erreur: " + err); });
+  });
 }
 function getAnimeAgendaAdkami()
 {
@@ -271,37 +278,34 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
   return arrayAnimeAdkami;
 }
 
-function refreshAdkamiDB(arrayAnimeAdkami)
+async function refreshAdkamiDB(arrayAnimeAdkami)
 {
-  return new Promise((resolve,reject)=>{
-    let selectAnimeAdkamiUpdate, dataAnime;
+  let selectAnimeAdkamiUpdate, dataAnime;
 
-    pool.getConnection()
-      .then(conn => {
-        selectAnimeAdkamiUpdate = conn.query("SELECT Title_Adkami, Voice FROM adkami");
-        selectAnimeAdkamiUpdate.then(function(animeUpdateAdkami)
+  pool.getConnection()
+    .then(conn => {
+      selectAnimeAdkamiUpdate = conn.query("SELECT Title_Adkami, Voice FROM adkami");
+      selectAnimeAdkamiUpdate.then(function(animeUpdateAdkami)
+      {
+        for (let i = 0; i < animeUpdateAdkami.length; i++)
         {
-          for (let i = 0; i < animeUpdateAdkami.length; i++)
-          {
-            dataAnime = arrayAnimeAdkami.find(element => element.Title == animeUpdateAdkami[i].Title_Adkami && element.Voice == animeUpdateAdkami[i].Voice);
+          dataAnime = arrayAnimeAdkami.find(element => element.Title == animeUpdateAdkami[i].Title_Adkami && element.Voice == animeUpdateAdkami[i].Voice);
 
-            if ( dataAnime != undefined )
-            {
-              conn.query("UPDATE adkami SET Last_episodes_release = " + dataAnime.Episode + ", Present_this_week = 'Yes'  WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "'AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
-            }
-            else
-            {
-              conn.query("UPDATE adkami SET Present_this_week = 'No' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "' AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
-            }
+          if ( dataAnime != undefined )
+          {
+            conn.query("UPDATE adkami SET Last_episodes_release = " + dataAnime.Episode + ", Present_this_week = 'Yes'  WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "'AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
           }
-        })
+          else
+          {
+            conn.query("UPDATE adkami SET Present_this_week = 'No' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "' AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
+          }
+        }
       })
-      .catch(err => { console.log("erreur: " + err); });
-      resolve();
-  });
+    })
+    .catch(err => { console.log("erreur: " + err); });
 }
 
-function creatAnotherTitle() // creat recurrent variant of title anime from myanimelist
+async function creatAnotherTitle() // creat recurrent variant of title anime from myanimelist
 {
   return new Promise((resolve, reject)=>{
     let selectAnime;
@@ -312,29 +316,32 @@ function creatAnotherTitle() // creat recurrent variant of title anime from myan
       selectAnime = conn.query("SELECT Title_anime from anime JOIN myanimelist ON anime.id_myanimelist = myanimelist.id_myanimelist where id_adkami IS NULL AND id_other_anime IS NULL AND myanimelist.Status = 'Airing'");
       selectAnime.then(function(result)
       {
-        for (let i = 0; i < result.length; i++) // try all title
-        {
-          title = result[i].Title_anime.toLowerCase();
-          anotherTitleList[i] = new Object();
-          anotherTitleList[i].Title_originel = title;
-
-          if ( titleTryOu(result[i].Title_anime) != undefined ) //test if this variant make a result
-          {
-            anotherTitleList[i].Title_try_ou = titleTryOu(title);
-          }
-
-          if ( titleJustS(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_just_S = titleJustS(title); } //test if this variant make a result
-          if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_no_double_point = titleNoDoblePoint(title); } //test if this variant make a result
-        }
-
         if ( result.length == 0 )
         {
           resolve(null);
         }
+        else
+        {
+          for (let i = 0; i < result.length; i++) // try all title
+          {
+            title = result[i].Title_anime.toLowerCase();
+            anotherTitleList[i] = new Object();
+            anotherTitleList[i].Title_originel = title;
+
+            if ( titleTryOu(result[i].Title_anime) != undefined ) //test if this variant make a result
+            {
+              anotherTitleList[i].Title_try_ou = titleTryOu(title);
+            }
+
+            if ( titleJustS(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_just_S = titleJustS(title); } //test if this variant make a result
+            if ( titleNoDoblePoint(result[i].Title_anime) != undefined ) { anotherTitleList[i].Title_no_double_point = titleNoDoblePoint(title); } //test if this variant make a result
+          }
+
+          resolve(anotherTitleList);
+        }
       })
     })
     .catch(err => { console.log("erreur: " + err); });
-    resolve(anotherTitleList);
   });
 }
 
@@ -532,7 +539,7 @@ function removeSpecialCharacter(title)
   return title
 }
 
-function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
+async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
 {
   return new Promise((resolve,reject)=>{
     let animeLinkAdkami = new Array();
@@ -654,10 +661,10 @@ function adkamiManuelle(animeTitle, arrayAnimeAdkami)
   // ipcRenderer.send('asynchronous-message', 'token')
 }
 
-function adkamiInsertDb(adkamiAnimeLink)
+async function adkamiInsertDb(adkamiAnimeLink)
 {
   return new Promise((resolve,reject)=>{
-    let selectAnime;
+    let selectAnime, timeStop;
     pool.getConnection()
       .then(conn => {
         for (let i = 0; i < adkamiAnimeLink.length; i++)
@@ -670,9 +677,13 @@ function adkamiInsertDb(adkamiAnimeLink)
             conn.query("UPDATE anime SET id_adkami = " + result[0].id_adkami + " WHERE Title_anime = '" + adkamiAnimeLink[i].Title_myanimelist + "' AND id_adkami is NULL;");
           })
         }
+      timeStop = adkamiAnimeLink.length * 66.6;
+      setTimeout(()=>{
+          resolve();
+      } , timeStop);
     })
     .catch(err => { console.log("erreur: " + err); });
-    resolve();
+
   });
 }
 
