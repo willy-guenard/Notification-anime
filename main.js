@@ -1,5 +1,5 @@
 // package
-const {app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, session } = require('electron')
+const {app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, session, globalShortcut} = require('electron')
 const path = require('path')
 const fs = require('fs');
 const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
@@ -27,6 +27,12 @@ app.whenReady().then(() => {
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
 
+    // globalShortcut.register('f5', function() {})
+
+    ipcMain.on('refreshMainPages', (event, arg) => {
+      mainWindow.reload();
+    })
+
     // window for Manuelle adkami
     ipcMain.on('windowsAnimeManuelle', (event, arg) => {
 
@@ -46,8 +52,7 @@ app.whenReady().then(() => {
       windowsAdkamiManuelle.removeMenu();
       windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindownsAnimeManuelle/windowsAnimeManuelle.html');
 
-      console.log(arg);
-      event.reply('windowsAnimeManuelle-reply', 'kobayashi-san Chi no maid dragon S')
+      // event.reply('windowsAnimeManuelle-reply', 'kobayashi-san Chi no maid dragon S')
     })
 
     //   ipcMain.on('asynchronous-message', (event, token) => {

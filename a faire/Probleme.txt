@@ -4,6 +4,8 @@
 
 les functions n'attende pas que les autre est fini
 
+dans la db les id mons a chaque test
+
 
 kobayashi ( nom diferrent S=> S2
 iruma-kun ( sort pas cette semaine)
