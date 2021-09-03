@@ -21,6 +21,10 @@ window.addEventListener('DOMContentLoaded', () => {
   butonSupDB.addEventListener('click', function(){ deleteDb() }); // function temporaire
   butontestWindows.addEventListener('click', function(){ testWindows() });
 
+  ipcRenderer.on('refreshDbF5', (event, arg) => {
+    refreshAnime();
+  });
+
   showAnimeAgenda();
 })
 
@@ -65,7 +69,7 @@ async function refreshAnime() // refresh all data anime
 
 async function refreshMainPages()
 {
-  window.location.reload();
+  ipcRenderer.send('refreshMainPages', "refresh");
 }
 
 async function jikanApiAnimeMalWatching(myanimelistName)

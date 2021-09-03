@@ -1,19 +1,20 @@
 // package
-const {app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, session } = require('electron')
+const {app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, session, globalShortcut } = require('electron')
 const path = require('path')
 const fs = require('fs');
+// const refreshAnime = require("./preload.js")
 const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
 
 // quand l'application a fini de pre charger
 app.whenReady().then(() => {
 
   const mainWindow = new BrowserWindow({
-    width: 1445,
+    width: 1500,
     height: 700,
-    // maxWidth: 1445,
-    // minWidth: 1445,
-    // maxHeight: 600,
-    // minHeight: 600,
+    // maxWidth: 1500,
+    // minWidth: 1500,
+    // maxHeight: 700,
+    // minHeight: 700,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true
@@ -26,6 +27,16 @@ app.whenReady().then(() => {
 
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
+
+    globalShortcut.register('f5', function()
+    {
+      mainWindow.webContents.send('refreshDbF5', 'refresh!');
+    })
+
+    ipcMain.on('refreshMainPages', (event, arg) => {
+      mainWindow.reload();
+    })
+
 
     // window for Manuelle adkami
     ipcMain.on('windowsAnimeManuelle', (event, arg) => {

@@ -1,0 +1,13 @@
+https://www.electronjs.org/docs/tutorial/security
+
+https://www.electronjs.org/docs/tutorial/performance
+
+https://www.electronjs.org/docs/tutorial/dark-mode
+
+https://www.electronjs.org/docs/tutorial/windows-taskbar
+
+https://www.electronjs.org/docs/tutorial/notifications
+
+https://www.electronjs.org/docs/api/tray
+
+BrowserWindow.titleBarStyle
