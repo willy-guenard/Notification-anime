@@ -11,14 +11,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const butonShowanime = document.querySelector("#butonShowanime");
   const tokenMal = document.querySelector("#tokenMal");
   const butonfiltre = document.querySelector("#filtre");
-  const butonSupDB = document.querySelector("#supDB"); // buton temporaire
   const butontestWindows = document.querySelector("#testWindows");
 
 
   butonShowanime.addEventListener('click', function(){ refreshAnime() });
-  tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
-  butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
-  butonSupDB.addEventListener('click', function(){ deleteDb() }); // function temporaire
+  // tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
+  // butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
   butontestWindows.addEventListener('click', function(){ testWindows() });
 
   ipcRenderer.on('refreshDbF5', (event, arg) => {
@@ -36,16 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
 //     console.log(arg) // affiche "pong"
 //   })
 // }
-
-function deleteDb() // function temporaire/ test whith clear DB
-{
-  pool.getConnection()
-    .then(conn => {
-      conn.query("DELETE FROM `notification_anime`.`myanimelist` WHERE  `score` = 0;");
-      conn.query("DELETE FROM `notification_anime`.`adkami` WHERE  `Type_episodes`= 'Episode';");
-    })
-    .catch(err => { console.log("erreur: " + err); });
-}
 
 async function refreshAnime() // refresh all data anime
 {
@@ -96,7 +84,7 @@ function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or upda
           if ( myAnimeListJson[i].tags !=  null ) { tags = removeSpecialCharacter(myAnimeListJson[i].tags); } else { tags = myAnimeListJson[i].tags; }
 
           //inser new anime in myanimelist if it already exists just update it
-          conn.query("INSERT INTO myanimelist (MAL_id, Tilte_Myanimelist, Last_watched_episodes, Total_number_episodes, url_myanimelist, Picture_Myanimelist, Type_episodes, Tags, Status, is_rewatching, score) VALUES (" + myAnimeListJson[i].mal_id + ", '" + titleAnime + "', " + myAnimeListJson[i].watched_episodes + ", " + myAnimeListJson[i].total_episodes + ", '" + myAnimeListJson[i].url + "', '" + myAnimeListJson[i].image_url + "', '" + myAnimeListJson[i].type + "', '" + tags + "', '" + status + "', '" + myAnimeListJson[i].is_rewatching  + "', " + 0 + ") ON DUPLICATE KEY UPDATE Last_watched_episodes = VALUES(Last_watched_episodes), Tags = VALUES(Tags), Status = VALUES(Status), score = VALUES(score)");
+          conn.query("INSERT INTO myanimelist (MAL_id, Tilte_Myanimelist, Last_watched_episodes, Total_number_episodes, url_myanimelist, Picture_Myanimelist, Type_episodes, Tags, Status, is_rewatching, score) VALUES (" + myAnimeListJson[i].mal_id + ", '" + titleAnime + "', " + myAnimeListJson[i].watched_episodes + ", " + myAnimeListJson[i].total_episodes + ", '" + myAnimeListJson[i].url + "', '" + myAnimeListJson[i].image_url + "', '" + myAnimeListJson[i].type + "', '" + tags + "', '" + status + "', '" + myAnimeListJson[i].is_rewatching  + "', " + myAnimeListJson[i].score + ") ON DUPLICATE KEY UPDATE Last_watched_episodes = VALUES(Last_watched_episodes), Tags = VALUES(Tags), Status = VALUES(Status), score = VALUES(score)");
 
           // select myanimelist table for get id and title to create link with foreign key
           selectMyanimelist = conn.query("SELECT id_myanimelist, Tilte_Myanimelist from myanimelist where Tilte_Myanimelist = '" + titleAnime + "';");

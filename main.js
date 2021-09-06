@@ -15,6 +15,9 @@ app.whenReady().then(() => {
     // minWidth: 1500,
     // maxHeight: 700,
     // minHeight: 700,
+    // titleBarStyle: "hidden",
+    frame: false,
+    darkTheme: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true
@@ -28,7 +31,7 @@ app.whenReady().then(() => {
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
 
-    globalShortcut.register('f5', function()
+    globalShortcut.register('f6', function()
     {
       mainWindow.webContents.send('refreshDbF5', 'refresh!');
     })

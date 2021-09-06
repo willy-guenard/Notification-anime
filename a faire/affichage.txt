@@ -1,6 +1,6 @@
                             [Pages Principal]
 
-  - enpercher le titre de la page de changer
+  - enpecher le titre de la page de changer
   - meilleur disigne pour bouton
   - faire une legende pour les couleurs
   - faire un bouton anime sortie
@@ -16,6 +16,7 @@
         - [sois faire mettre par l'user "friends: mehdi" dans les tags]
   - [] quand je click sur un episodes ( faire afficher une pages pour regarder episodes/ouvre dans le lecteur episodes)
   - a l'heure ou l'anime doit sortire faire actualiser la pages
+  - quand les animes ce fond actualiser faire un truc qui tourne
 
                             [Extention]
   - black themes
