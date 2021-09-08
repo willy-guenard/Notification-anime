@@ -27,14 +27,10 @@ window.addEventListener('DOMContentLoaded', () => {
   showAnimeAgenda();
 })
 
-// function testWindows()
-// {
-//   ipcRenderer.sendSync('windowsAnimeManuelle', "kobayashi-san Chi no maid dragon S2");
-//
-//   ipcRenderer.on('windowsAnimeManuelle-reply', (event, arg) => {
-//     console.log(arg) // affiche "pong"
-//   })
-// }
+function testWindows()
+{
+  console.log(ipcRenderer.sendSync('windowsAnimeManuelle', "kobayashi-san Chi no maid dragon S2"));
+}
 
 async function refreshAnime() // refresh all data anime
 {
@@ -58,7 +54,7 @@ async function refreshAnime() // refresh all data anime
 
 async function refreshMainPages()
 {
-  // ipcRenderer.send('refreshMainPages', "refresh");
+  ipcRenderer.send('refreshMainPages', "refresh");
 }
 
 async function jikanApiAnimeMalWatching(myanimelistName)
@@ -535,8 +531,8 @@ function removeSpecialCharacter(title)
 async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
 {
   return new Promise((resolve,reject)=>{
-    let animeLinkAdkami = new Array();
-    let nbAnimeLink = 0;
+    let animeLinkAdkami = new Array(); let animeManuelle = new Array();
+    let nbAnimeLink = 0, nbManuelleAnime = 0 ;
     let indexAnime = new Object();
 
     for (let i = 0; i < anotherTitle.length; i++)
@@ -577,9 +573,11 @@ async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
       }
       else
       {
-        adkamiManuelle(anotherTitle[i].Title_originel, arrayAnimeAdkami);
+        animeManuelle[nbManuelleAnime] = anotherTitle[i].Title_originel;
+        nbManuelleAnime ++;
       }
     }
+    adkamiManuelle(animeManuelle);
     resolve(animeLinkAdkami);
   });
 }
@@ -651,7 +649,8 @@ function findAnimeAdkami(indexAnime, arrayAnimeAdkami, title, index, firstVoice)
 function adkamiManuelle(animeTitle, arrayAnimeAdkami)
 {
   console.log("adkamiManuelle: " + animeTitle);
-  // ipcRenderer.send('asynchronous-message', 'token')
+  console.log(ipcRenderer.sendSync('windowsAnimeManuelle', animeTitle));
+
 }
 
 async function adkamiInsertDb(adkamiAnimeLink)

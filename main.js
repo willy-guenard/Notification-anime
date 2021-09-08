@@ -9,8 +9,8 @@ const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
 app.whenReady().then(() => {
 
   const mainWindow = new BrowserWindow({
-    width: 1500,
-    height: 700,
+    width: 1300,
+    height: 800,
     // maxWidth: 1500,
     // minWidth: 1500,
     // maxHeight: 700,
@@ -18,11 +18,7 @@ app.whenReady().then(() => {
     icon: './Picture/kana_kuma.png',
     center: true,
     titleBarStyle: 'hidden',
-
-    // resizable: false, changer dimention user
     frame: false,
-    // movable:true,
-    // skipTaskbar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -52,50 +48,53 @@ app.whenReady().then(() => {
       const windowsAdkamiManuelle = new BrowserWindow({
         width: 500,
         height: 200,
-        // maxWidth: 1445,
-        // minWidth: 1445,
-        // maxHeight: 600,
-        // minHeight: 600,
         webPreferences: {
           preload: path.join(__dirname, './WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),
-          contextIsolation: true
+          contextIsolation: true,
         }
       })
 
       windowsAdkamiManuelle.removeMenu();
-      windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindownsAnimeManuelle/windowsAnimeManuelle.html');
+      windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuelle.html');
+      windowsAdkamiManuelle.webContents.openDevTools()
 
       console.log(arg);
-      event.reply('windowsAnimeManuelle-reply', 'kobayashi-san Chi no maid dragon S')
+      windowsAdkamiManuelle.on('closed', function() {
+        console.log();
+        event.returnValue = "keep on";
+      });
+
     })
 
-    //   ipcMain.on('asynchronous-message', (event, token) => {
-    //   let code_challenge = "";
-    //   let a = 128;
-    //   let b = 'abcdefghijklmnopqrstuvwxyz1234567890-_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    //   let c = b[Math.floor(Math.random() * b.length)];
-    //
-    //   for (let d = 0; d < a; d++)
-    //   {
-    //     code_challenge += b[Math.floor(Math.random() * b.length)];
-    //   }
-    //
-    //   let response_type = "code";
-    //   let client_id = "29fc8b678220461db9399d28c82624e1";
-    //   let state = "requestTokenMyanimelist";
-    //   let user = "Cheark";
-    //   let urlViewToken = "https://myanimelist.net/v1/oauth2/authorize?response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge;
-    //
-    //   const windowToken = new BrowserWindow({
-    //      width: 1500,
-    //      height: 900,
-    //      darkTheme: true,
-    //      webPreferences: {
-    //        preload: path.join(__dirname, './secondeWindow/seconpreload.js'),
-    //        contextIsolation: true
-    //      }
-    //    })
-    //
+
+      // TOKen gestion
+      // ipcMain.on('asynchronous-message', (event, token) => {
+      // let code_challenge = "";
+      // let a = 128;
+      // let b = 'abcdefghijklmnopqrstuvwxyz1234567890-_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      // let c = b[Math.floor(Math.random() * b.length)];
+      //
+      // for (let d = 0; d < a; d++)
+      // {
+      //   code_challenge += b[Math.floor(Math.random() * b.length)];
+      // }
+      //
+      // let response_type = "code";
+      // let client_id = "29fc8b678220461db9399d28c82624e1";
+      // let state = "requestTokenMyanimelist";
+      // let user = "Cheark";
+      // let urlViewToken = "https://myanimelist.net/v1/oauth2/authorize?response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge;
+      //
+      // const windowToken = new BrowserWindow({
+      //    width: 1500,
+      //    height: 900,
+      //    darkTheme: true,
+      //    webPreferences: {
+      //      preload: path.join(__dirname, './secondeWindow/seconpreload.js'),
+      //      contextIsolation: true
+      //    }
+      //  })
+
     //   const viewToken = new BrowserView()
     //   windowToken.setBrowserView(viewToken)
     //   viewToken.setAutoResize({width:true, height:true, x:false, y:false})
