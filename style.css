@@ -9,12 +9,13 @@ body
   -moz-user-select: none; /* Firefox */
   -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
   -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
+
   user-select: none; /* Propriété standard */
 
   margin: 0;
   box-sizing: border-box;
   font-size: 15px;
-  font-family: Helvetica\ Neue,Helvetica,Arial,sans-serif; /* a changer*/
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif; /* a changer*/
   color: #fff;
 }
 
@@ -33,18 +34,6 @@ div
 {
   display: block;
   margin: 0;
-}
-
-h1
-{
-  color: white;
-  font-size: 1.3em;
-  background-color: #202020;
-  text-align: center;
-  border-radius: 10px;
-  margin: 5px 650px 11px;
-  padding: 10px;
-
 }
 
 h3
@@ -105,11 +94,27 @@ p
   /* border: 2px dashed red; */
 }
 
+#title_box
+{
+  color: white;
+  font-size: 1.3em;
+  background-color: #202020;
+  text-align: center;
+  margin: 0px 0px 10px;
+  padding: 5px;
+  -webkit-app-region: drag;
+  z-index: 1;
+}
+
 #buton_close
 {
   position: absolute;
   right: 0.5%;
-  top: 10%;
+  top: 8%;
+  height: 20px;
+  width: 20px;
+  z-index: 2;
+  -webkit-app-region: none;
 }
 
 .colone

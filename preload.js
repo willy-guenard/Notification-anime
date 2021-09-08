@@ -14,10 +14,11 @@ window.addEventListener('DOMContentLoaded', () => {
   const butontestWindows = document.querySelector("#testWindows");
 
 
-  butonShowanime.addEventListener('click', function(){ refreshAnime() });
+  // butonShowanime.addEventListener('click', function(){ refreshAnime() });
+  // butontestWindows.addEventListener('click', function(){ testWindows() });
   // tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
   // butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
-  butontestWindows.addEventListener('click', function(){ testWindows() });
+
 
   ipcRenderer.on('refreshDbF5', (event, arg) => {
     refreshAnime();
@@ -57,7 +58,7 @@ async function refreshAnime() // refresh all data anime
 
 async function refreshMainPages()
 {
-  ipcRenderer.send('refreshMainPages', "refresh");
+  // ipcRenderer.send('refreshMainPages', "refresh");
 }
 
 async function jikanApiAnimeMalWatching(myanimelistName)
@@ -285,7 +286,7 @@ async function refreshAdkamiDB(arrayAnimeAdkami)
 
           if ( dataAnime != undefined )
           {
-            conn.query("UPDATE adkami SET Last_episodes_release = " + dataAnime.Episode + ", Present_this_week = 'Yes'  WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "'AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
+            conn.query("UPDATE adkami SET Last_episodes_release = " + dataAnime.Episode + ", Present_this_week = 'Yes', Day ='" + dataAnime.Day + "', Hours ='" + dataAnime.Hours + "' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "'AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
           }
           else
           {

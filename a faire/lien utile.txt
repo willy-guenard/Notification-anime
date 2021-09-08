@@ -10,4 +10,4 @@ https://www.electronjs.org/docs/tutorial/notifications
 
 https://www.electronjs.org/docs/api/tray
 
-BrowserWindow.titleBarStyle
+https://www.electronjs.org/docs/latest/api/native-image/
