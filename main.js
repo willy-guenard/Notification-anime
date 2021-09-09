@@ -9,8 +9,8 @@ const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
 app.whenReady().then(() => {
 
   const mainWindow = new BrowserWindow({
-    width: 1300,
-    height: 800,
+    width: 1426 ,
+    height: 710,
     // maxWidth: 1500,
     // minWidth: 1500,
     // maxHeight: 700,

@@ -13,7 +13,8 @@ body
   color: #fff;
 }
 
-form {
+form
+{
   /* Uniquement centrer le formulaire sur la page */
   margin: 0 auto;
   width: 400px;
@@ -26,4 +27,13 @@ form {
 #title_myanimelist
 {
   text-align: center;
+}
+
+
+[type="radio"] + label {
+	position: relative;
+	/* padding-left: 2.3em; */
+	font-size: 1.05em;
+	line-height: 1.7;
+	cursor: pointer;
 }

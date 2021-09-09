@@ -14,8 +14,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const butontestWindows = document.querySelector("#testWindows");
 
 
-  // butonShowanime.addEventListener('click', function(){ refreshAnime() });
-  // butontestWindows.addEventListener('click', function(){ testWindows() });
+  butonShowanime.addEventListener('click', function(){ refreshAnime() });
+  butontestWindows.addEventListener('click', function(){ testWindows() });
   // tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
   // butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
 
