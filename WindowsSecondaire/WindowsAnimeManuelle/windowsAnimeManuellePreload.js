@@ -13,8 +13,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('form').addEventListener('submit', (e) => {
       let data = Object.fromEntries(new FormData(e.target).entries());
-      console.log(data)
-      clearDivAnime("anime");
+      console.log(data);
+      clearDivAnime(e.path[0]);
     });
   });
 
@@ -90,7 +90,7 @@ function createFormAnimeManuelle(titleAnimeManuelle)
 
 function clearDivAnime(tileAnime)
 {
-  let divDataAnime = document.querySelector("#animeManuelle");
+  let divDataAnime = document.querySelector("#" + tileAnime.id);
   divDataAnime.remove();
 }
 
