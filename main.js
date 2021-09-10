@@ -34,7 +34,7 @@ app.whenReady().then(() => {
 
     globalShortcut.register('f6', function()
     {
-      mainWindow.webContents.send('refreshDbF5', 'refresh!');
+      mainWindow.webContents.send('refreshDbF6', 'refresh!');
     })
 
     ipcMain.on('refreshMainPages', (event, arg) => {
@@ -43,7 +43,7 @@ app.whenReady().then(() => {
 
 
     // window for Manuelle adkami
-    ipcMain.on('windowsAnimeManuelle', (event, arg) => {
+    ipcMain.on('windowsAnimeManuelle', (event, listAnimeManuelle) => {
 
       const windowsAdkamiManuelle = new BrowserWindow({
         width: 500,
@@ -58,9 +58,12 @@ app.whenReady().then(() => {
       windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuelle.html');
       windowsAdkamiManuelle.webContents.openDevTools()
 
-      console.log(arg);
+      console.log(listAnimeManuelle);
+
+      windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle);
+
       windowsAdkamiManuelle.on('closed', function() {
-        console.log();
+        console.log("end animeManuelle");
         event.returnValue = "keep on";
       });
 

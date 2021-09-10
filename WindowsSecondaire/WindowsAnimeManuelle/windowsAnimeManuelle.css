@@ -37,3 +37,18 @@ form
 	line-height: 1.7;
 	cursor: pointer;
 }
+
+#title_anime_label
+{
+  text-align: center;
+}
+
+#title_anime_input
+{
+  text-align: center;
+}
+
+#anime_name_button
+{
+  text-align: center;
+}

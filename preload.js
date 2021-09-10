@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
 
 
-  ipcRenderer.on('refreshDbF5', (event, arg) => {
+  ipcRenderer.on('refreshDbF6', (event, arg) => {
     refreshAnime();
   });
 
@@ -29,7 +29,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function testWindows()
 {
-  console.log(ipcRenderer.sendSync('windowsAnimeManuelle', "kobayashi-san Chi no maid dragon S2"));
+  let animeList = ["kobayashi-san Chi no maid dragon S", "mini Dragon Specials", "vanitas no Karte", "One piece"]
+  console.log(ipcRenderer.sendSync('windowsAnimeManuelle', animeList));
 }
 
 async function refreshAnime() // refresh all data anime
