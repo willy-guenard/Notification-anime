@@ -11,4 +11,15 @@ faire le css ( faire un css propre) clear css de l'autre page
 
 faire aparatre agenda adkami
 
-quand ya plus d'anime afficher ferme la pages
+faire attention quil na rien dans le body quand je ferme
+
+faire une securiter quon puisse pas renvoyer avec des champ vide
+
+
+
+
+
+const date = dateTime.now().weekNumber
+console.log(`The current week number is ${date}`)
+
+dans preload faire que quand j'actualise regarde le week number rajoute la difference en anime sorite pour anotheranime + actualise dans la base de donner le semaine week

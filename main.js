@@ -43,7 +43,7 @@ app.whenReady().then(() => {
 
 
     // window for Manuelle adkami
-    ipcMain.on('windowsAnimeManuelle', (event, listAnimeManuelle) => {
+    ipcMain.on('windowsAnimeManuelle', (event, listAnimeManuelle, arrayAnimeAdkami) => {
 
       const windowsAdkamiManuelle = new BrowserWindow({
         width: 500,
@@ -60,7 +60,7 @@ app.whenReady().then(() => {
 
       console.log(listAnimeManuelle);
 
-      windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle);
+      windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami);
 
       windowsAdkamiManuelle.on('closed', function() {
         console.log("end animeManuelle");

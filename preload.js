@@ -3,6 +3,7 @@
 const { ipcRenderer } = require("electron");
 const mariadb = require("mariadb"); // Data base
 const jikanjs  = require('jikanjs'); //api myanimelist no officiel
+// const dateTime = require('DateTime');
 const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"}); // DB login
 const today = new Date();
 
@@ -15,7 +16,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   butonShowanime.addEventListener('click', function(){ refreshAnime() });
-  butontestWindows.addEventListener('click', function(){ testWindows() });
   // tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
   // butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
 
@@ -26,12 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   showAnimeAgenda();
 })
-
-function testWindows()
-{
-  let animeList = ["kobayashi-san Chi no maid dragon S", "mini Dragon Specials", "vanitas no Karte", "One piece"]
-  console.log(ipcRenderer.sendSync('windowsAnimeManuelle', animeList));
-}
 
 async function refreshAnime() // refresh all data anime
 {
@@ -578,7 +572,7 @@ async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
         nbManuelleAnime ++;
       }
     }
-    adkamiManuelle(animeManuelle);
+    adkamiManuelle(animeManuelle, arrayAnimeAdkami);
     resolve(animeLinkAdkami);
   });
 }
@@ -649,9 +643,7 @@ function findAnimeAdkami(indexAnime, arrayAnimeAdkami, title, index, firstVoice)
 
 function adkamiManuelle(animeTitle, arrayAnimeAdkami)
 {
-  console.log("adkamiManuelle: " + animeTitle);
-  console.log(ipcRenderer.sendSync('windowsAnimeManuelle', animeTitle));
-
+  console.log(ipcRenderer.sendSync('windowsAnimeManuelle', animeTitle, arrayAnimeAdkami));
 }
 
 async function adkamiInsertDb(adkamiAnimeLink)
