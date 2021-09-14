@@ -1,0 +1,14 @@
+
+Dans adkami:
+  - faire le css pour les placement
+
+  while (divDataAnime.firstChild) {divDataAnime.removeChild(divDataAnime.firstChild);}
+
+
+faire du responsive
+
+faire le css ( faire un css propre) clear css de l'autre page
+
+faire aparatre agenda adkami
+
+quand ya plus d'anime afficher ferme la pages
