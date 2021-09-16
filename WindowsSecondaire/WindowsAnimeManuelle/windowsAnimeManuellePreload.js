@@ -151,14 +151,14 @@ function radioChecked(event)
 
   if ( event.target.id == "adkami_yes" )
   {
-    ipcRenderer.sendSync('agendaAdkami');
+    // ipcRenderer.send('agendaAdkami');
     let labelTitle = document.createElement('label');
     let inputTitle = document.createElement('input');
     let butonValide = document.createElement('input');
 
     labelTitle.id = "title_label";
     labelTitle.className = "label_data";
-    labelTitle.innerHTML = "Title Anime:";
+    labelTitle.innerHTML = "Anime Title:";
 
     inputTitle.id = "title";
     inputTitle.name = "title";
@@ -209,7 +209,7 @@ function radioChecked(event)
     let butonValide = document.createElement('input');
 
     labelTitle.className = "label_data";
-    labelTitle.innerHTML = "Title Anime:";
+    labelTitle.innerHTML = "Anime Title:";
 
     inputTitle.id = "title";
     inputTitle.name = "title";
@@ -217,7 +217,7 @@ function radioChecked(event)
     inputTitle.placeholder = animeSelect;
 
     piTypeEpisode.className = "label_data";
-    piTypeEpisode.innerHTML = "Type Episode:";
+    piTypeEpisode.innerHTML = "Episode Type:";
 
     divTypeEpisode.className = "div_type_epis";
 
@@ -246,7 +246,7 @@ function radioChecked(event)
     inputTypeEpisodeMovie.value = "Movie";
 
     labelDay.className = "label_data";
-    labelDay.innerHTML = "Days:";
+    labelDay.innerHTML = "Release Day:";
 
     inputDay.id = "day";
     inputDay.name = "day";
@@ -254,7 +254,7 @@ function radioChecked(event)
     inputDay.type = "text";
 
     labelHours.className = "label_data";
-    labelHours.innerHTML = "Hours:";
+    labelHours.innerHTML = "Release Time:";
 
     inputHours.id = "hours";
     inputHours.name = "hours";
@@ -290,7 +290,7 @@ function radioChecked(event)
     inputUrlPicture.placeholder = "https://www.google.com/imgres?imgurl=exemple";
 
     labelLastEpisodesRelease.className = "label_data";
-    labelLastEpisodesRelease.innerHTML = "Last Episode Sortie";
+    labelLastEpisodesRelease.innerHTML = "Last Episode Released";
 
     inputLastEpisodesRelease.id = "lastEpisodeRelease";
     inputLastEpisodesRelease.name = "lastEpisodeRelease";
@@ -341,9 +341,9 @@ function radioChecked(event)
     console.log(data);
     let etatChamp = checkChampVide(data);
 
+    event.preventDefault();
     if ( etatChamp == "champVide" )
     {
-      event.preventDefault();
       alert(etatChamp);
     }
     else

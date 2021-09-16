@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 async function refreshAnime() // refresh all data anime
 {
+  kanaRotate();
   const animeWatchingList = await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
   await insertUpdateMyanimelistDb(animeWatchingList); // function to inser or update anime in myanimelist DB
   const arrayAnimeAdkami = await getAnimeAgendaAdkami(); // get data from anime in Airing
@@ -50,6 +51,24 @@ async function refreshAnime() // refresh all data anime
 async function refreshMainPages()
 {
   ipcRenderer.send('refreshMainPages', "refresh");
+}
+
+function kanaRotate()
+{
+  let kanap = document.querySelector('#kanap');
+
+  let angle = 0, mehdiCheck = "croquette";
+  setInterval( function() {
+
+    if ( angle == 360 || mehdiCheck == "Mon Velo?")
+    {
+      mehdiCheck = "Mon Velo?";
+    }
+   else
+   {
+     kanap.style.transform = "rotateZ(" + angle +++ "deg)";
+   }
+  }, 5);
 }
 
 async function jikanApiAnimeMalWatching(myanimelistName)
@@ -572,7 +591,7 @@ async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
         nbManuelleAnime ++;
       }
     }
-    adkamiManuelle(animeManuelle, arrayAnimeAdkami);
+    // adkamiManuelle(animeManuelle, arrayAnimeAdkami);
     resolve(animeLinkAdkami);
   });
 }
