@@ -46,7 +46,9 @@ app.whenReady().then(() => {
     ipcMain.on('windowsAnimeManuelle', (event, listAnimeManuelle, arrayAnimeAdkami) => {
 
       const windowsAdkamiManuelle = new BrowserWindow({
-        width: 500,
+        width: 420,
+        maxWidth: 420,
+        minWidth: 420,
         height: 200,
         webPreferences: {
           preload: path.join(__dirname, './WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),

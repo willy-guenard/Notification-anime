@@ -1,25 +1,29 @@
 
-Dans adkami:
-  - faire le css pour les placement
-
-  while (divDataAnime.firstChild) {divDataAnime.removeChild(divDataAnime.firstChild);}
+  <input type="color" id="name" name="name" required
+         minlength="4" maxlength="8" size="10">
 
 
-faire du responsive
+  type = file
+  type = color
+  type = file
+  type = url
 
-faire le css ( faire un css propre) clear css de l'autre page
 
-faire aparatre agenda adkami
-
-faire attention quil na rien dans le body quand je ferme
-
-faire une securiter quon puisse pas renvoyer avec des champ vide
+  autocomplete
+  list
 
 
 
+quand j'ecrit une premier un truc sans champ je ne peut plus reecrit derrier
+.
+
+adkami_linked
+day
+hours
+lastEpisodeRelease
+title
+type_episode
+url_Picture
 
 
-const date = dateTime.now().weekNumber
-console.log(`The current week number is ${date}`)
-
-dans preload faire que quand j'actualise regarde le week number rajoute la difference en anime sorite pour anotheranime + actualise dans la base de donner le semaine week
+faire la gestion des animes qui on fini de sortie (le laisser 1 semaine de plus)
