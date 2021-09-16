@@ -151,6 +151,7 @@ function radioChecked(event)
 
   if ( event.target.id == "adkami_yes" )
   {
+    ipcRenderer.sendSync('agendaAdkami');
     let labelTitle = document.createElement('label');
     let inputTitle = document.createElement('input');
     let butonValide = document.createElement('input');

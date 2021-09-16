@@ -1,5 +1,5 @@
 // package
-const {app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, session, globalShortcut } = require('electron')
+const {app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, session, globalShortcut, shell } = require('electron')
 const path = require('path')
 const fs = require('fs');
 // const refreshAnime = require("./preload.js")
@@ -60,15 +60,17 @@ app.whenReady().then(() => {
       windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuelle.html');
       windowsAdkamiManuelle.webContents.openDevTools()
 
-      console.log(listAnimeManuelle);
-
       windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami);
 
-      windowsAdkamiManuelle.on('closed', function() {
-        console.log("end animeManuelle");
+      windowsAdkamiManuelle.on('closed', function()
+      {
         event.returnValue = "keep on";
       });
 
+    })
+
+    ipcMain.on('agendaAdkami', (event) => {
+      shell.openExternal('https://www.adkami.com/agenda');
     })
 
 

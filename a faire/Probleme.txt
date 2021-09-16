@@ -7,23 +7,3 @@
   type = color
   type = file
   type = url
-
-
-  autocomplete
-  list
-
-
-
-quand j'ecrit une premier un truc sans champ je ne peut plus reecrit derrier
-.
-
-adkami_linked
-day
-hours
-lastEpisodeRelease
-title
-type_episode
-url_Picture
-
-
-faire la gestion des animes qui on fini de sortie (le laisser 1 semaine de plus)
