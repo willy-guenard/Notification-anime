@@ -86,7 +86,6 @@ h3
 
 #title
 {
-  margin-left: 0px;
   text-align: center;
   height: 15px;
   width: 187px;
@@ -167,8 +166,7 @@ h3
   height: 15px;
   width: 85px;
   font-size: 15px;
-  margin-bottom: 0px;
-  margin-right: 30px;
+  margin-right: 23px;
 }
 
 .div_Voice

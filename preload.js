@@ -8,14 +8,12 @@ const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx'
 const today = new Date();
 
 window.addEventListener('DOMContentLoaded', () => {
-
-  const butonShowanime = document.querySelector("#butonShowanime");
+  const kannap = document.querySelector("#kanap");
   const tokenMal = document.querySelector("#tokenMal");
   const butonfiltre = document.querySelector("#filtre");
   const butontestWindows = document.querySelector("#testWindows");
 
-
-  butonShowanime.addEventListener('click', function(){ refreshAnime() });
+  kannap.addEventListener('click', function() { refreshAnime() });
   // tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
   // butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
 
@@ -32,13 +30,14 @@ async function refreshAnime() // refresh all data anime
   kanaRotate();
   const animeWatchingList = await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
   await insertUpdateMyanimelistDb(animeWatchingList); // function to inser or update anime in myanimelist DB
-  const arrayAnimeAdkami = await getAnimeAgendaAdkami(); // get data from anime in Airing
+  const arrayAnimeAdkami = await getAnimeAgendaAdkami("https://www.adkami.com/agenda"); // get data from anime in Airing
+  arrayAnimeAdkamiLastWeek = await getAnimeAgendaAdkami(urlLastWeek); // get data from anime in Airing
   await refreshAdkamiDB(arrayAnimeAdkami);
   const anotherTItle = await creatAnotherTitle(); // create variant of title anime to link myanimelist to adkami
 
-  if (anotherTItle != null)
+  if ( anotherTItle != null )
   {
-    const adkamiAnimeLink = await linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami); // link data from adkami with myanimelist title
+    const adkamiAnimeLink = await linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek); // link data from adkami with myanimelist title
     await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
     await refreshMainPages();
   }
@@ -68,7 +67,7 @@ function kanaRotate()
    {
      kanap.style.transform = "rotateZ(" + angle +++ "deg)";
    }
-  }, 5);
+ }, 1);
 }
 
 async function jikanApiAnimeMalWatching(myanimelistName)
@@ -162,12 +161,12 @@ function supAnimeStopWatching(animeWatchingList, animeInDbMyanimelist)
       .catch(err => { console.log("erreur: " + err); });
   });
 }
-function getAnimeAgendaAdkami()
+
+function getAnimeAgendaAdkami(url)
 {
   return new Promise((resolve,reject)=>{
     // get agenda anime from adkami
     let arrayAnimeAdkami, infosAnimeAdkami;
-    let url = "https://www.adkami.com/agenda";
     let request = new XMLHttpRequest();
     request.open('GET', url );
 
@@ -187,6 +186,7 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
   let day, testSortie, episodesAnime, nbAnimeDay, picture_url, yAnime = 0, titleClean;
   let maxDay = infosAnimeAdkami.getElementsByClassName('colone');
   let arrayAnimeAdkami = new Array();
+  urlLastWeek =  infosAnimeAdkami.getElementsByClassName('left btn btn-db')[0].href;
 
   for (let iDay = 0; iDay < maxDay.length; iDay++) //separates the animes from the day it out
   {
@@ -542,16 +542,25 @@ function removeSpecialCharacter(title)
   return title
 }
 
-async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
+async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek)
 {
   return new Promise((resolve,reject)=>{
     let animeLinkAdkami = new Array(); let animeManuelle = new Array();
     let nbAnimeLink = 0, nbManuelleAnime = 0 ;
     let indexAnime = new Object();
+    let stockArray = arrayAnimeAdkami
 
     for (let i = 0; i < anotherTitle.length; i++)
     {
       indexAnime = tryAnimeAdkami(anotherTitle[i], arrayAnimeAdkami);
+      arrayAnimeAdkami = stockArray;
+
+      if ( indexAnime.animeVostfr == -1 && indexAnime.animeVf == -1 )
+      {
+        indexAnime = tryAnimeAdkami(anotherTitle[i], arrayAnimeAdkamiLastWeek);
+        arrayAnimeAdkami = arrayAnimeAdkamiLastWeek;
+      }
+
       if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1)
       {
         if (indexAnime.animeVostfr != -1)
@@ -591,7 +600,7 @@ async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami)
         nbManuelleAnime ++;
       }
     }
-    // adkamiManuelle(animeManuelle, arrayAnimeAdkami);
+    adkamiManuelle(animeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
     resolve(animeLinkAdkami);
   });
 }
@@ -660,14 +669,14 @@ function findAnimeAdkami(indexAnime, arrayAnimeAdkami, title, index, firstVoice)
   { indexAnime.animeVostfr = -1; indexAnime.animeVf = -1; return indexAnime;}
 }
 
-function adkamiManuelle(animeTitle, arrayAnimeAdkami)
+function adkamiManuelle(animeTitle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek)
 {
-  console.log(ipcRenderer.sendSync('windowsAnimeManuelle', animeTitle, arrayAnimeAdkami));
+  console.log( ipcRenderer.sendSync('windowsAnimeManuelle', animeTitle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek) );
 }
 
 async function adkamiInsertDb(adkamiAnimeLink)
 {
-  return new Promise((resolve,reject)=>{
+  return new Promise((resolve,reject) => {
     let selectAnime, timeStop;
     pool.getConnection()
       .then(conn => {
