@@ -6,12 +6,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   ipcRenderer.on('Anime_Manuelle', (event, listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek) => {
       global(arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
+      if ( listAnimeManuelle.length == 0 || listAnimeManuelle.length == undefined) { window.close(); }
       createFormAnimeManuelle(listAnimeManuelle);
 
       document.querySelectorAll("input[name='adkami_linked']").forEach((input) => {
           input.addEventListener('change', radioChecked);
-
-
       });
     });
 })
@@ -99,19 +98,62 @@ function createFormAnimeManuelle(titleAnimeManuelle)
       form.addEventListener('submit', (event) => {
       let data = Object.fromEntries(new FormData(event.target).entries());
       let etatChamp = checkChampVide(data);
-      // let test = document.querySelector('event.path[0].id');
+      let dataAnimeVostfr, dataAnimeVf;
       event.preventDefault();
 
       if ( etatChamp != "champVide" )
       {
-        InsertDbAnime(data, event.path[0].firstElementChild.innerText);
-        clearDivAnime(event.path[0]);
+
+        if ( data.adkami_linked == "Yes" )
+        {
+          dataAnimeVostfr = titlecheck(data.title, data.type_epis, "vostfr")
+          if ( dataAnimeVostfr != undefined ) { insertDbAnime(dataAnimeVostfr, event.path[0].firstElementChild.innerText); }
+
+          dataAnimeVf = titlecheck(data.title, data.type_epis, "vf")
+          if ( dataAnimeVf != undefined ) { insertDbAnime(dataAnimeVf, event.path[0].firstElementChild.innerText); }
+
+          if ( dataAnimeVostfr != undefined || dataAnimeVf != undefined)
+          {
+            clearDivAnime(event.path[0]);
+          }
+          else
+          {
+            alert("Anime Not Found");
+          }
+        }
+        else
+        {
+          let day = upperCaseFirst(data.day);
+          if ( day == "Lundi" && data.day == "Mardi" && data.day == "Mercredi" && data.day == "Jeudi" && data.day == "Vendredi" && data.day == "Samedi" && data.day == "Dimanche")
+          {
+            insertDbOtherAnime(data, event.path[0].firstElementChild.innerText);
+            clearDivAnime(event.path[0]);
+          }
+          else
+          {
+            alert("Is not a Day");
+          }
+        }
       }
-
-        alert(etatChamp);
-
+      else
+      {
+        alert("Champ Vide");
+      }
     });
   }
+}
+
+function titlecheck(animeTitle, animeType, animeVoice)
+{
+  let dataAnime;
+  dataAnime = listAdkami.find(element => element.Title == animeTitle && element.Voice == animeVoice && element.Type_episode == animeType);
+
+  if ( dataAnime == undefined )
+  {
+    dataAnime = listAdkamiLastWeek.find(element => element.Title == animeTitle && element.Voice == animeVoice && element.Type_episode == animeType);
+  }
+
+  return dataAnime;
 }
 
 function clearDivAnime(formAnime)
@@ -119,7 +161,8 @@ function clearDivAnime(formAnime)
   const body = document.body;
 
   formAnime.remove();
-  if ( body.firstElementChild == null )
+
+  if ( body.childElementCount == 2 )
   {
     window.close();
   }
@@ -133,37 +176,37 @@ function getNumberOfWeek()
     return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
 }
 
-function InsertDbAnime(formAnime, titleMyanimelist)
+function insertDbAnime(formAnime, typeEpisode, titleMyanimelist)
 {
-  if ( formAnime.adkami_linked == "Yes" ) //Anime_in_adkami
-  {
-    pool.getConnection()
-      .then(conn => {
-          conn.query("INSERT INTO adkami (Unique_title, Title_Adkami, Last_episodes_release, Picture_adkami, Voice, Day, Hours, Type_episodes, Present_this_week) VALUES ('" + formAnime.Title + " " + formAnime.Type_episode + " " + formAnime.Voice + "','" + formAnime.Title + "'," + formAnime.Episode + ",'" + formAnime.Picture_url + "','" + formAnime.Voice + "','" + formAnime.Day + "','" + formAnime.Hours + "','" + formAnime.Type_episode + "', 'Yes' ) ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
+  pool.getConnection()
+    .then(conn => {
+        conn.query("INSERT INTO adkami (Unique_title, Title_Adkami, Last_episodes_release, Picture_adkami, Voice, Day, Hours, Type_episodes, Present_this_week) VALUES ('" + formAnime.Title + " " + formAnime.Type_episode + " " + formAnime.Voice + "','" + formAnime.Title + "'," + formAnime.Episode + ",'" + formAnime.Picture_url + "','" + formAnime.Voice + "','" + formAnime.Day + "','" + formAnime.Hours + "','" + formAnime.Type_episode + "', 'Yes' ) ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
 
-          selectAnime = conn.query("SELECT adkami.id_adkami from adkami where Title_Adkami = '" + formAnime.Title + "' AND Voice = 'Vostfr';"); // pour la version ou les vf son pris en compte changer apres AND
-          selectAnime.then(function(result)
-          {
-            conn.query("UPDATE anime SET id_adkami = " + result[0].id_adkami + " WHERE Title_anime = '" + titleMyanimelist + "' AND id_adkami is NULL;");
-          })
+        selectAnime = conn.query("SELECT adkami.id_adkami from adkami where Title_Adkami = '" + formAnime.Title + "' AND Type_episodes ='" + formAnime.Type_episode + "' AND Voice = 'Vostfr';"); // pour la version ou les vf son pris en compte changer apres AND
+        selectAnime.then(function(result)
+        {
+          conn.query("UPDATE anime SET id_adkami = " + result[0].id_adkami + " WHERE Title_anime = '" + titleMyanimelist + "' AND id_adkami is NULL;");
+        })
     })
     .catch(err => { console.log("erreur: " + err); });
-  }
-  else if ( formAnime.adkami_linked == "No" )  //Anime_other
-  {
-    pool.getConnection()
-      .then(conn => {
-          conn.query("INSERT INTO other_anime (Title_anime_other, Last_episodes_release, Picture_anime_other, Voice, Day, Hours, Type_episode, Number_week) VALUES ('" + formAnime.title + " " + formAnime.type_episode + " " + formAnime.voice + "','" + formAnime.title + "'," + formAnime.lastEpisodeRelease + ",'" + formAnime.url_Picture + "','" + formAnime.voice + "','" + formAnime.day + "','" + formAnime.hours + "','" + formAnime.type_episode + "',"+ getNumberOfWeek + ") ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
-
-          selectAnime = conn.query("SELECT adkami.id_adkami from adkami where Title_Adkami = '" + formAnime.title + "' AND Voice = 'Vostfr';"); // pour la version ou les vf son pris en compte changer apres AND
-          selectAnime.then(function(result)
-          {
-            conn.query("UPDATE anime SET id_other_anime = " + result[0].id_adkami + " WHERE Title_anime = '" + titleMyanimelist + "' AND id_other_anime is NULL;");
-          })
-    })
-    .catch(err => { console.log("erreur: " + err); });
-  }
 }
+
+function insertDbOtherAnime(formAnime, titleMyanimelist)
+{
+  pool.getConnection()
+    .then(conn => {
+        conn.query("INSERT INTO other_anime (Title_anime_other, Last_episodes_release, Picture_anime_other, Voice, Day, Hours, Type_episode, Number_week) VALUES ('" + formAnime.title + " " + formAnime.type_epis + " " + formAnime.voice + "','" + formAnime.title + "'," + formAnime.lastEpisodeRelease + ",'" + formAnime.url_Picture + "','" + formAnime.voice + "','" + formAnime.day + "','" + formAnime.hours + "','" + formAnime.type_epis + "',"+ getNumberOfWeek + ") ON DUPLICATE KEY UPDATE Last_episodes_release = VALUES(Last_episodes_release), Day = VALUES(Day), Hours = VALUES(Hours)");
+
+        selectAnime = conn.query("SELECT adkami.id_adkami from adkami where Title_Adkami = '" + formAnime.title + "' AND Voice = 'Vostfr';"); // pour la version ou les vf son pris en compte changer apres AND
+        selectAnime.then(function(result)
+        {
+          conn.query("UPDATE anime SET id_other_anime = " + result[0].id_adkami + " WHERE Title_anime = '" + titleMyanimelist + "' AND id_other_anime is NULL;");
+        })
+  })
+  .catch(err => { console.log("erreur: " + err); });
+}
+
+
 
 function radioChecked(event)
 {
@@ -178,6 +221,16 @@ function radioChecked(event)
   {
     let labelTitle = document.createElement('label');
     let inputTitle = document.createElement('input');
+
+    let piTypeEpisode = document.createElement('pi');
+    let divTypeEpisode = document.createElement('div');
+    let labelTypeEpisodeEpisode = document.createElement('label');
+    let inputTypeEpisodeEpisode = document.createElement('input');
+    let labelTypeEpisodeOav = document.createElement('label');
+    let inputTypeEpisodeOav = document.createElement('input');
+    let labelTypeEpisodeMovie = document.createElement('label');
+    let inputTypeEpisodeMovie = document.createElement('input');
+
     let butonValide = document.createElement('input');
 
     labelTitle.id = "title_label";
@@ -189,12 +242,52 @@ function radioChecked(event)
     inputTitle.type = "text";
     inputTitle.placeholder = "Steins;gate";
 
+    piTypeEpisode.className = "label_data";
+    piTypeEpisode.innerHTML = "Episode Type:";
+
+    divTypeEpisode.className = "div_type_epis";
+
+    labelTypeEpisodeEpisode.className = "type_episode_episode";
+    labelTypeEpisodeEpisode.innerHTML = "Episode";
+
+    inputTypeEpisodeEpisode.id = "type_epis_episode";
+    inputTypeEpisodeEpisode.name = "type_epis";
+    inputTypeEpisodeEpisode.type = "radio";
+    inputTypeEpisodeEpisode.value = "Episode";
+
+    labelTypeEpisodeOav.className = "type_episode_oav";
+    labelTypeEpisodeOav.innerHTML = "Oav";
+
+    inputTypeEpisodeOav.id = "type_epis_oav";
+    inputTypeEpisodeOav.name = "type_epis";
+    inputTypeEpisodeOav.type = "radio";
+    inputTypeEpisodeOav.value = "Spécial";
+
+    labelTypeEpisodeMovie.className = "type_episode_movie";
+    labelTypeEpisodeMovie.innerHTML = "Movie";
+
+    inputTypeEpisodeMovie.id = "type_epis_movie";
+    inputTypeEpisodeMovie.name = "type_epis";
+    inputTypeEpisodeMovie.type = "radio";
+    inputTypeEpisodeMovie.value = "Movie";
+
     butonValide.id = "form_button";
     butonValide.type = "submit";
     butonValide.value = "valider";
 
     divDataAnime.appendChild(labelTitle);
     divDataAnime.appendChild(inputTitle);
+
+    divDataAnime.appendChild(piTypeEpisode);
+    divDataAnime.appendChild(divTypeEpisode);
+
+    divTypeEpisode.appendChild(labelTypeEpisodeEpisode);
+    labelTypeEpisodeEpisode.appendChild(inputTypeEpisodeEpisode);
+    divTypeEpisode.appendChild(labelTypeEpisodeOav);
+    labelTypeEpisodeOav.appendChild(inputTypeEpisodeOav);
+    divTypeEpisode.appendChild(labelTypeEpisodeMovie);
+    labelTypeEpisodeMovie.appendChild(inputTypeEpisodeMovie);
+
     divDataAnime.appendChild(butonValide);
   }
   else
@@ -366,7 +459,7 @@ function checkChampVide(data)
 {
   if ( data.adkami_linked == "Yes" )
   {
-    if ( data.title == "" ) { return "champVide"; } else { return data.title; }
+    if ( data.title == "" && data.type_episode == "" ) { return "champVide"; } else { return data.title; }
   }
   else if ( data.adkami_linked == "No" )
   {

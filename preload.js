@@ -92,6 +92,7 @@ function insertUpdateMyanimelistDb(myAnimeListJson) // function to inser or upda
         {
           if ( myAnimeListJson[i].airing_status == 1 ) { status = "Airing" } else { status = "Release" }
           titleAnime = removeSpecialCharacter(myAnimeListJson[i].title);
+          titleAnime = titleAnime.toLowerCase();
           if ( myAnimeListJson[i].tags !=  null ) { tags = removeSpecialCharacter(myAnimeListJson[i].tags); } else { tags = myAnimeListJson[i].tags; }
 
           //inser new anime in myanimelist if it already exists just update it
@@ -286,11 +287,17 @@ function checkAllAnimeList(animeTitle, animeVoice)
 {
   let dataAnime;
 
-  dataAnime = arrayAnimeAdkami.find(element => element.Title == animeTitle && element.Voice == animeVoice);
+  dataAnime = arrayAnimeAdkami.find(element => element.Title_low_caps == animeTitle && element.Voice == animeVoice);
 
   if ( dataAnime == undefined )
   {
-    dataAnime = arrayAnimeAdkamiLastWeek.find(element => element.Title == animeTitle && element.Voice == animeVoice);
+    dataAnime = arrayAnimeAdkamiLastWeek.find(element => element.Title_low_caps == animeTitle && element.Voice == animeVoice);
+
+    if (dataAnime != undefined )
+    {
+      let episode = parseInt(dataAnime.Episode) + 1;
+      dataAnime.Episode = episode;
+    }
   }
 
   return dataAnime;
@@ -303,20 +310,19 @@ async function refreshAdkamiDB()
 
   pool.getConnection()
     .then(conn => {
-      selectAnimeAdkamiUpdate = conn.query("SELECT Title_Adkami, Voice FROM adkami");
+      selectAnimeAdkamiUpdate = conn.query("SELECT Title_Adkami, Voice, Type_episodes FROM adkami");
       selectAnimeAdkamiUpdate.then(function(animeUpdateAdkami)
       {
         for (let i = 0; i < animeUpdateAdkami.length; i++)
         {
-          dataAnime = checkAllAnimeList(animeUpdateAdkami[i].Title_Adkami, animeUpdateAdkami[i].Voice);
-
+          dataAnime = checkAllAnimeList(animeUpdateAdkami[i].Title_Adkami.toLowerCase(), animeUpdateAdkami[i].Voice);
           if ( dataAnime != undefined )
           {
-            conn.query("UPDATE adkami SET Last_episodes_release = " + dataAnime.Episode + ", Present_this_week = 'Yes', Day ='" + dataAnime.Day + "', Hours ='" + dataAnime.Hours + "' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "'AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
+            conn.query("UPDATE adkami SET Last_episodes_release = " + dataAnime.Episode + ", Present_this_week = 'Yes', Day ='" + dataAnime.Day + "', Hours ='" + dataAnime.Hours + "' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "'AND Voice = '" + animeUpdateAdkami[i].Voice + "'AND Type_episodes = '" + animeUpdateAdkami[i].Type_episodes + "' ;");
           }
           else
           {
-            conn.query("UPDATE adkami SET Present_this_week = 'No' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "' AND Voice = '" + animeUpdateAdkami[i].Voice + "' ;");
+            conn.query("UPDATE adkami SET Present_this_week = 'No' WHERE Title_Adkami = '" + animeUpdateAdkami[i].Title_Adkami + "' AND Voice = '" + animeUpdateAdkami[i].Voice + "'AND Type_episodes = '" + animeUpdateAdkami[i].Type_episodes + "' ;");
           }
         }
       })
@@ -666,7 +672,7 @@ async function linkWithMyanimelist(anotherTitle)
         nbManuelleAnime ++;
       }
     }
-    adkamiManuelle(animeManuelle);
+    if ( nbManuelleAnime > 0) { adkamiManuelle(animeManuelle); }
     resolve(animeLinkAdkami);
   });
 }
@@ -718,7 +724,7 @@ function newAnime(anime)
   horraire = horraire.split(":");
   let pEpisode = anime.Type_episodes + " ";
   let tags = anime.Tags;
-  let tagSplit, tagsTight = "", tagsNoSpecial, episodeSupTotal, animeDivClass, animeClass ="";
+  let tagSplit, tagsTight = "", tagsNoSpecial, episodeSupTotal, animeDivClass, animeClass ="", episodesAnime;
 
   lien.href = anime.url_myanimelist;
   tags = tags.split(",");
@@ -749,10 +755,12 @@ function newAnime(anime)
   {
     episodeSupTotal = anime.Last_episodes_release - anime.Total_number_episodes ; //on retire les episode de la saison dernier
     pEpisode += episodeSupTotal;
+    episodesAnime = episodeSupTotal;
   }
   else
   {
     pEpisode += anime.Last_episodes_release; // le nombre d'episode est correct
+    episodesAnime = anime.Last_episodes_release;
   }
 
 
@@ -775,19 +783,29 @@ function newAnime(anime)
     }
   }
 
-  if ( anime.Last_watched_episodes < anime.Last_episodes_release ) // je ne suis pas a jour
+  if ( anime.Last_watched_episodes < episodesAnime ) // je ne suis pas a jour
   {
-    animeClass += "Retard";
+    if (animeClass == "Sortie")
+    {
+      animeClass += "Retard";
+    }
+    else
+    {
+      if ( anime.Last_watched_episodes < episodesAnime - 1 )
+      {
+          animeClass += "Retard";
+      }
+    }
   }
 
 
-  if ( anime.Present_this_week == "Yes" || anime.Last_watched_episodes == anime.Last_episodes_release)
+  if ( anime.Present_this_week == "Yes" || anime.Last_watched_episodes == episodesAnime )
   {
     horraire = horraire[0] + ":" + horraire[1];
   }
   else
   {
-    horraire = "???"
+    horraire = "???";
   }
 
   divAnime.className = "anime " + animeClass;
@@ -798,7 +816,7 @@ function newAnime(anime)
   episode.className = "episode";
   episode.textContent = pEpisode ;
   title.className = "title";
-  title.textContent = anime.Tilte_Myanimelist;
+  title.textContent = upperCaseFirst(anime.Tilte_Myanimelist);
 
   days.appendChild(lien);
   lien.appendChild(divAnime);
@@ -807,6 +825,12 @@ function newAnime(anime)
   divAnime.appendChild(divInfosclass);
   divInfosclass.appendChild(episode);
   divInfosclass.appendChild(title);
+}
+
+function upperCaseFirst(title)
+{
+   let firstLetterCaps = title[0].toUpperCase();
+   return title.replace(title[0], firstLetterCaps);
 }
 
 function todayStyle()

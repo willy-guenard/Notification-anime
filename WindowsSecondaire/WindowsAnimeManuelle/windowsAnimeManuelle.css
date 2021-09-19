@@ -21,6 +21,35 @@ form
   border-radius: 1em;
 }
 
+#title_box
+{
+  color: white;
+  font-size: 1.3em;
+  background-color: #202020;
+  text-align: center;
+  margin: -8px -8px 0px;
+  padding: 0px;
+  -webkit-app-region: drag;
+  z-index: 1;
+}
+
+#clear
+{
+  border: 0px solid black;
+  padding: 0px;
+}
+
+#buton_close
+{
+  position: absolute;
+  right: 0.5%;
+  top: 3px;
+  height: 18px;
+  width: 18px;
+  z-index: 2;
+  -webkit-app-region: none;
+}
+
 h3
 {
   margin: 2%; /*top right bot left*/
