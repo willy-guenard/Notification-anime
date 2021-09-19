@@ -716,7 +716,7 @@ function newAnime(anime)
   horraire = horraire.split(":");
   let pEpisode = anime.Type_episodes + " ";
   let tags = anime.Tags;
-  let tagSplit, tagsTight = "", tagsNoSpecial, episodeSupTotal, animeDivClass;
+  let tagSplit, tagsTight = "", tagsNoSpecial, episodeSupTotal, animeDivClass, animeClass ="";
 
   lien.href = anime.url_myanimelist;
   tags = tags.split(",");
@@ -743,62 +743,43 @@ function newAnime(anime)
     lien.className = tagsTight;
   }
 
-  if ( anime.Last_episodes_release > anime.Total_number_episodes && anime.Total_number_episodes != 0 )
+  if ( anime.Last_episodes_release > anime.Total_number_episodes && anime.Total_number_episodes != 0 ) // anime avec episode qui continue avec celui de la saison dernier
   {
-    episodeSupTotal = anime.Last_episodes_release - anime.Total_number_episodes ;
+    episodeSupTotal = anime.Last_episodes_release - anime.Total_number_episodes ; //on retire les episode de la saison dernier
     pEpisode += episodeSupTotal;
   }
   else
   {
-    episodeSupTotal = anime.Last_episodes_release;
-    pEpisode += episodeSupTotal;
+    pEpisode += anime.Last_episodes_release; // le nombre d'episode est correct
   }
 
 
-  if ( daysArray.indexOf(anime.Day) < today.getDay() && anime.Day != "Dimanche" ) // jour passer
+  if ( daysArray.indexOf(anime.Day) < today.getDay() && anime.Day != "Dimanche" || today.getDay() == 0 && anime.Day != "Dimanche") //jour passer
   {
-    animeDivClass = testAnimeUpdate(episodeSupTotal, anime.Last_watched_episodes, 1);
-    divAnime.className = "anime " + animeDivClass;
-    heure.className = "time " + animeDivClass;
+    animeClass = "Sortie";
   }
-  else if ( daysArray[today.getDay()] == anime.Day ) // jour en cour
+  else if ( daysArray[today.getDay()] == anime.Day ) //jour meme
   {
-    if ( horraire[0] < today.getHours() ) // heures depasser
+    if ( horraire[0] < today.getHours() ) //heures depasser
     {
-      animeDivClass = testAnimeUpdate(episodeSupTotal, anime.Last_watched_episodes, 1);
-      divAnime.className = "anime " + animeDivClass;
-      heure.className = "time " + animeDivClass;
+      animeClass = "Sortie";
     }
-    else if ( horraire[0] == today.getHours() ) //heurs pile
+    else if ( horraire[0] == today.getHours() ) //heures piles
     {
-      if ( horraire[1] <= today.getMinutes() ) // test minute sortie
+      if ( horraire[1] <= today.getMinutes() )
       {
-        animeDivClass = testAnimeUpdate(episodeSupTotal, anime.Last_watched_episodes, 1) // sortie  ajour/retard
-        divAnime.className = "anime " + animeDivClass;
-        heure.className = "time " + animeDivClass;
-      }
-      else  // pas sortie
-      {
-        animeDivClass = testAnimeUpdate(episodeSupTotal - 1, anime.Last_watched_episodes, 0) // pas sortie ajour/retard
-        divAnime.className = "anime " + animeDivClass;
-        heure.className = "time " + animeDivClass;
+        animeClass = "Sortie";
       }
     }
-    else  // pas sortie
-    {
-      animeDivClass = testAnimeUpdate(episodeSupTotal - 1, anime.Last_watched_episodes, 0) // pas sortie ajour/retard
-      divAnime.className = "anime " + animeDivClass;
-      heure.className = "time " + animeDivClass;
-    }
-  }
-  else //jour pas arriver
-  {
-    animeDivClass = testAnimeUpdate(episodeSupTotal - 1, anime.Last_watched_episodes, 0) // pas sortie ajour/retard
-    divAnime.className = "anime " + animeDivClass;
-    heure.className = "time " + animeDivClass;
   }
 
-  if (anime.Present_this_week == "Yes")
+  if ( anime.Last_watched_episodes < anime.Last_episodes_release ) // je ne suis pas a jour
+  {
+    animeClass += "Retard";
+  }
+
+
+  if ( anime.Present_this_week == "Yes" || anime.Last_watched_episodes == anime.Last_episodes_release)
   {
     horraire = horraire[0] + ":" + horraire[1];
   }
@@ -807,6 +788,8 @@ function newAnime(anime)
     horraire = "???"
   }
 
+  divAnime.className = "anime " + animeClass;
+  heure.className = "time " + animeClass;
   heure.textContent = horraire;
   image.src = anime.Picture_adkami;
   divInfosclass.className = "infosanime";

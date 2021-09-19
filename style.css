@@ -249,19 +249,19 @@ p
   top: auto;
 }
 
-.animeSortieRetard
+.SortieRetard
 {
   border-color: #0277bd;
   background-color: #0277bd;
 }
 
-.animeSortie
+.Sortie
 {
   border-color: #9bd300 ;
   background-color: #9bd300;
 }
 
-.AnimeRetard
+.Retard
 {
   border-color: orange;
   background-color: orange;
