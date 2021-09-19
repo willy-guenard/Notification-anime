@@ -49,7 +49,7 @@ app.whenReady().then(() => {
         width: 420,
         maxWidth: 420,
         minWidth: 420,
-        height: 200,
+        height: 340,
         webPreferences: {
           preload: path.join(__dirname, './WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),
           contextIsolation: true,

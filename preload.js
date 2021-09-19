@@ -30,14 +30,15 @@ async function refreshAnime() // refresh all data anime
   kanaRotate();
   const animeWatchingList = await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
   await insertUpdateMyanimelistDb(animeWatchingList); // function to inser or update anime in myanimelist DB
-  const arrayAnimeAdkami = await getAnimeAgendaAdkami("https://www.adkami.com/agenda"); // get data from anime in Airing
+  arrayAnimeAdkami = await getAnimeAgendaAdkami("https://www.adkami.com/agenda"); // get data from anime in Airing
   arrayAnimeAdkamiLastWeek = await getAnimeAgendaAdkami(urlLastWeek); // get data from anime in Airing
-  await refreshAdkamiDB(arrayAnimeAdkami);
+  await refreshAdkamiDB();
+  await refreshOtherAnime();
   const anotherTItle = await creatAnotherTitle(); // create variant of title anime to link myanimelist to adkami
 
   if ( anotherTItle != null )
   {
-    const adkamiAnimeLink = await linkAdkamiAndMyanimelist(anotherTItle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek); // link data from adkami with myanimelist title
+    const adkamiAnimeLink = await linkWithMyanimelist(anotherTItle); // link data from adkami with myanimelist title
     await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
     await refreshMainPages();
   }
@@ -281,7 +282,22 @@ function refreshAgendaAdkamiJson(infosAnimeAdkami)
   return arrayAnimeAdkami;
 }
 
-async function refreshAdkamiDB(arrayAnimeAdkami)
+function checkAllAnimeList(animeTitle, animeVoice)
+{
+  let dataAnime;
+
+  dataAnime = arrayAnimeAdkami.find(element => element.Title == animeTitle && element.Voice == animeVoice);
+
+  if ( dataAnime == undefined )
+  {
+    dataAnime = arrayAnimeAdkamiLastWeek.find(element => element.Title == animeTitle && element.Voice == animeVoice);
+  }
+
+  return dataAnime;
+}
+
+
+async function refreshAdkamiDB()
 {
   let selectAnimeAdkamiUpdate, dataAnime;
 
@@ -292,7 +308,7 @@ async function refreshAdkamiDB(arrayAnimeAdkami)
       {
         for (let i = 0; i < animeUpdateAdkami.length; i++)
         {
-          dataAnime = arrayAnimeAdkami.find(element => element.Title == animeUpdateAdkami[i].Title_Adkami && element.Voice == animeUpdateAdkami[i].Voice);
+          dataAnime = checkAllAnimeList(animeUpdateAdkami[i].Title_Adkami, animeUpdateAdkami[i].Voice);
 
           if ( dataAnime != undefined )
           {
@@ -306,6 +322,37 @@ async function refreshAdkamiDB(arrayAnimeAdkami)
       })
     })
     .catch(err => { console.log("erreur: " + err); });
+}
+
+function getNumberOfWeek()
+{
+    const today = new Date();
+    const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
+    const pastDaysOfYear = (today - firstDayOfYear) / 86400000;
+    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+}
+
+async function refreshOtherAnime()
+{
+  let selectOtherAnimeUpdate, numberWeekForgot;
+  let weekNumber = getNumberOfWeek();
+
+  pool.getConnection()
+    .then(conn => {
+      selectOtherAnimeUpdate = conn.query("SELECT Title_anime_other, Voice, Last_episodes_release, Number_week FROM other_anime");
+      selectOtherAnimeUpdate.then(function(otherAnimeUpdate)
+      {
+        for (let i = 0; i < otherAnimeUpdate.length; i++)
+        {
+          if ( weekNumber > otherAnimeUpdate[i].Number_week )
+          {
+            numberWeekForgot = weekNumber - otherAnimeUpdate[i].Number_week
+            conn.query("UPDATE other_anime SET Last_episodes_release = " + (otherAnimeUpdate[i].Last_episodes_release + numberWeekForgot) + ", Number_week = " + weekNumber + " WHERE Title_anime_other = '" + otherAnimeUpdate[i].Title_anime_other + "'AND Voice = '" + otherAnimeUpdate[i].Voice + "' ;");
+          }
+        }
+      })
+    })
+
 }
 
 async function creatAnotherTitle() // creat recurrent variant of title anime from myanimelist
@@ -542,57 +589,76 @@ function removeSpecialCharacter(title)
   return title
 }
 
-async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek)
+function tryAnimeAdkami(tileAnime)
+{
+  let dataAnime = "";
+
+  dataAnime = checkAllAnimeList(tileAnime.Title_originel, "vostfr");
+  if (dataAnime != undefined) { return dataAnime}
+
+  if ( tileAnime.Title_just_S != null )
+  {
+    dataAnime = checkAllAnimeList(tileAnime.Title_just_S, "vostfr");
+    if (dataAnime != undefined) { return dataAnime}
+  }
+
+  if ( tileAnime.Title_no_double_point != null )
+  {
+    dataAnime = checkAllAnimeList(tileAnime.Title_no_double_point, "vostfr");
+    if (dataAnime != undefined) { return dataAnime}
+  }
+
+  if ( tileAnime.Title_try_ou != null )
+  {
+    for (let i = 0; i < tileAnime.Title_try_ou.length; i++)
+    {
+      dataAnime = checkAllAnimeList(tileAnime.Title_try_ou[i], "vostfr");
+      if (dataAnime != undefined) { return dataAnime}
+    }
+  }
+
+  return undefined;
+}
+
+async function linkWithMyanimelist(anotherTitle)
 {
   return new Promise((resolve,reject)=>{
     let animeLinkAdkami = new Array(); let animeManuelle = new Array();
     let nbAnimeLink = 0, nbManuelleAnime = 0 ;
-    let indexAnime = new Object();
-    let stockArray = arrayAnimeAdkami
+    let  animeDataVostfr, animeDatavf;
 
     for (let i = 0; i < anotherTitle.length; i++)
     {
-      indexAnime = tryAnimeAdkami(anotherTitle[i], arrayAnimeAdkami);
-      arrayAnimeAdkami = stockArray;
+      animeDataVostfr = tryAnimeAdkami(anotherTitle[i]);
 
-      if ( indexAnime.animeVostfr == -1 && indexAnime.animeVf == -1 )
+      if (animeDataVostfr != undefined)
       {
-        indexAnime = tryAnimeAdkami(anotherTitle[i], arrayAnimeAdkamiLastWeek);
-        arrayAnimeAdkami = arrayAnimeAdkamiLastWeek;
-      }
+        animeLinkAdkami[nbAnimeLink] = new Object();
+        animeLinkAdkami[nbAnimeLink].Title_myanimelist = anotherTitle[i].Title_originel;
+        animeLinkAdkami[nbAnimeLink].Title_adkami = animeDataVostfr.Title;
+        animeLinkAdkami[nbAnimeLink].Day = animeDataVostfr.Day;
+        animeLinkAdkami[nbAnimeLink].Episode = animeDataVostfr.Episode;
+        animeLinkAdkami[nbAnimeLink].Hours = animeDataVostfr.Hours;
+        animeLinkAdkami[nbAnimeLink].Picture_url = animeDataVostfr.Picture_url;
+        animeLinkAdkami[nbAnimeLink].Type_episode = animeDataVostfr.Type_episode;
+        animeLinkAdkami[nbAnimeLink].Voice = animeDataVostfr.Voice;
+        nbAnimeLink++;
 
-      if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1)
-      {
-        if (indexAnime.animeVostfr != -1)
+        dataAnimevf = checkAllAnimeList(animeDataVostfr.Title, "vf");
+
+        if ( animeDatavf != undefined )
         {
           animeLinkAdkami[nbAnimeLink] = new Object();
-          animeLinkAdkami[nbAnimeLink].Title_myanimelist = anotherTitle[i].Title_originel;
-          animeLinkAdkami[nbAnimeLink].Title_adkami = arrayAnimeAdkami[indexAnime.animeVostfr].Title;
-          animeLinkAdkami[nbAnimeLink].Day = arrayAnimeAdkami[indexAnime.animeVostfr].Day;
-          animeLinkAdkami[nbAnimeLink].Episode = arrayAnimeAdkami[indexAnime.animeVostfr].Episode;
-          animeLinkAdkami[nbAnimeLink].Hours = arrayAnimeAdkami[indexAnime.animeVostfr].Hours;
-          animeLinkAdkami[nbAnimeLink].Picture_url = arrayAnimeAdkami[indexAnime.animeVostfr].Picture_url;
-          animeLinkAdkami[nbAnimeLink].Type_episode = arrayAnimeAdkami[indexAnime.animeVostfr].Type_episode;
-          animeLinkAdkami[nbAnimeLink].Voice = arrayAnimeAdkami[indexAnime.animeVostfr].Voice;
-
+          animeLinkAdkami[nbAnimeLink].Title_myanimelist = animeDatavf[i].Title_originel;
+          animeLinkAdkami[nbAnimeLink].Title_adkami = animeDatavf.Title;
+          animeLinkAdkami[nbAnimeLink].Day = animeDatavf.Day;
+          animeLinkAdkami[nbAnimeLink].Episode = animeDatavf.Episode;
+          animeLinkAdkami[nbAnimeLink].Hours = animeDatavf.Hours;
+          animeLinkAdkami[nbAnimeLink].Picture_url = animeDatavf.Picture_url;
+          animeLinkAdkami[nbAnimeLink].Type_episode = animeDatavf.Type_episode;
+          animeLinkAdkami[nbAnimeLink].Voice = animeDatavf.Voice;
           nbAnimeLink++;
         }
-
-        if (indexAnime.animeVf != -1)
-        {
-          animeLinkAdkami[nbAnimeLink] = new Object();
-          animeLinkAdkami[nbAnimeLink].Title_myanimelist = anotherTitle[i].Title_originel;
-          animeLinkAdkami[nbAnimeLink].Title_adkami = arrayAnimeAdkami[indexAnime.animeVf].Title;
-          animeLinkAdkami[nbAnimeLink].Day = arrayAnimeAdkami[indexAnime.animeVf].Day;
-          animeLinkAdkami[nbAnimeLink].Episode = arrayAnimeAdkami[indexAnime.animeVf].Episode;
-          animeLinkAdkami[nbAnimeLink].Hours = arrayAnimeAdkami[indexAnime.animeVf].Hours;
-          animeLinkAdkami[nbAnimeLink].Picture_url = arrayAnimeAdkami[indexAnime.animeVf].Picture_url;
-          animeLinkAdkami[nbAnimeLink].Type_episode = arrayAnimeAdkami[indexAnime.animeVf].Type_episode;
-          animeLinkAdkami[nbAnimeLink].Voice = arrayAnimeAdkami[indexAnime.animeVf].Voice;
-
-          nbAnimeLink++
-        }
-
       }
       else
       {
@@ -600,76 +666,12 @@ async function linkAdkamiAndMyanimelist(anotherTitle, arrayAnimeAdkami, arrayAni
         nbManuelleAnime ++;
       }
     }
-    adkamiManuelle(animeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
+    adkamiManuelle(animeManuelle);
     resolve(animeLinkAdkami);
   });
 }
 
-function tryAnimeAdkami(anotherTitle, arrayAnimeAdkami)
-{
-  let indexAnime = new Object();
-
-  indexAnime = findAnimeAdkami(indexAnime, arrayAnimeAdkami, anotherTitle.Title_originel, -1, null);
-  if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1 ) { return indexAnime; }
-
-  if ( anotherTitle.Title_just_S != null )
-  {
-    indexAnime = findAnimeAdkami(indexAnime, arrayAnimeAdkami, anotherTitle.Title_just_S, -1, null);
-    if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1 ) { return indexAnime; }
-  }
-
-  if ( anotherTitle.Title_no_double_point != null )
-  {
-    indexAnime = findAnimeAdkami(indexAnime, arrayAnimeAdkami, anotherTitle.Title_no_double_point, -1, null);
-    if ( indexAnime.animeVostfr != -1 || indexAnime.animeVf != -1 ) { return indexAnime; }
-  }
-
-  if ( anotherTitle.Title_try_ou != null )
-  {
-    for (let i = 0; i < anotherTitle.Title_try_ou.length; i++)
-    {
-      indexAnime = findAnimeAdkami(indexAnime, arrayAnimeAdkami, anotherTitle.Title_try_ou[i], -1, null);
-      if ( indexAnime.Vostfr != -1 || indexAnime.animeVf != -1 ) { return indexAnime; }
-    }
-  }
-
-  return indexAnime;
-}
-
-function findAnimeAdkami(indexAnime, arrayAnimeAdkami, title, index, firstVoice)
-{
-  if (index != -1 )
-  {
-    if ( firstVoice == "vostfr" )
-    {
-      arrayAnimeAdkami = arrayAnimeAdkami.slice(index + 1);
-      indexSeconde = arrayAnimeAdkami.findIndex(element => element.Title_low_caps == title);
-      if (indexSeconde == -1) { indexAnime.animeVostfr = index; indexAnime.animeVf = -1}
-      else { indexAnime.animeVostfr  = index; indexAnime.animeVf = indexSeconde + index + 1; }
-    }
-    else
-    {
-      arrayAnimeAdkami = arrayAnimeAdkami.slice(index + 1);
-      indexSeconde = arrayAnimeAdkami.findIndex(element => element.Title_low_caps == title)
-      if (indexSeconde == -1) { indexAnime.animeVf = index; indexAnime.animeVostfr = -1}
-      else {indexAnime.animeVf = index;  indexAnime.animeVostfr  = indexSeconde + index + 1; }
-    }
-  }
-
-  index = arrayAnimeAdkami.findIndex(element => element.Title_low_caps == title);
-  if ( index != -1 && firstVoice == null )
-  {
-    firstVoice = arrayAnimeAdkami[index].Voice;
-    findAnimeAdkami(indexAnime, arrayAnimeAdkami, title, index, firstVoice);
-  }
-
-  if ( indexAnime.animeVostfr != undefined && indexAnime.animeVf != undefined)
-  { return indexAnime; }
-  else
-  { indexAnime.animeVostfr = -1; indexAnime.animeVf = -1; return indexAnime;}
-}
-
-function adkamiManuelle(animeTitle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek)
+function adkamiManuelle(animeTitle)
 {
   console.log( ipcRenderer.sendSync('windowsAnimeManuelle', animeTitle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek) );
 }
@@ -805,29 +807,6 @@ function newAnime(anime)
   divAnime.appendChild(divInfosclass);
   divInfosclass.appendChild(episode);
   divInfosclass.appendChild(title);
-}
-
-function testAnimeUpdate(lastEpisodeRelease, lasEpisodeWatched, animeSortie)
-{
-  let divClass;
-  if ( lastEpisodeRelease == lasEpisodeWatched && animeSortie == 1 )  // sortie a jour
-  {
-    divClass = "animeSortie";
-  }
-  else if ( lastEpisodeRelease > lasEpisodeWatched && animeSortie == 1 ) //sortie retard
-  {
-    divClass = "animeSortieRetard";
-  }
-  else if ( lastEpisodeRelease > lasEpisodeWatched && animeSortie != 1 ) //pas sortie retard
-  {
-    divClass = "AnimeRetard";
-  }
-  else
-  {
-    divClass = "";
-  }
-
-  return divClass;
 }
 
 function todayStyle()
