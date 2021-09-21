@@ -1,5 +1,5 @@
 // package
-const {app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, session, globalShortcut, shell } = require('electron')
+const { app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, globalShortcut, shell } = require('electron')
 const path = require('path')
 const fs = require('fs');
 // const refreshAnime = require("./preload.js")
@@ -8,14 +8,13 @@ const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
 // quand l'application a fini de pre charger
 app.whenReady().then(() => {
 
+//// Main Windows Agenda////////////////////////////////////////////////////////
   const mainWindow = new BrowserWindow({
     width: 1425 ,
     height: 710,
-    // maxWidth: 1500,
-    // minWidth: 1500,
-    // maxHeight: 700,
-    // minHeight: 700,
-    icon: './Picture/Icone/kana_kuma.png',
+    minWidth: 1000,
+    minheight: 470,
+    icon: './Ressources/Icone/kana_kuma.png',
     center: true,
     titleBarStyle: 'hidden',
     frame: false,
@@ -24,7 +23,6 @@ app.whenReady().then(() => {
       contextIsolation: true,
     }
   })
-
     // charger l'index de la page et enlever le Menu
     mainWindow.removeMenu();
     mainWindow.loadFile('index.html');
@@ -40,39 +38,70 @@ app.whenReady().then(() => {
     ipcMain.on('refreshMainPages', (event, arg) => {
       mainWindow.reload();
     })
+////////////////////////////////////////////////////////////////////////////////
 
+///////Window user myanimelist//////////////////////////////////////////////////
+fs.readFile("./Ressources/userParameter.json", function(err, data)
+{
+  if (err) throw err;
+  let  userConfig = JSON.parse(data);
 
-    // window for Manuelle adkami
-    ipcMain.on('windowsAnimeManuelle', (event, listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek) => {
-
-      const windowsAdkamiManuelle = new BrowserWindow({
-        width: 420,
-        maxWidth: 420,
-        minWidth: 420,
-        height: 385,
-        center: true,
-        titleBarStyle: 'hidden',
-        frame: false,
-        webPreferences: {
-          preload: path.join(__dirname, './WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),
-          contextIsolation: true,
-        }
-      })
-
-      shell.openExternal('https://www.adkami.com/agenda');
-
-      windowsAdkamiManuelle.removeMenu();
-      windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuelle.html');
-      windowsAdkamiManuelle.webContents.openDevTools()
-
-      windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
-
-      windowsAdkamiManuelle.on('closed', function()
-      {
-        event.returnValue = "keep on";
-      });
-
+  if ( userConfig.UserMyanimelist == "" )
+  {
+    const userMyanimelist = new BrowserWindow({
+      width: 242 ,
+      height: 155,
+      icon: './Ressources/Icone/kana_kuma.png',
+      center: true,
+      titleBarStyle: 'hidden',
+      frame: false,
+      parent: mainWindow,
+      webPreferences: {
+        preload: path.join(__dirname, './WindowsSecondaire/WindowsUserMyanimelist/userMyanimelistpreload.js'),
+        contextIsolation: true,
+      }
     })
+
+    userMyanimelist.removeMenu();
+    userMyanimelist.loadFile('./WindowsSecondaire/WindowsUserMyanimelist/userMyanimelist.html');
+    userMyanimelist.webContents.openDevTools();
+  }
+});
+
+////////////////////////////////////////////////////////////////////////////////
+
+/////// window for Manuelle adkami///////////////////////////////////////////////
+  ipcMain.on('windowsAnimeManuelle', (event, listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek) => {
+
+    const windowsAdkamiManuelle = new BrowserWindow({
+      width: 420,
+      maxWidth: 420,
+      minWidth: 420,
+      height: 385,
+      center: true,
+      titleBarStyle: 'hidden',
+      frame: false,
+      webPreferences: {
+        preload: path.join(__dirname, './WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),
+        contextIsolation: true,
+      }
+    })
+
+    shell.openExternal('https://www.adkami.com/agenda');
+
+    windowsAdkamiManuelle.removeMenu();
+    windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuelle.html');
+    windowsAdkamiManuelle.webContents.openDevTools()
+
+    windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
+
+    windowsAdkamiManuelle.on('closed', function()
+    {
+      event.returnValue = "keep on";
+    });
+
+  })
+///////////////////////////////////////////////////////////////////////////////
 
       // TOKen gestion
       // ipcMain.on('asynchronous-message', (event, token) => {

@@ -3,7 +3,6 @@
 const { ipcRenderer } = require("electron");
 const mariadb = require("mariadb"); // Data base
 const jikanjs  = require('jikanjs'); //api myanimelist no officiel
-// const dateTime = require('DateTime');
 const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"}); // DB login
 const today = new Date();
 
@@ -17,7 +16,6 @@ window.addEventListener('DOMContentLoaded', () => {
   // tokenMal.addEventListener('click', function(){ ipcRenderer.send('asynchronous-message', 'token') });
   // butonfiltre.addEventListener('click', function(){ showFiltre("mehdi") });
 
-
   ipcRenderer.on('refreshDbF6', (event, arg) => {
     refreshAnime();
   });
@@ -28,6 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
 async function refreshAnime() // refresh all data anime
 {
   kanaRotate();
+  // faire que si userMyanimelist et vide ne rien faire
   const animeWatchingList = await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
   await insertUpdateMyanimelistDb(animeWatchingList); // function to inser or update anime in myanimelist DB
   arrayAnimeAdkami = await getAnimeAgendaAdkami("https://www.adkami.com/agenda"); // get data from anime in Airing

@@ -1,3 +1,12 @@
+:root
+{
+  --couleurSortieRetard: #0277bd;
+  --couleurSortie: #9bd300;
+  --couleurRetard: orange;
+  --couleurAjour: mediumpurple;
+  --hauteur: 67px;
+}
+
 *
 {
     box-sizing: border-box;
@@ -76,18 +85,28 @@ p
 #agenda
 {
   position: absolute;
-  width: 1425px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
   /* border: 2px dashed white; */
 }
 
 #legende
 {
-  position: absolute;
+  position: static;
   top: 0px;
-  width: 1425px;
-  height: 75px;
+  width: 100%;
+  height: 80px;
   /* border: 2px dashed red; */
+}
+
+.legendeCouleur
+{
+  border: 2px solid rgba(0,0,0,.5);
+  border-radius: 3px;
+  display: inline-block;
+  font-size: .9em;
+  padding: 4px 7px;
+  text-shadow: 1px 0 4px #000;
 }
 
 #title_box
@@ -107,8 +126,8 @@ p
   position: absolute;
   cursor: pointer;
   left: 5px;
-  top: 3.5px;
-  width: 2%;
+  top: 1.5px;
+  width: 31px;
   z-index: 2;
   -webkit-app-region: none;
 }
@@ -117,64 +136,37 @@ p
 {
   position: absolute;
   right: 0.5%;
-  top: 8%;
-  height: 20px;
-  width: 20px;
+  top: 4.5px;
+  height: 23px;
+  width: 23px;
   z-index: 2;
   -webkit-app-region: none;
+  cursor: pointer;
+}
+
+#buton_parametre
+{
+  position: absolute;
+  right: 40px;
+  top: 5.5px;
+  height: 23px;
+  width: 23px;
+  z-index: 2;
+  -webkit-app-region: none;
+  cursor: pointer;
 }
 
 .colone
 {
-  position: absolute;
+  position: static;
   top: 75px;
   width: 205px;
+  float: left;
   padding: 5px;
   /* border: 2px dashed blue; */
   min-height: 1px;
-  /* width: 14.2857143%; */
-}
+  width: 14.2857143%;
 
-#Lundi
-{
-  left: 0px;
-  /* height: 500px; */
-}
-
-#Mardi
-{
-  left: 203px;
-  /* height: 500px; */
-}
-
-#Mercredi
-{
-  left: 406px;
-  /* height: 500px; */
-}
-
-#Jeudi
-{
-  left: 609px;
-  /* height: 500px; */
-}
-
-#Vendredi
-{
-  left: 812px;
-  /* height: 500px; */
-}
-
-#Samedi
-{
-  left: 1015px;
-  /* height: 500px; */
-}
-
-#Dimanche
-{
-  left: 1218px;
-  /* height: 500px; */
 }
 
 .Today
@@ -188,13 +180,12 @@ p
   margin-bottom: 5px;
   overflow: hidden;
 
-  border: 2px solid mediumpurple;   /*regarder si je laisse afficher ou pas 0277bd*/
-  background-color: mediumpurple;
+  border: 2px solid var(--couleurAjour);   /*regarder si je laisse afficher ou pas 0277bd*/
+  background-color: var(--couleurAjour);
   /* border: 2px solid #f44336;
   border-color: #9bd300; */
-
   width: 100%;
-  height: 66px;
+  height: calc(16vw * 0.3);
 }
 
 .time
@@ -208,7 +199,6 @@ p
   font-size: .86em;
   margin-bottom: 5px;
 
-
   background-color: mediumpurple;
   /* background-color: #9bd300; */
 }
@@ -221,6 +211,7 @@ p
   background: linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.52) 27%,rgba(0,0,0,.8));
   text-align: center;
   padding: 10px 3px 6px;/* padding: 19px 5px 12px; */
+  height: 2.7vw;
 }
 
 .episode
@@ -251,18 +242,18 @@ p
 
 .SortieRetard
 {
-  border-color: #0277bd;
-  background-color: #0277bd;
+  border-color: var(--couleurSortieRetard);
+  background-color: var(--couleurSortieRetard);
 }
 
 .Sortie
 {
-  border-color: #9bd300 ;
-  background-color: #9bd300;
+  border-color: var(--couleurSortie) ;
+  background-color: var(--couleurSortie);
 }
 
 .Retard
 {
-  border-color: orange;
-  background-color: orange;
+  border-color: var(--couleurRetard);
+  background-color: var(--couleurRetard);
 }

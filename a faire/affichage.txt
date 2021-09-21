@@ -1,6 +1,6 @@
                             [Pages Principal]
 
-  - enpecher le titre de la page de changer
+  - empecher le titre de la page de changer
   - meilleur disigne pour bouton
   - faire une legende pour les couleurs
   - faire un bouton anime sortie

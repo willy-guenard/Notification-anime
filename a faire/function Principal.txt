@@ -5,34 +5,11 @@
 - quand je click sur un anime ouvre une autre fenetre avec des infos sur anime (pages myanimelist, d'autre infos)
 - filtre Tags
 - quand tu mes ta souris sur les anime affiche des detaille de l'anime ( tags, nombre d'episode restant, que jai regarder, en stock)
-- Responsive webdesign
-- suprimer la barre de la fenetre et rajouter un X pour dire fermer app et un engrenage pour paramettre
+
 
                         [reglage user]
 - demander a l'user de rentrer son nom a la premier connection avec une fenetre
 - faire une gesiton pour aller dans les parametre pour modifier des detaille a tout moment
-
-
-                          [DB]
-- gestion des animes qui sorte pas semaine
-- gestion des animes pas detecter tout de suite par adkami
-- pour les animes qui ne son dans adkami petite fenetre apart pour remplire (1 fenetre pour touce ou 1 par chaque)
-- gestion des anime other_anime
-- changer la ligne ou je defini le score a 0 pour => myAnimeListJson[i].score
-
-
-[fenetre anime manuelle]
-
-ouvre une autre fenetre avec
-[nom anime myanimelist + images myanimelist]
-
-et lien pour aller regarder sur le site adkami
-une case pour rentrer le titre corespondant a adkami
-une autre selection pour dire quil n'est pas dedant et nous demande de remplire infos sur anime
-
-[anime pas detecter automatiquement]
-- tout faire afficher dans une seul pages et quand jai fini de remplire faire remonter ce qui attendes en dessou
-
 
 [autre]
 - faire un executable
@@ -41,3 +18,7 @@ une autre selection pour dire quil n'est pas dedant et nous demande de remplire 
 - creation token
 - refresh token
 - VPN
+
+
+faire une fenetre enfant qui ce mes sur le main pages
+en transparant
