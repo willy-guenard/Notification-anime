@@ -1,0 +1,50 @@
+body
+{
+  background-color: #363636;/*#282C34 gray*/
+  -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
+  box-sizing: border-box;
+  font-size: 15px;
+  font-family: Helvetica\ Neue,Helvetica,Arial,sans-serif; /* a changer*/
+  color: #fff;
+  padding: auto;
+}
+
+#title_box
+{
+  color: white;
+  font-size: 1.3em;
+  background-color: #202020;
+  text-align: center;
+  margin: -9px -8px 0px;
+  padding: 0px;
+  -webkit-app-region: drag;
+  z-index: 1;
+}
+
+.userFrom
+{
+  position: absolute;
+  top: 30px;
+  margin: 9px;
+}
+
+label
+{
+  margin: 9px;
+}
+
+#username
+{
+  width: 78px;
+  height: 15px;
+  text-align: center;
+}
+
+#buttonSubmite
+{
+  position: absolute;
+  width: 55px;
+  height: 20px;
+  top: 37px;
+  left: 70px
+}

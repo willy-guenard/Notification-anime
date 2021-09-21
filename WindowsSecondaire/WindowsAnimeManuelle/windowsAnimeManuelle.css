@@ -48,6 +48,7 @@ form
   width: 18px;
   z-index: 2;
   -webkit-app-region: none;
+  cursor: pointer;
 }
 
 h3

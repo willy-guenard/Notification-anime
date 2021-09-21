@@ -49,8 +49,8 @@ fs.readFile("./Ressources/userParameter.json", function(err, data)
   if ( userConfig.UserMyanimelist == "" )
   {
     const userMyanimelist = new BrowserWindow({
-      width: 242 ,
-      height: 155,
+      width: 210 ,
+      height: 105,
       icon: './Ressources/Icone/kana_kuma.png',
       center: true,
       titleBarStyle: 'hidden',
@@ -62,9 +62,15 @@ fs.readFile("./Ressources/userParameter.json", function(err, data)
       }
     })
 
+    // mainWindow.hide();
     userMyanimelist.removeMenu();
     userMyanimelist.loadFile('./WindowsSecondaire/WindowsUserMyanimelist/userMyanimelist.html');
     userMyanimelist.webContents.openDevTools();
+
+    userMyanimelist.on('close', () => {
+      userMyanimelist = null;
+      mainWindow.show();
+    });
   }
 });
 

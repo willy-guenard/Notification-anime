@@ -273,7 +273,7 @@ function radioChecked(event)
 
     butonValide.id = "form_button";
     butonValide.type = "submit";
-    butonValide.value = "valider";
+    butonValide.value = "Valider";
 
     divDataAnime.appendChild(labelTitle);
     divDataAnime.appendChild(inputTitle);
