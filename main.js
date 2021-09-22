@@ -2,7 +2,6 @@
 const { app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, globalShortcut, shell } = require('electron')
 const path = require('path')
 const fs = require('fs');
-// const refreshAnime = require("./preload.js")
 const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
 
 // quand l'application a fini de pre charger
@@ -31,7 +30,7 @@ app.whenReady().then(() => {
     mainWindow.webContents.openDevTools();
 
     mainWindow.webContents.send('refreshDbF6', 'refresh!');
-    
+
     globalShortcut.register('f6', function()
     {
       mainWindow.webContents.send('refreshDbF6', 'refresh!');
@@ -41,9 +40,36 @@ app.whenReady().then(() => {
       mainWindow.reload();
     })
 ////////////////////////////////////////////////////////////////////////////////
+  // console.log(mainWindow.getTrafficLightPosition());
+
+///////Window parametre/////////////////////////////////////////////////////////
+
+  // const windowSetting = new BrowserWindow({
+  //   width: mainWindowState.width,
+  //   height: height.height,
+  //   x: mainWindowState.x,
+  //   y: mainWindowState.y,
+  //   fullscreenable: true,
+  //   skipTaskbar: true,
+  //   frame: false,
+  //   show: false,
+  //   transparent: true,
+  //   resizable: true,
+  //   focusable: false,
+  //   webPreferences: {
+  //     preload: path.join(__dirname, './WindowsSecondaire/WindowsUserMyanimelist/userMyanimelistpreload.js'),
+  //     contextIsolation: true,
+  //   }
+  // })
+  //
+  // windowSetting.removeMenu();
+  // windowSetting.loadFile('./WindowsSecondaire/WindowsUserMyanimelist/userMyanimelist.html');
+  // windowSetting.webContents.openDevTools();
+
+////////////////////////////////////////////////////////////////////////////////
 
 ///////Window user myanimelist//////////////////////////////////////////////////
-fs.readFile("./Ressources/userParameter.json", function(err, data)
+fs.readFile("./Ressources/userSetting.json", function(err, data)
 {
   if (err) throw err;
   let  userConfig = JSON.parse(data);
@@ -59,6 +85,8 @@ fs.readFile("./Ressources/userParameter.json", function(err, data)
       frame: false,
       modal: true,
       parent: mainWindow,
+      fullscreenable: false,
+		  maximizable: false,
       webPreferences: {
         preload: path.join(__dirname, './WindowsSecondaire/WindowsUserMyanimelist/userMyanimelistpreload.js'),
         contextIsolation: true,
@@ -91,6 +119,8 @@ fs.readFile("./Ressources/userParameter.json", function(err, data)
       center: true,
       titleBarStyle: 'hidden',
       frame: false,
+      fullscreenable: false,
+		  maximizable: false,
       webPreferences: {
         preload: path.join(__dirname, './WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),
         contextIsolation: true,

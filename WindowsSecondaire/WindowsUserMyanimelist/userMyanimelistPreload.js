@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
       jsonConf.UserMyanimelist = data.username;
       let newJson = JSON.stringify(jsonConf);
 
-      fs.writeFile("./Ressources/userParameter.json", newJson, function(err, result)
+      fs.writeFile("./Ressources/userSetting.json", newJson, function(err, result)
       {
         if(err)
           {
@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
           }
           else
           {
-            console.log("File userParameter: update");
+            console.log("File userSetting: update");
             window.close()
           }
       });

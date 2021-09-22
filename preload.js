@@ -32,7 +32,7 @@ async function refreshAnime() // refresh all data anime
 
   if ( userConfig.UserMyanimelist == "" )
   {
-    console.log("Warning File: userParameter");
+    console.log("Warning File: userSetting");
   }
   else
   {
@@ -62,7 +62,7 @@ async function refreshAnime() // refresh all data anime
 function readJsonConfig()
 {
   return new Promise((resolve,reject) => {
-    fs.readFile("./Ressources/userParameter.json", function(err, data)
+    fs.readFile("./Ressources/userSetting.json", function(err, data)
     {
       if (err) throw err;
       let userConfig = JSON.parse(data);
