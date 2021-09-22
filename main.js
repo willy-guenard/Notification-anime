@@ -30,6 +30,8 @@ app.whenReady().then(() => {
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
 
+    mainWindow.webContents.send('refreshDbF6', 'refresh!');
+    
     globalShortcut.register('f6', function()
     {
       mainWindow.webContents.send('refreshDbF6', 'refresh!');
@@ -55,6 +57,7 @@ fs.readFile("./Ressources/userParameter.json", function(err, data)
       center: true,
       titleBarStyle: 'hidden',
       frame: false,
+      modal: true,
       parent: mainWindow,
       webPreferences: {
         preload: path.join(__dirname, './WindowsSecondaire/WindowsUserMyanimelist/userMyanimelistpreload.js'),
@@ -62,14 +65,15 @@ fs.readFile("./Ressources/userParameter.json", function(err, data)
       }
     })
 
-    // mainWindow.hide();
+    userMyanimelist.webContents.send('UserMyanimelist', userConfig);
+
     userMyanimelist.removeMenu();
     userMyanimelist.loadFile('./WindowsSecondaire/WindowsUserMyanimelist/userMyanimelist.html');
     userMyanimelist.webContents.openDevTools();
 
     userMyanimelist.on('close', () => {
-      userMyanimelist = null;
-      mainWindow.show();
+      userMyanimelist = null
+      mainWindow.webContents.send('refreshDbF6', 'refresh!');
     });
   }
 });
@@ -97,7 +101,7 @@ fs.readFile("./Ressources/userParameter.json", function(err, data)
 
     windowsAdkamiManuelle.removeMenu();
     windowsAdkamiManuelle.loadFile('./WindowsSecondaire/WindowsAnimeManuelle/windowsAnimeManuelle.html');
-    windowsAdkamiManuelle.webContents.openDevTools()
+    // windowsAdkamiManuelle.webContents.openDevTools()
 
     windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
 

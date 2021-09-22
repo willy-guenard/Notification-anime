@@ -5,6 +5,7 @@ const mariadb = require("mariadb"); // Data base
 const jikanjs  = require('jikanjs'); //api myanimelist no officiel
 const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"}); // DB login
 const today = new Date();
+const fs = require('fs');
 
 window.addEventListener('DOMContentLoaded', () => {
   const kannap = document.querySelector("#kanap");
@@ -26,25 +27,48 @@ window.addEventListener('DOMContentLoaded', () => {
 async function refreshAnime() // refresh all data anime
 {
   kanaRotate();
-  // faire que si userMyanimelist et vide ne rien faire
-  const animeWatchingList = await jikanApiAnimeMalWatching("cheark"); // api myanimelist no officiel and insert db.myanimelist
-  await insertUpdateMyanimelistDb(animeWatchingList); // function to inser or update anime in myanimelist DB
-  arrayAnimeAdkami = await getAnimeAgendaAdkami("https://www.adkami.com/agenda"); // get data from anime in Airing
-  arrayAnimeAdkamiLastWeek = await getAnimeAgendaAdkami(urlLastWeek); // get data from anime in Airing
-  await refreshAdkamiDB();
-  await refreshOtherAnime();
-  const anotherTItle = await creatAnotherTitle(); // create variant of title anime to link myanimelist to adkami
 
-  if ( anotherTItle != null )
+  userConfig = await readJsonConfig();
+
+  if ( userConfig.UserMyanimelist == "" )
   {
-    const adkamiAnimeLink = await linkWithMyanimelist(anotherTItle); // link data from adkami with myanimelist title
-    await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
-    await refreshMainPages();
+    console.log("Warning File: userParameter");
   }
   else
   {
-    await refreshMainPages();
+    // faire que si userMyanimelist et vide ne rien faire
+    const animeWatchingList = await jikanApiAnimeMalWatching(userConfig.UserMyanimelist); // api myanimelist no officiel and insert db.myanimelist
+    await insertUpdateMyanimelistDb(animeWatchingList); // function to inser or update anime in myanimelist DB
+    arrayAnimeAdkami = await getAnimeAgendaAdkami("https://www.adkami.com/agenda"); // get data from anime in Airing
+    arrayAnimeAdkamiLastWeek = await getAnimeAgendaAdkami(urlLastWeek); // get data from anime in Airing
+    await refreshAdkamiDB();
+    await refreshOtherAnime();
+    const anotherTItle = await creatAnotherTitle(); // create variant of title anime to link myanimelist to adkami
+
+    if ( anotherTItle != null )
+    {
+      const adkamiAnimeLink = await linkWithMyanimelist(anotherTItle); // link data from adkami with myanimelist title
+      await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
+      await refreshMainPages();
+    }
+    else
+    {
+      await refreshMainPages();
+    }
   }
+
+}
+
+function readJsonConfig()
+{
+  return new Promise((resolve,reject) => {
+    fs.readFile("./Ressources/userParameter.json", function(err, data)
+    {
+      if (err) throw err;
+      let userConfig = JSON.parse(data);
+      resolve(userConfig);
+    });
+  });
 }
 
 async function refreshMainPages()
@@ -725,7 +749,7 @@ function newAnime(anime)
   let tags = anime.Tags;
   let tagSplit, tagsTight = "", tagsNoSpecial, episodeSupTotal, animeDivClass, animeClass ="", episodesAnime;
 
-  lien.href = anime.url_myanimelist;
+  // lien.href = anime.url_myanimelist;
   tags = tags.split(",");
 
   if ( tags[1] == null )

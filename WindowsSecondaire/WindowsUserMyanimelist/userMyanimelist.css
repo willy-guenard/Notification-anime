@@ -1,11 +1,11 @@
 body
 {
-  background-color: #363636;/*#282C34 gray*/
+  background-color: #c1c1c1;/*#282C34 gray*/
   -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
   box-sizing: border-box;
   font-size: 15px;
   font-family: Helvetica\ Neue,Helvetica,Arial,sans-serif; /* a changer*/
-  color: #fff;
+  color: #000;
   padding: auto;
 }
 
@@ -17,11 +17,11 @@ body
   text-align: center;
   margin: -9px -8px 0px;
   padding: 0px;
-  -webkit-app-region: drag;
+  /* -webkit-app-region: drag; */
   z-index: 1;
 }
 
-.userFrom
+#userFrom
 {
   position: absolute;
   top: 30px;

@@ -1,5 +1,4 @@
                         [affichage]
-- actualiser DB + affichage au lancemen de l'application
 - actualiser affichage quand c'est l'heure ou un anime est sense sortire
 - gestion daffichage pour indication de avec qui je regane anime ( peut etre parametre dans user)
 - quand je click sur un anime ouvre une autre fenetre avec des infos sur anime (pages myanimelist, d'autre infos)
@@ -8,7 +7,6 @@
 
 
                         [reglage user]
-- demander a l'user de rentrer son nom a la premier connection avec une fenetre
 - faire une gesiton pour aller dans les parametre pour modifier des detaille a tout moment
 
 [autre]
