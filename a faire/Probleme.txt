@@ -1,9 +1,0 @@
-
-  <input type="color" id="name" name="name" required
-         minlength="4" maxlength="8" size="10">
-
-
-  type = file
-  type = color
-  type = file
-  type = url
