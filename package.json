@@ -7,30 +7,33 @@
     "name": "cheark"
   },
   "scripts": {
+    "dev": "npm run development",
     "start": "electron ./main.js --disable-gpu",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress -hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch ---progress -hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch ---progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "dist": "electron-builder"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
     "jikanjs": "^0.7.0",
     "mariadb": "^2.5.4",
-    "path": "^0.12.7",
-    "xmlhttprequest": "^1.8.0"
+    "path": "^0.12.7"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "electron": "^15.0.0",
     "electron-builder": "^22.11.7",
     "laravel-mix": "^6.0.31",
-    "webpack": "^5.53.0"
+    "webpack": "^5.53.0",
+    "xmlhttprequest": "^1.8.0"
   },
   "build": {
-    "appId": "com.agendaanime.app",
+    "appId": "com.electron.agenda-anime",
     "productName": "Agenda Anime",
     "target": "NSIS",
-    "directory": {
-      "output": "build"
+    "directories": {
+      "output": "build",
+      "buildResources": "Ressources/Icon"
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,

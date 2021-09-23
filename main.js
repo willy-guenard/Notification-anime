@@ -2,7 +2,7 @@
 const { app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, globalShortcut, shell } = require('electron')
 const path = require('path')
 const fs = require('fs');
-const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
+// const XMLHttpRequest = require("XMLHttpRequest");
 const jsonUserSetting = require('./Ressources/userSetting.json')
 
 // quand l'application a fini de pre charger
@@ -29,7 +29,7 @@ app.whenReady().then(() => {
     mainWindow.loadFile('./src/Main/index.html');
 
     // ouvrir les outils developeur
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     globalShortcut.register('f6', function()
     {
@@ -91,7 +91,7 @@ app.whenReady().then(() => {
 
     userMyanimelist.removeMenu();
     userMyanimelist.loadFile('./src/WindowsUserMyanimelist/userMyanimelist.html');
-    userMyanimelist.webContents.openDevTools();
+    // userMyanimelist.webContents.openDevTools();
 
     userMyanimelist.on('close', () => {
       mainWindow.webContents.send('refreshDbF6', 'refresh!');
@@ -212,9 +212,9 @@ app.whenReady().then(() => {
     // })
 
 
-  //icone barre tache '''''''''''''''''''''''''a continuer
-  // let tray = new Tray('./Picture/kana_kuma.jpg')
-  // const contextMenu = Menu.buildFromTemplate([{ label: 'salut', type: 'radio' }])
-  // tray.setToolTip('anime')
-  // tray.setContextMenu(contextMenu)
+  // icone barre tache '''''''''''''''''''''''''a continuer
+  let tray = new Tray('./Ressources/Icone/kana_kuma.png')
+  const contextMenu = Menu.buildFromTemplate([{ label: 'salut', type: 'radio' }])
+  tray.setToolTip('anime')
+  tray.setContextMenu(contextMenu)
   })
