@@ -48,11 +48,11 @@ async function refreshAnime() // refresh all data anime
     {
       const adkamiAnimeLink = await linkWithMyanimelist(anotherTItle); // link data from adkami with myanimelist title
       await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
-      // await refreshMainPages();
+      await refreshMainPages();
     }
     else
     {
-      // await refreshMainPages();
+      await refreshMainPages();
     }
   }
 

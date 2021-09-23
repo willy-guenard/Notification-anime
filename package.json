@@ -1,18 +1,40 @@
 {
-  "name": "Notification Anime",
-  "version": "1.2.0",
+  "name": "Agenda-Anime",
+  "version": "1.0.0",
+  "description": "agenda anime",
+  "main": "main.js",
   "author": {
     "name": "cheark"
   },
   "scripts": {
-    "start": "electron ./src/Main/main.js --disable-gpu"
+    "start": "electron ./main.js --disable-gpu",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress -hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch ---progress -hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "dist": "electron-builder"
   },
   "dependencies": {
-    "electron": "^15.0.0",
     "fs": "^0.0.1-security",
     "jikanjs": "^0.7.0",
     "mariadb": "^2.5.4",
     "path": "^0.12.7",
     "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "electron": "^15.0.0",
+    "electron-builder": "^22.11.7",
+    "laravel-mix": "^6.0.31",
+    "webpack": "^5.53.0"
+  },
+  "build": {
+    "appId": "com.agendaanime.app",
+    "productName": "Agenda Anime",
+    "target": "NSIS",
+    "directory": {
+      "output": "build"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    }
   }
 }

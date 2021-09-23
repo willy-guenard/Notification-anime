@@ -3,7 +3,7 @@ const { app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, globalShortcut, sh
 const path = require('path')
 const fs = require('fs');
 const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
-const jsonUserSetting = require('../../Ressources/userSetting.json')
+const jsonUserSetting = require('./Ressources/userSetting.json')
 
 // quand l'application a fini de pre charger
 app.whenReady().then(() => {
@@ -19,14 +19,14 @@ app.whenReady().then(() => {
     titleBarStyle: 'hidden',
     frame: false,
     webPreferences: {
-      preload: path.join(__dirname, './preload.js'),
+      preload: path.join(__dirname, './src/Main/preload.js'),
       contextIsolation: true,
       nativeWindowOpen: true,
     }
   })
     // charger l'index de la page et enlever le Menu
     mainWindow.removeMenu();
-    mainWindow.loadFile('./index.html');
+    mainWindow.loadFile('./src/Main/index.html');
 
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
@@ -82,7 +82,7 @@ app.whenReady().then(() => {
       fullscreenable: false,
 		  maximizable: false,
       webPreferences: {
-        preload: path.join(__dirname, '../WindowsUserMyanimelist/userMyanimelistpreload.js'),
+        preload: path.join(__dirname, './src/WindowsUserMyanimelist/userMyanimelistpreload.js'),
         contextIsolation: true,
       }
     })
@@ -90,7 +90,7 @@ app.whenReady().then(() => {
     userMyanimelist.webContents.send('UserMyanimelist', jsonUserSetting);
 
     userMyanimelist.removeMenu();
-    userMyanimelist.loadFile('../WindowsUserMyanimelist/userMyanimelist.html');
+    userMyanimelist.loadFile('./src/WindowsUserMyanimelist/userMyanimelist.html');
     userMyanimelist.webContents.openDevTools();
 
     userMyanimelist.on('close', () => {
@@ -119,7 +119,7 @@ app.whenReady().then(() => {
       fullscreenable: false,
 		  maximizable: false,
       webPreferences: {
-        preload: path.join(__dirname, '../WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),
+        preload: path.join(__dirname, './src/WindowsAnimeManuelle/windowsAnimeManuellePreload.js'),
         contextIsolation: true,
       }
     })
@@ -127,7 +127,7 @@ app.whenReady().then(() => {
     shell.openExternal('https://www.adkami.com/agenda');
 
     windowsAdkamiManuelle.removeMenu();
-    windowsAdkamiManuelle.loadFile('../WindowsAnimeManuelle/windowsAnimeManuelle.html');
+    windowsAdkamiManuelle.loadFile('./src/WindowsAnimeManuelle/windowsAnimeManuelle.html');
     // windowsAdkamiManuelle.webContents.openDevTools()
 
     windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
