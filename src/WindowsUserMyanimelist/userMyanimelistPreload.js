@@ -20,6 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
           else
           {
             console.log("File userSetting: update");
+            ipcRenderer.send("closeWindowMyanimelist", "close");
             window.close()
           }
       });

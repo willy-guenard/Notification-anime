@@ -6,6 +6,7 @@ const jikanjs  = require('jikanjs'); //api myanimelist no officiel
 const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"}); // DB login
 const today = new Date();
 const fs = require('fs');
+const jsonUserSetting = require('../../Ressources/userSetting.json')
 
 window.addEventListener('DOMContentLoaded', () => {
   const kannap = document.querySelector("#kanap");
@@ -28,16 +29,14 @@ async function refreshAnime() // refresh all data anime
 {
   kanaRotate();
 
-  userConfig = await readJsonConfig();
-
-  if ( userConfig.UserMyanimelist == "" )
+  if ( jsonUserSetting.UserMyanimelist == "" )
   {
     console.log("Warning File: userSetting");
   }
   else
   {
     // faire que si userMyanimelist et vide ne rien faire
-    const animeWatchingList = await jikanApiAnimeMalWatching(userConfig.UserMyanimelist); // api myanimelist no officiel and insert db.myanimelist
+    const animeWatchingList = await jikanApiAnimeMalWatching(jsonUserSetting.UserMyanimelist); // api myanimelist no officiel and insert db.myanimelist
     await insertUpdateMyanimelistDb(animeWatchingList); // function to inser or update anime in myanimelist DB
     arrayAnimeAdkami = await getAnimeAgendaAdkami("https://www.adkami.com/agenda"); // get data from anime in Airing
     arrayAnimeAdkamiLastWeek = await getAnimeAgendaAdkami(urlLastWeek); // get data from anime in Airing
@@ -49,26 +48,14 @@ async function refreshAnime() // refresh all data anime
     {
       const adkamiAnimeLink = await linkWithMyanimelist(anotherTItle); // link data from adkami with myanimelist title
       await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
-      await refreshMainPages();
+      // await refreshMainPages();
     }
     else
     {
-      await refreshMainPages();
+      // await refreshMainPages();
     }
   }
 
-}
-
-function readJsonConfig()
-{
-  return new Promise((resolve,reject) => {
-    fs.readFile("./Ressources/userSetting.json", function(err, data)
-    {
-      if (err) throw err;
-      let userConfig = JSON.parse(data);
-      resolve(userConfig);
-    });
-  });
 }
 
 async function refreshMainPages()

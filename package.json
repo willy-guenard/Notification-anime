@@ -5,7 +5,7 @@
     "name": "cheark"
   },
   "scripts": {
-    "start": "electron ./src/Main/main.js"
+    "start": "electron ./src/Main/main.js --disable-gpu"
   },
   "dependencies": {
     "electron": "^15.0.0",

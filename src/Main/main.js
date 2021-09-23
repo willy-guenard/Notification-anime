@@ -3,6 +3,7 @@ const { app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, globalShortcut, sh
 const path = require('path')
 const fs = require('fs');
 const XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
+const jsonUserSetting = require('../../Ressources/userSetting.json')
 
 // quand l'application a fini de pre charger
 app.whenReady().then(() => {
@@ -30,8 +31,6 @@ app.whenReady().then(() => {
     // ouvrir les outils developeur
     mainWindow.webContents.openDevTools();
 
-    mainWindow.webContents.send('refreshDbF6', 'refresh!');
-
     globalShortcut.register('f6', function()
     {
       mainWindow.webContents.send('refreshDbF6', 'refresh!');
@@ -41,10 +40,6 @@ app.whenReady().then(() => {
       mainWindow.reload();
     })
 
-    mainWindow.on('close', () => {
-      mainWindow?.close();
-			mainWindow?.destroy();
-    });
 ////////////////////////////////////////////////////////////////////////////////
 
 ///////Window parametre/////////////////////////////////////////////////////////
@@ -74,12 +69,7 @@ app.whenReady().then(() => {
 ////////////////////////////////////////////////////////////////////////////////
 
 ///////Window user myanimelist//////////////////////////////////////////////////
-fs.readFile( './Ressources/userSetting.json', function(err, data)
-{
-  if (err) throw err;
-  let  userConfig = JSON.parse(data);
-
-  if ( userConfig.UserMyanimelist == "" )
+  if ( jsonUserSetting.UserMyanimelist == "" )
   {
     const userMyanimelist = new BrowserWindow({
       width: 210 ,
@@ -97,18 +87,21 @@ fs.readFile( './Ressources/userSetting.json', function(err, data)
       }
     })
 
-    userMyanimelist.webContents.send('UserMyanimelist', userConfig);
+    userMyanimelist.webContents.send('UserMyanimelist', jsonUserSetting);
 
     userMyanimelist.removeMenu();
     userMyanimelist.loadFile('../WindowsUserMyanimelist/userMyanimelist.html');
     userMyanimelist.webContents.openDevTools();
 
     userMyanimelist.on('close', () => {
-      userMyanimelist = null
       mainWindow.webContents.send('refreshDbF6', 'refresh!');
     });
   }
-});
+  else
+  {
+    mainWindow.webContents.send('refreshDbF6', 'refresh!');
+  }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -139,7 +132,7 @@ fs.readFile( './Ressources/userSetting.json', function(err, data)
 
     windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
 
-    windowsAdkamiManuelle.on('closed', function()
+    ipcmain.on('closeWindowMyanimelist', function()
     {
       event.returnValue = "keep on";
     });
