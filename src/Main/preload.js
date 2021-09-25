@@ -6,7 +6,7 @@ const jikanjs  = require('jikanjs'); //api myanimelist no officiel
 const pool = mariadb.createPool({host: 'localhost', user:'test', password: 'xxx', database: "notification_anime"}); // DB login
 const today = new Date();
 const fs = require('fs');
-const jsonUserSetting = require('../../Ressources/userSetting.json')
+const jsonUserSetting = require('../../Ressources/userSetting.json');
 
 window.addEventListener('DOMContentLoaded', () => {
   const kannap = document.querySelector("#kanap");
@@ -48,14 +48,9 @@ async function refreshAnime() // refresh all data anime
     {
       const adkamiAnimeLink = await linkWithMyanimelist(anotherTItle); // link data from adkami with myanimelist title
       await adkamiInsertDb(adkamiAnimeLink); // insert data in Db adkmi
-      await refreshMainPages();
-    }
-    else
-    {
-      await refreshMainPages();
     }
   }
-
+  await refreshMainPages();
 }
 
 async function refreshMainPages()

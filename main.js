@@ -1,8 +1,8 @@
 // package
-const { app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, globalShortcut, shell } = require('electron')
-const path = require('path')
+const { app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, globalShortcut, shell } = require('electron');
+const path = require('path');
 const fs = require('fs');
-const jsonUserSetting = require('./Ressources/userSetting.json')
+const jsonUserSetting = require('./Ressources/userSetting.json');
 
 // quand l'application a fini de pre charger
 app.whenReady().then(() => {
@@ -19,6 +19,11 @@ app.whenReady().then(() => {
   }
 
   trayConfig();
+
+  mainWindow.on('close', () => {
+    app.quit();
+
+    });
 })
 
 //// Main Windows Agenda////////////////////////////////////////////////////////
@@ -88,12 +93,17 @@ function creatUserMyanimelistWindow()
 {
   userMyanimelist = new BrowserWindow({
     width: 210 ,
+    minwidth: 210,
+    maxwidth: 210 ,
     height: 105,
+    minHeight: 105,
+    maxHeight: 105,
     center: true,
     titleBarStyle: 'hidden',
     frame: false,
     modal: true,
     parent: mainWindow,
+    resizable: false,
     fullscreenable: false,
     maximizable: false,
     webPreferences: {
@@ -106,7 +116,7 @@ function creatUserMyanimelistWindow()
 
   userMyanimelist.removeMenu();
   userMyanimelist.loadFile('./src/WindowsUserMyanimelist/userMyanimelist.html');
-  // userMyanimelist.webContents.openDevTools();
+  userMyanimelist.webContents.openDevTools();
 
   userMyanimelist.on('close', () => {
     userMyanimelist = null;
@@ -137,7 +147,7 @@ function creatUserMyanimelistWindow()
 
     windowsAdkamiManuelle.removeMenu();
     windowsAdkamiManuelle.loadFile('./src/WindowsAnimeManuelle/windowsAnimeManuelle.html');
-    // windowsAdkamiManuelle.webContents.openDevTools()
+    windowsAdkamiManuelle.webContents.openDevTools()
 
     windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
 
