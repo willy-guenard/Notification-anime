@@ -40,7 +40,7 @@
       "allowToChangeInstallationDirectory": true,
       "oneClick": false,
       "installerIcon": "Ressources/Icone/kana_kuma.png",
-      "scripts": "Ressources/installer.nsh"
+      "scripts": "Build/installer.nsh"
     }
   }
 }
