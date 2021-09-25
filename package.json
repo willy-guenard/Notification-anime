@@ -17,27 +17,30 @@
     "fs": "^0.0.1-security",
     "jikanjs": "^0.7.0",
     "mariadb": "^2.5.4",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "electron": "^15.0.0",
     "electron-builder": "^22.11.7",
     "laravel-mix": "^6.0.31",
-    "webpack": "^5.53.0",
-    "xmlhttprequest": "^1.8.0"
+    "webpack": "^5.53.0"
   },
   "build": {
     "appId": "com.electron.agenda-anime",
     "productName": "Agenda Anime",
-    "target": "NSIS",
+    "target": "nsis",
+    "icon": "Ressources/Icone/kana_kuma.png",
     "directories": {
       "output": "build",
       "buildResources": "Ressources/Icon"
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,
-      "oneClick": false
+      "oneClick": false,
+      "installerIcon": "Ressources/Icone/kana_kuma.png",
+      "scripts": "Ressources/installer.nsh"
     }
   }
 }

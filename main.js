@@ -2,15 +2,30 @@
 const { app, BrowserWindow, BrowserView, Menu, Tray, ipcMain, globalShortcut, shell } = require('electron')
 const path = require('path')
 const fs = require('fs');
-// const XMLHttpRequest = require("XMLHttpRequest");
 const jsonUserSetting = require('./Ressources/userSetting.json')
 
 // quand l'application a fini de pre charger
 app.whenReady().then(() => {
 
+  creatMainWindow();
+
+  if ( jsonUserSetting.UserMyanimelist == "" )
+  {
+    creatUserMyanimelistWindow();
+  }
+  else
+  {
+    mainWindow.webContents.send('refreshDbF6', 'refresh!');
+  }
+
+  trayConfig();
+})
+
 //// Main Windows Agenda////////////////////////////////////////////////////////
-  const mainWindow = new BrowserWindow({
-    width: 1425 ,
+function creatMainWindow()
+{
+   mainWindow = new BrowserWindow({
+    width: 1425,
     height: 710,
     minWidth: 1000,
     minheight: 470,
@@ -29,7 +44,7 @@ app.whenReady().then(() => {
     mainWindow.loadFile('./src/Main/index.html');
 
     // ouvrir les outils developeur
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     globalShortcut.register('f6', function()
     {
@@ -39,76 +54,70 @@ app.whenReady().then(() => {
     ipcMain.on('refreshMainPages', (event, arg) => {
       mainWindow.reload();
     })
-
-////////////////////////////////////////////////////////////////////////////////
+}
 
 ///////Window parametre/////////////////////////////////////////////////////////
+function creatSettingWindow()
+{
+  windowSetting = new BrowserWindow({
+    width: mainWindowState.width,
+    height: height.height,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    fullscreenable: true,
+    skipTaskbar: true,
+    frame: false,
+    show: false,
+    transparent: true,
+    resizable: true,
+    focusable: false,
+    webPreferences: {
+      preload: path.join(__dirname, './WindowsSecondaire/WindowsUserMyanimelist/userMyanimelistpreload.js'),
+      contextIsolation: true,
+    }
+  })
 
-  // const windowSetting = new BrowserWindow({
-  //   width: mainWindowState.width,
-  //   height: height.height,
-  //   x: mainWindowState.x,
-  //   y: mainWindowState.y,
-  //   fullscreenable: true,
-  //   skipTaskbar: true,
-  //   frame: false,
-  //   show: false,
-  //   transparent: true,
-  //   resizable: true,
-  //   focusable: false,
-  //   webPreferences: {
-  //     preload: path.join(__dirname, './WindowsSecondaire/WindowsUserMyanimelist/userMyanimelistpreload.js'),
-  //     contextIsolation: true,
-  //   }
-  // })
-  //
-  // windowSetting.removeMenu();
-  // windowSetting.loadFile('./WindowsSecondaire/WindowsUserMyanimelist/userMyanimelist.html');
-  // windowSetting.webContents.openDevTools();
+  windowSetting.removeMenu();
+  windowSetting.loadFile('./WindowsSecondaire/WindowsUserMyanimelist/userMyanimelist.html');
+  windowSetting.webContents.openDevTools();
+}
 
-////////////////////////////////////////////////////////////////////////////////
 
 ///////Window user myanimelist//////////////////////////////////////////////////
-  if ( jsonUserSetting.UserMyanimelist == "" )
-  {
-    const userMyanimelist = new BrowserWindow({
-      width: 210 ,
-      height: 105,
-      center: true,
-      titleBarStyle: 'hidden',
-      frame: false,
-      modal: true,
-      parent: mainWindow,
-      fullscreenable: false,
-		  maximizable: false,
-      webPreferences: {
-        preload: path.join(__dirname, './src/WindowsUserMyanimelist/userMyanimelistpreload.js'),
-        contextIsolation: true,
-      }
-    })
+function creatUserMyanimelistWindow()
+{
+  userMyanimelist = new BrowserWindow({
+    width: 210 ,
+    height: 105,
+    center: true,
+    titleBarStyle: 'hidden',
+    frame: false,
+    modal: true,
+    parent: mainWindow,
+    fullscreenable: false,
+    maximizable: false,
+    webPreferences: {
+      preload: path.join(__dirname, './src/WindowsUserMyanimelist/userMyanimelistpreload.js'),
+      contextIsolation: true,
+    }
+  })
 
-    userMyanimelist.webContents.send('UserMyanimelist', jsonUserSetting);
+  userMyanimelist.webContents.send('UserMyanimelist', jsonUserSetting);
 
-    userMyanimelist.removeMenu();
-    userMyanimelist.loadFile('./src/WindowsUserMyanimelist/userMyanimelist.html');
-    // userMyanimelist.webContents.openDevTools();
+  userMyanimelist.removeMenu();
+  userMyanimelist.loadFile('./src/WindowsUserMyanimelist/userMyanimelist.html');
+  // userMyanimelist.webContents.openDevTools();
 
-    userMyanimelist.on('close', () => {
-      mainWindow.webContents.send('refreshDbF6', 'refresh!');
-    });
-  }
-  else
-  {
+  userMyanimelist.on('close', () => {
+    userMyanimelist = null;
     mainWindow.webContents.send('refreshDbF6', 'refresh!');
-  }
-
-
-////////////////////////////////////////////////////////////////////////////////
+  });
+}
 
 /////// window for Manuelle adkami///////////////////////////////////////////////
   ipcMain.on('windowsAnimeManuelle', (event, listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek) => {
 
-    const windowsAdkamiManuelle = new BrowserWindow({
+    windowsAdkamiManuelle = new BrowserWindow({
       width: 420,
       maxWidth: 420,
       minWidth: 420,
@@ -124,7 +133,7 @@ app.whenReady().then(() => {
       }
     })
 
-    shell.openExternal('https://www.adkami.com/agenda');
+    // shell.openExternal('https://www.adkami.com/agenda');
 
     windowsAdkamiManuelle.removeMenu();
     windowsAdkamiManuelle.loadFile('./src/WindowsAnimeManuelle/windowsAnimeManuelle.html');
@@ -132,89 +141,23 @@ app.whenReady().then(() => {
 
     windowsAdkamiManuelle.webContents.send('Anime_Manuelle', listAnimeManuelle, arrayAnimeAdkami, arrayAnimeAdkamiLastWeek);
 
-    ipcmain.on('closeWindowMyanimelist', function()
+    ipcMain.on('closeWindowMyanimelist', function()
     {
       event.returnValue = "keep on";
     });
 
+    windowsAdkamiManuelle.on('close', () => {
+      windowsAdkamiManuelle = null;
+      event.returnValue = "anime cancel";
+    });
+
   })
-///////////////////////////////////////////////////////////////////////////////
 
-      // TOKen gestion
-      // ipcMain.on('asynchronous-message', (event, token) => {
-      // let code_challenge = "";
-      // let a = 128;
-      // let b = 'abcdefghijklmnopqrstuvwxyz1234567890-_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      // let c = b[Math.floor(Math.random() * b.length)];
-      //
-      // for (let d = 0; d < a; d++)
-      // {
-      //   code_challenge += b[Math.floor(Math.random() * b.length)];
-      // }
-      //
-      // let response_type = "code";
-      // let client_id = "29fc8b678220461db9399d28c82624e1";
-      // let state = "requestTokenMyanimelist";
-      // let user = "Cheark";
-      // let urlViewToken = "https://myanimelist.net/v1/oauth2/authorize?response_type=" + response_type + "&client_id=" + client_id + "&code_challenge=" + code_challenge;
-      //
-      // const windowToken = new BrowserWindow({
-      //    width: 1500,
-      //    height: 900,
-      //    darkTheme: true,
-      //    webPreferences: {
-      //      preload: path.join(__dirname, './secondeWindow/seconpreload.js'),
-      //      contextIsolation: true
-      //    }
-      //  })
-
-    //   const viewToken = new BrowserView()
-    //   windowToken.setBrowserView(viewToken)
-    //   viewToken.setAutoResize({width:true, height:true, x:false, y:false})
-    //   viewToken.setBounds({ x: 50, y: 100, width: 1250, height: 1500 })
-    //   viewToken.webContents.loadURL(urlViewToken)
-    //
-    //   windowToken.removeMenu();
-    //   windowToken.webContents.openDevTools();
-    //   windowToken.loadFile('./secondeWindow/secondeWindow.html');
-    //
-    //   ipcMain.on('Cannel-Url', (event, url_test) => {
-    //     let url_code = viewToken.webContents.getURL();
-    //     let code = url_code.split("=");
-    //
-    //     let data = "client_id=" + client_id + "&code=" + code[1] + "&code_verifier=" + code_challenge + "&grant_type=authorization_code";
-    //
-    //     let request = new XMLHttpRequest();
-    //     let url = "https://myanimelist.net/v1/oauth2/token";
-    //     request.withCredentials = true;
-    //
-    //     request.addEventListener("readystatechange", function() {
-    //       if(this.readyState === 4)
-    //       {
-    //         fs.writeFile("./Json/token.json", request.reponseText, function(err, result)
-    //           {
-    //             if(err)
-    //               {
-    //                 console.log('error', err);
-    //               }
-    //               else
-    //               {
-    //                 console.log("Filte Token: update");
-    //               }
-    //           });
-    //       }
-    //     });
-    //     request.open('post', url);
-    //     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    //     request.send(data);
-    //
-    //   })
-    // })
-
-
+function trayConfig()
+{
   // icone barre tache '''''''''''''''''''''''''a continuer
   let tray = new Tray('./Ressources/Icone/kana_kuma.png')
   const contextMenu = Menu.buildFromTemplate([{ label: 'salut', type: 'radio' }])
   tray.setToolTip('anime')
   tray.setContextMenu(contextMenu)
-  })
+}
